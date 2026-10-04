@@ -1,8 +1,10 @@
 import { useState } from 'react'
 
-function Vozila() {
-  const [vehicles, setVehicles] = useState([])
-
+function Vozila({
+  vehicles,
+  onAddVehicle,
+  onSelectVehicle,
+}) {
   const [showForm, setShowForm] = useState(false)
 
   const [formData, setFormData] = useState({
@@ -27,10 +29,14 @@ function Vozila() {
 
     const newVehicle = {
       id: Date.now(),
-      ...formData,
+      brand: formData.brand,
+      model: formData.model,
+      year: formData.year,
+      fuel: formData.fuel,
+      mileage: formData.mileage,
     }
 
-    setVehicles((current) => [...current, newVehicle])
+    onAddVehicle(newVehicle)
 
     setFormData({
       brand: '',
@@ -43,55 +49,61 @@ function Vozila() {
     setShowForm(false)
   }
 
-  function handleDelete(id) {
-    setVehicles((current) =>
-      current.filter((vehicle) => vehicle.id !== id),
-    )
-  }
-
   return (
     <section className="page">
       <div className="page-header vehicle-header">
         <div>
-          <p className="page-label">MOJA GARAŽA</p>
+          <p className="page-label">
+            MOJA GARAŽA
+          </p>
 
-          <h1>Vozila</h1>
+          <h1>Moji motocikli</h1>
 
           <p className="page-description">
-            Upravljaj svojim vozilima i prati njihove osnovne podatke.
+            Dodaj i pregledaj svoje motocikle
+            na jednom mjestu.
           </p>
         </div>
 
         <button
           type="button"
           className="primary-button"
-          onClick={() => setShowForm((current) => !current)}
+          onClick={() =>
+            setShowForm((current) => !current)
+          }
         >
-          {showForm ? 'Zatvori' : '+ Dodaj vozilo'}
+          {showForm
+            ? 'Zatvori'
+            : '+ Dodaj motocikl'}
         </button>
       </div>
 
       {showForm && (
-        <form className="vehicle-form" onSubmit={handleSubmit}>
+        <form
+          className="vehicle-form"
+          onSubmit={handleSubmit}
+        >
           <div className="form-header">
-            <div>
-              <h2>Dodaj novo vozilo</h2>
+            <h2>
+              Dodaj novi motocikl
+            </h2>
 
-              <p>
-                Unesi osnovne podatke o svom vozilu.
-              </p>
-            </div>
+            <p>
+              Unesi osnovne podatke o motociklu.
+            </p>
           </div>
 
           <div className="form-grid">
             <div className="form-group">
-              <label htmlFor="brand">Marka</label>
+              <label htmlFor="brand">
+                Marka
+              </label>
 
               <input
                 id="brand"
                 name="brand"
                 type="text"
-                placeholder="npr. SUZUKI"
+                placeholder="npr. Suzuki"
                 value={formData.brand}
                 onChange={handleChange}
                 required
@@ -99,13 +111,15 @@ function Vozila() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="model">Model</label>
+              <label htmlFor="model">
+                Model
+              </label>
 
               <input
                 id="model"
                 name="model"
                 type="text"
-                placeholder="npr. GSX-R 1300 Hayabusa"
+                placeholder="npr. GSXR-1300 Hayabusa"
                 value={formData.model}
                 onChange={handleChange}
                 required
@@ -113,13 +127,15 @@ function Vozila() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="year">Godina</label>
+              <label htmlFor="year">
+                Godina proizvodnje
+              </label>
 
               <input
                 id="year"
                 name="year"
                 type="number"
-                placeholder="npr. 2018"
+                placeholder="npr. 2022"
                 min="1900"
                 max="2100"
                 value={formData.year}
@@ -129,7 +145,9 @@ function Vozila() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="fuel">Gorivo</label>
+              <label htmlFor="fuel">
+                Gorivo
+              </label>
 
               <select
                 id="fuel"
@@ -138,23 +156,38 @@ function Vozila() {
                 onChange={handleChange}
                 required
               >
-                <option value="">Odaberi gorivo</option>
-                <option value="Benzin">Benzin</option>
-                <option value="Dizel">Dizel</option>
-                <option value="Hibrid">Hibrid</option>
-                <option value="Električno">Električno</option>
-                <option value="Plin">Plin</option>
+                <option value="">
+                  Odaberi gorivo
+                </option>
+
+                <option value="Benzin">
+                  Benzin
+                </option>
+
+                <option value="Dizel">
+                  Dizel
+                </option>
+
+                <option value="Hibrid">
+                  Hibrid
+                </option>
+
+                <option value="Električno">
+                  Električno
+                </option>
               </select>
             </div>
 
             <div className="form-group">
-              <label htmlFor="mileage">Kilometraža</label>
+              <label htmlFor="mileage">
+                Kilometraža
+              </label>
 
               <input
                 id="mileage"
                 name="mileage"
                 type="number"
-                placeholder="npr. 184250"
+                placeholder="npr. 24500"
                 min="0"
                 value={formData.mileage}
                 onChange={handleChange}
@@ -164,8 +197,11 @@ function Vozila() {
           </div>
 
           <div className="form-actions">
-            <button type="submit" className="primary-button">
-              Spremi vozilo
+            <button
+              type="submit"
+              className="primary-button"
+            >
+              Spremi motocikl
             </button>
           </div>
         </form>
@@ -173,13 +209,18 @@ function Vozila() {
 
       {vehicles.length === 0 && !showForm && (
         <div className="empty-state">
-          <div className="empty-icon">🏍️</div>
+          <div className="empty-icon">
+            🏍️
+          </div>
 
-          <h2>Nema dodanih vozila</h2>
+          <h2>
+            Nema dodanih motocikala
+          </h2>
 
           <p>
-            Dodaj svoje prvo vozilo kako bi mogao pratiti
-            servise, gorivo, kilometražu i troškove.
+            Dodaj svoj prvi motocikl kako bi
+            mogao pratiti servise, gorivo,
+            kilometražu i troškove.
           </p>
 
           <button
@@ -187,7 +228,7 @@ function Vozila() {
             className="primary-button"
             onClick={() => setShowForm(true)}
           >
-            + Dodaj prvo vozilo
+            + Dodaj prvi motocikl
           </button>
         </div>
       )}
@@ -195,17 +236,18 @@ function Vozila() {
       {vehicles.length > 0 && (
         <div className="vehicles-grid">
           {vehicles.map((vehicle) => (
-            <article className="vehicle-card" key={vehicle.id}>
+            <article
+              className="vehicle-card"
+              key={vehicle.id}
+            >
               <div className="vehicle-card-top">
-                <div className="vehicle-icon">🏍️</div>
+                <div className="vehicle-icon">
+                  🏍️
+                </div>
 
-                <button
-                  type="button"
-                  className="delete-button"
-                  onClick={() => handleDelete(vehicle.id)}
-                >
-                  Obriši
-                </button>
+                <span className="vehicle-year">
+                  {vehicle.year}
+                </span>
               </div>
 
               <h2>
@@ -214,22 +256,40 @@ function Vozila() {
 
               <div className="vehicle-details">
                 <div>
-                  <span>Godina</span>
-                  <strong>{vehicle.year}</strong>
-                </div>
+                  <span>
+                    Gorivo
+                  </span>
 
-                <div>
-                  <span>Gorivo</span>
-                  <strong>{vehicle.fuel}</strong>
-                </div>
-
-                <div>
-                  <span>Kilometraža</span>
                   <strong>
-                    {Number(vehicle.mileage).toLocaleString('hr-HR')} km
+                    {vehicle.fuel}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>
+                    Kilometraža
+                  </span>
+
+                  <strong>
+                    {Number(
+                      vehicle.mileage,
+                    ).toLocaleString(
+                      'hr-HR',
+                    )}{' '}
+                    km
                   </strong>
                 </div>
               </div>
+
+              <button
+                type="button"
+                className="vehicle-details-button"
+                onClick={() =>
+                  onSelectVehicle(vehicle)
+                }
+              >
+                Pogledaj detalje
+              </button>
             </article>
           ))}
         </div>
