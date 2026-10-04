@@ -1,44 +1,50 @@
+import { useState } from 'react'
 import './App.css'
 
+import Sidebar from './components/Sidebar'
+
+import Home from './pages/Home'
+import Vozila from './pages/Vozila'
+import Servisi from './pages/Servisi'
+import Gorivo from './pages/Gorivo'
+import Troskovi from './pages/Troskovi'
+import Podsjetnici from './pages/Podsjetnici'
+
 function App() {
+  const [activePage, setActivePage] = useState('home')
+
+  function renderPage() {
+    switch (activePage) {
+      case 'vozila':
+        return <Vozila />
+
+      case 'servisi':
+        return <Servisi />
+
+      case 'gorivo':
+        return <Gorivo />
+
+      case 'troskovi':
+        return <Troskovi />
+
+      case 'podsjetnici':
+        return <Podsjetnici />
+
+      case 'home':
+      default:
+        return <Home />
+    }
+  }
+
   return (
     <div className="app">
-      <aside className="sidebar">
-        <div className="logo">
-          <span className="logo-icon">VG</span>
-          <span>Virtualna Garaža</span>
-        </div>
-
-        <nav className="navigation">
-          <a href="#" className="nav-item active">
-            Početna
-          </a>
-
-          <a href="#" className="nav-item">
-            Vozila
-          </a>
-
-          <a href="#" className="nav-item">
-            Servisi
-          </a>
-
-          <a href="#" className="nav-item">
-            Gorivo
-          </a>
-
-          <a href="#" className="nav-item">
-            Troškovi
-          </a>
-
-          <a href="#" className="nav-item">
-            Podsjetnici
-          </a>
-        </nav>
-      </aside>
+      <Sidebar
+        activePage={activePage}
+        onNavigate={setActivePage}
+      />
 
       <main className="main-content">
-        <h1>Dobrodošao u Virtualnu Garažu</h1>
-        <p>Ovdje će se nalaziti tvoja garaža i pregled vozila.</p>
+        {renderPage()}
       </main>
     </div>
   )
