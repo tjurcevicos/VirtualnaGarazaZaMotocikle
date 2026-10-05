@@ -1,8 +1,58 @@
+import { useState } from 'react'
+
 function DetaljiVozila({
   vehicle,
+  services,
   onBack,
   onDelete,
+  onAddService,
 }) {
+  const [showServiceForm, setShowServiceForm] = useState(false)
+
+  const [serviceData, setServiceData] = useState({
+    date: '',
+    description: '',
+    mileage: '',
+    price: '',
+  })
+
+  const vehicleServices = services.filter(
+    (service) => service.vehicleId === vehicle.id,
+  )
+
+  function handleServiceChange(event) {
+    const { name, value } = event.target
+
+    setServiceData((current) => ({
+      ...current,
+      [name]: value,
+    }))
+  }
+
+  function handleServiceSubmit(event) {
+    event.preventDefault()
+
+    const newService = {
+      id: Date.now(),
+      vehicleId: vehicle.id,
+      date: serviceData.date,
+      description: serviceData.description,
+      mileage: serviceData.mileage,
+      price: serviceData.price,
+    }
+
+    onAddService(newService)
+
+    setServiceData({
+      date: '',
+      description: '',
+      mileage: '',
+      price: '',
+    })
+
+    setShowServiceForm(false)
+  }
+
   return (
     <section className="page">
       <button
@@ -101,24 +151,210 @@ function DetaljiVozila({
               Servisna povijest
             </h2>
           </div>
+
+          <button
+            type="button"
+            className="primary-button"
+            onClick={() =>
+              setShowServiceForm(
+                (current) => !current,
+              )
+            }
+          >
+            {showServiceForm
+              ? 'Zatvori'
+              : '+ Dodaj servis'}
+          </button>
         </div>
 
-        <div className="coming-soon-card">
-          <div className="coming-soon-icon">
-            🔧
+        {showServiceForm && (
+          <form
+            className="service-form"
+            onSubmit={handleServiceSubmit}
+          >
+            <div className="form-header">
+              <h2>
+                Dodaj servis
+              </h2>
+
+              <p>
+                Unesi podatke o obavljenom servisu.
+              </p>
+            </div>
+
+            <div className="form-grid">
+              <div className="form-group">
+                <label htmlFor="date">
+                  Datum
+                </label>
+
+                <input
+                  id="date"
+                  name="date"
+                  type="date"
+                  value={serviceData.date}
+                  onChange={handleServiceChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="mileage">
+                  Kilometraža
+                </label>
+
+                <input
+                  id="mileage"
+                  name="mileage"
+                  type="number"
+                  placeholder="npr. 25000"
+                  min="0"
+                  value={serviceData.mileage}
+                  onChange={handleServiceChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="price">
+                  Cijena
+                </label>
+
+                <input
+                  id="price"
+                  name="price"
+                  type="number"
+                  placeholder="npr. 150"
+                  min="0"
+                  step="0.01"
+                  value={serviceData.price}
+                  onChange={handleServiceChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group service-description-group">
+                <label htmlFor="description">
+                  Opis servisa
+                </label>
+
+                <input
+                  id="description"
+                  name="description"
+                  type="text"
+                  placeholder="npr. Zamjena ulja i filtera"
+                  value={serviceData.description}
+                  onChange={handleServiceChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="form-actions">
+              <button
+                type="submit"
+                className="primary-button"
+              >
+                Spremi servis
+              </button>
+            </div>
+          </form>
+        )}
+
+        {vehicleServices.length === 0 &&
+          !showServiceForm && (
+            <div className="coming-soon-card">
+              <div className="coming-soon-icon">
+                🔧
+              </div>
+
+              <h3>
+                Nema evidentiranih servisa
+              </h3>
+
+              <p>
+                Dodaj prvi servis ovog motocikla
+                kako bi imao pregled održavanja.
+              </p>
+
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() =>
+                  setShowServiceForm(true)
+                }
+              >
+                + Dodaj prvi servis
+              </button>
+            </div>
+          )}
+
+        {vehicleServices.length > 0 && (
+          <div className="services-list">
+            {vehicleServices.map((service) => (
+              <article
+                className="service-card"
+                key={service.id}
+              >
+                <div className="service-card-main">
+                  <div className="service-icon">
+                    🔧
+                  </div>
+
+                  <div>
+                    <h3>
+                      {service.description}
+                    </h3>
+
+                    <p>
+                      {new Date(
+                        service.date,
+                      ).toLocaleDateString(
+                        'hr-HR',
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="service-card-details">
+                  <div>
+                    <span>
+                      Kilometraža
+                    </span>
+
+                    <strong>
+                      {Number(
+                        service.mileage,
+                      ).toLocaleString(
+                        'hr-HR',
+                      )}{' '}
+                      km
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Cijena
+                    </span>
+
+                    <strong>
+                      {Number(
+                        service.price,
+                      ).toLocaleString(
+                        'hr-HR',
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        },
+                      )}{' '}
+                      €
+                    </strong>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
-
-          <h3>
-            Servisna povijest
-          </h3>
-
-          <p>
-            Ovdje ćemo kasnije prikazivati
-            sve servise ovog motocikla,
-            uključujući datum, kilometražu,
-            opis radova i cijenu.
-          </p>
-        </div>
+        )}
       </div>
 
       <div className="detail-section">

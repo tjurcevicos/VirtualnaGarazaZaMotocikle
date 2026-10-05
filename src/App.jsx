@@ -16,6 +16,7 @@ function App() {
   const [selectedVehicle, setSelectedVehicle] = useState(null)
 
   const [vehicles, setVehicles] = useState([])
+  const [services, setServices] = useState([])
 
   function handleNavigate(page) {
     setActivePage(page)
@@ -43,7 +44,18 @@ function App() {
       current.filter((vehicle) => vehicle.id !== id),
     )
 
+    setServices((current) =>
+      current.filter((service) => service.vehicleId !== id),
+    )
+
     setSelectedVehicle(null)
+  }
+
+  function handleAddService(service) {
+    setServices((current) => [
+      ...current,
+      service,
+    ])
   }
 
   function renderPage() {
@@ -51,8 +63,10 @@ function App() {
       return (
         <DetaljiVozila
           vehicle={selectedVehicle}
+          services={services}
           onBack={handleBackToVehicles}
           onDelete={handleDeleteVehicle}
+          onAddService={handleAddService}
         />
       )
     }
