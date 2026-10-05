@@ -6,6 +6,7 @@ function DetaljiVozila({
   onBack,
   onDelete,
   onAddService,
+  onDeleteService,
 }) {
   const [showServiceForm, setShowServiceForm] = useState(false)
 
@@ -350,6 +351,18 @@ function DetaljiVozila({
                       €
                     </strong>
                   </div>
+
+                  <button
+                    type="button"
+                    className="service-delete-button"
+                    onClick={() =>
+                      onDeleteService(
+                        service.id,
+                      )
+                    }
+                  >
+                    Obriši
+                  </button>
                 </div>
               </article>
             ))}

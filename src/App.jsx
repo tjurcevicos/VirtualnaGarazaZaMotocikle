@@ -58,6 +58,12 @@ function App() {
     ])
   }
 
+  function handleDeleteService(id) {
+    setServices((current) =>
+      current.filter((service) => service.id !== id),
+    )
+  }
+
   function renderPage() {
     if (activePage === 'vozila' && selectedVehicle) {
       return (
@@ -67,6 +73,7 @@ function App() {
           onBack={handleBackToVehicles}
           onDelete={handleDeleteVehicle}
           onAddService={handleAddService}
+          onDeleteService={handleDeleteService}
         />
       )
     }

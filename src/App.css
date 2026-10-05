@@ -931,3 +931,38 @@
     gap: 15px;
   }
 }
+
+.service-card-details {
+  align-items: center;
+}
+
+.service-delete-button {
+  padding: 7px 10px;
+
+  border: 1px solid #55252a;
+  border-radius: 6px;
+
+  background: transparent;
+  color: #e96b74;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.service-delete-button:hover {
+  background: #2a191b;
+  border-color: #e63946;
+}
+
+@media (max-width: 650px) {
+  .service-card-details {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
