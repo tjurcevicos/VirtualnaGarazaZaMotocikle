@@ -108,6 +108,50 @@ function Gorivo({
     0,
   )
 
+  function calculateConsumption() {
+    if (fuelRecords.length < 2) {
+      return null
+    }
+
+    const sortedRecords = [...fuelRecords].sort(
+      (a, b) =>
+        Number(a.mileage) - Number(b.mileage),
+    )
+
+    const firstRecord = sortedRecords[0]
+    const lastRecord =
+      sortedRecords[sortedRecords.length - 1]
+
+    const kilometers =
+      Number(lastRecord.mileage) -
+      Number(firstRecord.mileage)
+
+    if (kilometers <= 0) {
+      return null
+    }
+
+    const litersAfterFirst =
+      sortedRecords
+        .slice(1)
+        .reduce(
+          (total, record) =>
+            total + Number(record.liters),
+          0,
+        )
+
+    if (litersAfterFirst <= 0) {
+      return null
+    }
+
+    return (
+      (litersAfterFirst / kilometers) *
+      100
+    )
+  }
+
+  const averageConsumption =
+    calculateConsumption()
+
   return (
     <section className="page">
       <div className="page-header vehicle-header">
@@ -206,6 +250,24 @@ function Gorivo({
                     },
                   )}{' '}
                   €
+                </strong>
+              </div>
+
+              <div className="fuel-summary-card">
+                <span>
+                  Prosječna potrošnja
+                </span>
+
+                <strong>
+                  {averageConsumption !== null
+                    ? `${averageConsumption.toLocaleString(
+                        'hr-HR',
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        },
+                      )} L/100 km`
+                    : 'Nedovoljno podataka'}
                 </strong>
               </div>
             </div>
