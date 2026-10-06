@@ -92,6 +92,16 @@ function App() {
     )
   }
 
+  function handleUpdateFuelRecord(updatedRecord) {
+    setFuelRecords((current) =>
+      current.map((record) =>
+        record.id === updatedRecord.id
+          ? updatedRecord
+          : record,
+      ),
+    )
+  }
+
   function renderPage() {
     if (activePage === 'vozila' && selectedVehicle) {
       return (
@@ -127,6 +137,7 @@ function App() {
             fuelRecords={fuelRecords}
             onAddFuelRecord={handleAddFuelRecord}
             onDeleteFuelRecord={handleDeleteFuelRecord}
+            onUpdateFuelRecord={handleUpdateFuelRecord}
           />
         )
 

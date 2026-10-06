@@ -5,8 +5,10 @@ function Gorivo({
   fuelRecords,
   onAddFuelRecord,
   onDeleteFuelRecord,
+  onUpdateFuelRecord,
 }) {
   const [showForm, setShowForm] = useState(false)
+  const [editingRecordId, setEditingRecordId] = useState(null)
 
   const [formData, setFormData] = useState({
     vehicleId: '',
@@ -28,16 +30,27 @@ function Gorivo({
   function handleSubmit(event) {
     event.preventDefault()
 
-    const newRecord = {
-      id: Date.now(),
-      vehicleId: Number(formData.vehicleId),
-      date: formData.date,
-      liters: formData.liters,
-      price: formData.price,
-      mileage: formData.mileage,
-    }
+    if (editingRecordId) {
+      onUpdateFuelRecord({
+        id: editingRecordId,
+        vehicleId: Number(formData.vehicleId),
+        date: formData.date,
+        liters: formData.liters,
+        price: formData.price,
+        mileage: formData.mileage,
+      })
+    } else {
+      const newRecord = {
+        id: Date.now(),
+        vehicleId: Number(formData.vehicleId),
+        date: formData.date,
+        liters: formData.liters,
+        price: formData.price,
+        mileage: formData.mileage,
+      }
 
-    onAddFuelRecord(newRecord)
+      onAddFuelRecord(newRecord)
+    }
 
     setFormData({
       vehicleId: '',
@@ -47,6 +60,33 @@ function Gorivo({
       mileage: '',
     })
 
+    setEditingRecordId(null)
+    setShowForm(false)
+  }
+
+  function handleEditRecord(record) {
+    setFormData({
+      vehicleId: String(record.vehicleId),
+      date: record.date,
+      liters: record.liters,
+      price: record.price,
+      mileage: record.mileage,
+    })
+
+    setEditingRecordId(record.id)
+    setShowForm(true)
+  }
+
+  function handleCancelEdit() {
+    setFormData({
+      vehicleId: '',
+      date: '',
+      liters: '',
+      price: '',
+      mileage: '',
+    })
+
+    setEditingRecordId(null)
     setShowForm(false)
   }
 
@@ -89,9 +129,13 @@ function Gorivo({
         <button
           type="button"
           className="primary-button"
-          onClick={() =>
-            setShowForm((current) => !current)
-          }
+          onClick={() => {
+            if (showForm) {
+              handleCancelEdit()
+            } else {
+              setShowForm(true)
+            }
+          }}
           disabled={vehicles.length === 0}
         >
           {showForm
@@ -174,11 +218,15 @@ function Gorivo({
             >
               <div className="form-header">
                 <h2>
-                  Dodaj točenje goriva
+                  {editingRecordId
+                    ? 'Uredi točenje goriva'
+                    : 'Dodaj točenje goriva'}
                 </h2>
 
                 <p>
-                  Unesi podatke o točenju goriva.
+                  {editingRecordId
+                    ? 'Promijeni podatke o točenju goriva.'
+                    : 'Unesi podatke o točenju goriva.'}
                 </p>
               </div>
 
@@ -281,11 +329,23 @@ function Gorivo({
               </div>
 
               <div className="form-actions">
+                {editingRecordId && (
+                  <button
+                    type="button"
+                    className="fuel-cancel-button"
+                    onClick={handleCancelEdit}
+                  >
+                    Odustani
+                  </button>
+                )}
+
                 <button
                   type="submit"
                   className="primary-button"
                 >
-                  Spremi točenje
+                  {editingRecordId
+                    ? 'Spremi promjene'
+                    : 'Spremi točenje'}
                 </button>
               </div>
             </form>
@@ -408,17 +468,31 @@ function Gorivo({
                         </strong>
                       </div>
 
-                      <button
-                        type="button"
-                        className="fuel-delete-button"
-                        onClick={() =>
-                          onDeleteFuelRecord(
-                            record.id,
-                          )
-                        }
-                      >
-                        Obriši
-                      </button>
+                      <div className="fuel-actions">
+                        <button
+                          type="button"
+                          className="fuel-edit-button"
+                          onClick={() =>
+                            handleEditRecord(
+                              record,
+                            )
+                          }
+                        >
+                          Uredi
+                        </button>
+
+                        <button
+                          type="button"
+                          className="fuel-delete-button"
+                          onClick={() =>
+                            onDeleteFuelRecord(
+                              record.id,
+                            )
+                          }
+                        >
+                          Obriši
+                        </button>
+                      </div>
                     </div>
                   </article>
                 )

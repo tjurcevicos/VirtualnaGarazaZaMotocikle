@@ -1148,3 +1148,72 @@
     flex-wrap: wrap;
   }
 }
+
+.fuel-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.fuel-edit-button {
+  padding: 7px 10px;
+
+  border: 1px solid #34393e;
+  border-radius: 6px;
+
+  background: transparent;
+  color: #b7bdc2;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.fuel-edit-button:hover {
+  background: #24282c;
+  border-color: #555c62;
+  color: #ffffff;
+}
+
+.fuel-cancel-button {
+  padding: 10px 16px;
+
+  border: 1px solid #34393e;
+  border-radius: 7px;
+
+  background: transparent;
+  color: #b7bdc2;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.fuel-cancel-button:hover {
+  background: #24282c;
+  border-color: #555c62;
+  color: #ffffff;
+}
+
+@media (max-width: 650px) {
+  .fuel-actions {
+    width: 100%;
+  }
+
+  .fuel-actions button {
+    flex: 1;
+  }
+}
