@@ -17,6 +17,7 @@ function App() {
 
   const [vehicles, setVehicles] = useState([])
   const [services, setServices] = useState([])
+  const [fuelRecords, setFuelRecords] = useState([])
 
   function handleNavigate(page) {
     setActivePage(page)
@@ -48,6 +49,10 @@ function App() {
       current.filter((service) => service.vehicleId !== id),
     )
 
+    setFuelRecords((current) =>
+      current.filter((record) => record.vehicleId !== id),
+    )
+
     setSelectedVehicle(null)
   }
 
@@ -64,6 +69,29 @@ function App() {
     )
   }
 
+  function handleUpdateService(updatedService) {
+    setServices((current) =>
+      current.map((service) =>
+        service.id === updatedService.id
+          ? updatedService
+          : service,
+      ),
+    )
+  }
+
+  function handleAddFuelRecord(record) {
+    setFuelRecords((current) => [
+      ...current,
+      record,
+    ])
+  }
+
+  function handleDeleteFuelRecord(id) {
+    setFuelRecords((current) =>
+      current.filter((record) => record.id !== id),
+    )
+  }
+
   function renderPage() {
     if (activePage === 'vozila' && selectedVehicle) {
       return (
@@ -74,6 +102,7 @@ function App() {
           onDelete={handleDeleteVehicle}
           onAddService={handleAddService}
           onDeleteService={handleDeleteService}
+          onUpdateService={handleUpdateService}
         />
       )
     }
@@ -92,7 +121,14 @@ function App() {
         return <Servisi />
 
       case 'gorivo':
-        return <Gorivo />
+        return (
+          <Gorivo
+            vehicles={vehicles}
+            fuelRecords={fuelRecords}
+            onAddFuelRecord={handleAddFuelRecord}
+            onDeleteFuelRecord={handleDeleteFuelRecord}
+          />
+        )
 
       case 'troskovi':
         return <Troskovi />
