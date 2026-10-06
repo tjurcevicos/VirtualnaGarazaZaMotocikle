@@ -18,6 +18,7 @@ function App() {
   const [vehicles, setVehicles] = useState([])
   const [services, setServices] = useState([])
   const [fuelRecords, setFuelRecords] = useState([])
+  const [expenses, setExpenses] = useState([])
 
   function handleNavigate(page) {
     setActivePage(page)
@@ -51,6 +52,10 @@ function App() {
 
     setFuelRecords((current) =>
       current.filter((record) => record.vehicleId !== id),
+    )
+
+    setExpenses((current) =>
+      current.filter((expense) => expense.vehicleId !== id),
     )
 
     setSelectedVehicle(null)
@@ -102,6 +107,29 @@ function App() {
     )
   }
 
+  function handleAddExpense(expense) {
+    setExpenses((current) => [
+      ...current,
+      expense,
+    ])
+  }
+
+  function handleDeleteExpense(id) {
+    setExpenses((current) =>
+      current.filter((expense) => expense.id !== id),
+    )
+  }
+
+  function handleUpdateExpense(updatedExpense) {
+    setExpenses((current) =>
+      current.map((expense) =>
+        expense.id === updatedExpense.id
+          ? updatedExpense
+          : expense,
+      ),
+    )
+  }
+
   function renderPage() {
     if (activePage === 'vozila' && selectedVehicle) {
       return (
@@ -142,7 +170,15 @@ function App() {
         )
 
       case 'troskovi':
-        return <Troskovi />
+        return (
+          <Troskovi
+            vehicles={vehicles}
+            expenses={expenses}
+            onAddExpense={handleAddExpense}
+            onDeleteExpense={handleDeleteExpense}
+            onUpdateExpense={handleUpdateExpense}
+          />
+        )
 
       case 'podsjetnici':
         return <Podsjetnici />
