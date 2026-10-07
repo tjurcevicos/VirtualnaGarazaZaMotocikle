@@ -184,7 +184,15 @@ function App() {
         )
 
       case 'servisi':
-        return <Servisi />
+        return (
+          <Servisi
+            vehicles={vehicles}
+            services={services}
+            onAddService={handleAddService}
+            onDeleteService={handleDeleteService}
+            onUpdateService={handleUpdateService}
+          />
+        )
 
       case 'gorivo':
         return (
@@ -221,7 +229,15 @@ function App() {
 
       case 'home':
       default:
-        return <Home />
+        return (
+          <Home
+            vehicles={vehicles}
+            services={services}
+            fuelRecords={fuelRecords}
+            expenses={expenses}
+            reminders={reminders}
+          />
+        )
     }
   }
 
