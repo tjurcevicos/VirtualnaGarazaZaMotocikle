@@ -19,6 +19,7 @@ function App() {
   const [services, setServices] = useState([])
   const [fuelRecords, setFuelRecords] = useState([])
   const [expenses, setExpenses] = useState([])
+  const [reminders, setReminders] = useState([])
 
   function handleNavigate(page) {
     setActivePage(page)
@@ -56,6 +57,10 @@ function App() {
 
     setExpenses((current) =>
       current.filter((expense) => expense.vehicleId !== id),
+    )
+
+    setReminders((current) =>
+      current.filter((reminder) => reminder.vehicleId !== id),
     )
 
     setSelectedVehicle(null)
@@ -130,6 +135,29 @@ function App() {
     )
   }
 
+  function handleAddReminder(reminder) {
+    setReminders((current) => [
+      ...current,
+      reminder,
+    ])
+  }
+
+  function handleDeleteReminder(id) {
+    setReminders((current) =>
+      current.filter((reminder) => reminder.id !== id),
+    )
+  }
+
+  function handleUpdateReminder(updatedReminder) {
+    setReminders((current) =>
+      current.map((reminder) =>
+        reminder.id === updatedReminder.id
+          ? updatedReminder
+          : reminder,
+      ),
+    )
+  }
+
   function renderPage() {
     if (activePage === 'vozila' && selectedVehicle) {
       return (
@@ -181,7 +209,15 @@ function App() {
         )
 
       case 'podsjetnici':
-        return <Podsjetnici />
+        return (
+          <Podsjetnici
+            vehicles={vehicles}
+            reminders={reminders}
+            onAddReminder={handleAddReminder}
+            onDeleteReminder={handleDeleteReminder}
+            onUpdateReminder={handleUpdateReminder}
+          />
+        )
 
       case 'home':
       default:

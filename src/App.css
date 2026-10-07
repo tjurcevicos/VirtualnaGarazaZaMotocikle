@@ -1504,3 +1504,298 @@
     flex: 1;
   }
 }
+
+.reminder-summary {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 14px;
+
+  margin-bottom: 24px;
+}
+
+.reminder-summary-card {
+  padding: 20px;
+
+  border: 1px solid #2b2f33;
+  border-radius: 10px;
+
+  background: #191c1f;
+}
+
+.reminder-summary-card span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #777f85;
+
+  font-size: 12px;
+}
+
+.reminder-summary-card strong {
+  color: #ffffff;
+
+  font-size: 22px;
+}
+
+.reminder-form {
+  margin-bottom: 24px;
+}
+
+.reminder-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+.reminder-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 20px;
+
+  border: 1px solid #2b2f33;
+  border-radius: 12px;
+
+  background: #191c1f;
+}
+
+.reminder-card-main {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.reminder-icon {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #24282c;
+
+  font-size: 20px;
+}
+
+.reminder-card-main h2 {
+  margin: 0 0 5px;
+
+  color: #ffffff;
+
+  font-size: 16px;
+}
+
+.reminder-card-main p {
+  margin: 0 0 4px;
+
+  color: #b0b6bb;
+
+  font-size: 13px;
+}
+
+.reminder-card-main small {
+  color: #777f85;
+
+  font-size: 12px;
+}
+
+.reminder-card-details {
+  display: flex;
+  align-items: center;
+
+  gap: 24px;
+}
+
+.reminder-card-details div:first-child {
+  min-width: 100px;
+}
+
+.reminder-card-details span:not(.reminder-status) {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #777f85;
+
+  font-size: 11px;
+}
+
+.reminder-card-details strong {
+  color: #ffffff;
+
+  font-size: 14px;
+}
+
+.reminder-status {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 70px;
+
+  padding: 6px 9px;
+
+  border-radius: 6px;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.reminder-status.active {
+  border: 1px solid #304936;
+
+  background: #1c2920;
+
+  color: #8fbd98;
+}
+
+.reminder-status.upcoming {
+  border: 1px solid #5a4926;
+
+  background: #2b2519;
+
+  color: #d8b86b;
+}
+
+.reminder-status.expired {
+  border: 1px solid #55252a;
+
+  background: #2a191b;
+
+  color: #e96b74;
+}
+
+.reminder-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.reminder-edit-button {
+  padding: 7px 10px;
+
+  border: 1px solid #34393e;
+  border-radius: 6px;
+
+  background: transparent;
+  color: #b7bdc2;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.reminder-edit-button:hover {
+  background: #24282c;
+  border-color: #555c62;
+  color: #ffffff;
+}
+
+.reminder-delete-button {
+  padding: 7px 10px;
+
+  border: 1px solid #55252a;
+  border-radius: 6px;
+
+  background: transparent;
+  color: #e96b74;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.reminder-delete-button:hover {
+  background: #2a191b;
+  border-color: #e63946;
+}
+
+.reminder-cancel-button {
+  padding: 10px 16px;
+
+  border: 1px solid #34393e;
+  border-radius: 7px;
+
+  background: transparent;
+  color: #b7bdc2;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.reminder-cancel-button:hover {
+  background: #24282c;
+  border-color: #555c62;
+  color: #ffffff;
+}
+
+@media (max-width: 850px) {
+  .reminder-card {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .reminder-card-details {
+    width: 100%;
+
+    justify-content: space-between;
+
+    gap: 15px;
+  }
+}
+
+@media (max-width: 650px) {
+  .reminder-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .reminder-card-details {
+    align-items: flex-start;
+
+    flex-wrap: wrap;
+  }
+
+  .reminder-actions {
+    width: 100%;
+  }
+
+  .reminder-actions button {
+    flex: 1;
+  }
+}
