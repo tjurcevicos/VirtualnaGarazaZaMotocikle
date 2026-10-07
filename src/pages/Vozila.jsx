@@ -15,6 +15,8 @@ function Vozila({
     mileage: '',
   })
 
+  const [error, setError] = useState('')
+
   function handleChange(event) {
     const { name, value } = event.target
 
@@ -22,22 +24,11 @@ function Vozila({
       ...current,
       [name]: value,
     }))
+
+    setError('')
   }
 
-  function handleSubmit(event) {
-    event.preventDefault()
-
-    const newVehicle = {
-      id: Date.now(),
-      brand: formData.brand,
-      model: formData.model,
-      year: formData.year,
-      fuel: formData.fuel,
-      mileage: formData.mileage,
-    }
-
-    onAddVehicle(newVehicle)
-
+  function resetForm() {
     setFormData({
       brand: '',
       model: '',
@@ -46,7 +37,52 @@ function Vozila({
       mileage: '',
     })
 
+    setError('')
     setShowForm(false)
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    const year = Number(formData.year)
+    const mileage = Number(formData.mileage)
+
+    if (
+      !formData.brand.trim() ||
+      !formData.model.trim() ||
+      !formData.year ||
+      !formData.fuel ||
+      !formData.mileage
+    ) {
+      setError('Molimo ispuni sva polja.')
+      return
+    }
+
+    if (year < 1900 || year > new Date().getFullYear()) {
+      setError(
+        `Godina motocikla mora biti između 1900. i ${new Date().getFullYear()}.`,
+      )
+      return
+    }
+
+    if (mileage < 0) {
+      setError(
+        'Kilometraža ne može biti negativna.',
+      )
+      return
+    }
+
+    const vehicle = {
+      id: Date.now(),
+      brand: formData.brand.trim(),
+      model: formData.model.trim(),
+      year,
+      fuel: formData.fuel,
+      mileage,
+    }
+
+    onAddVehicle(vehicle)
+    resetForm()
   }
 
   return (
@@ -57,10 +93,12 @@ function Vozila({
             MOJA GARAŽA
           </p>
 
-          <h1>Moji motocikli</h1>
+          <h1>
+            Moji motocikli
+          </h1>
 
           <p className="page-description">
-            Dodaj i pregledaj svoje motocikle
+            Dodaj i upravljaj svojim motociklima
             na jednom mjestu.
           </p>
         </div>
@@ -68,9 +106,13 @@ function Vozila({
         <button
           type="button"
           className="primary-button"
-          onClick={() =>
-            setShowForm((current) => !current)
-          }
+          onClick={() => {
+            if (showForm) {
+              resetForm()
+            } else {
+              setShowForm(true)
+            }
+          }}
         >
           {showForm
             ? 'Zatvori'
@@ -85,13 +127,20 @@ function Vozila({
         >
           <div className="form-header">
             <h2>
-              Dodaj novi motocikl
+              Dodaj motocikl
             </h2>
 
             <p>
-              Unesi osnovne podatke o motociklu.
+              Unesi osnovne podatke o svom
+              motociklu.
             </p>
           </div>
+
+          {error && (
+            <div className="form-error">
+              {error}
+            </div>
+          )}
 
           <div className="form-grid">
             <div className="form-group">
@@ -119,7 +168,7 @@ function Vozila({
                 id="model"
                 name="model"
                 type="text"
-                placeholder="npr. GSXR-1300 Hayabusa"
+                placeholder="npr. GSX-R 1300 Hayabusa"
                 value={formData.model}
                 onChange={handleChange}
                 required
@@ -128,7 +177,7 @@ function Vozila({
 
             <div className="form-group">
               <label htmlFor="year">
-                Godina proizvodnje
+                Godina
               </label>
 
               <input
@@ -137,7 +186,7 @@ function Vozila({
                 type="number"
                 placeholder="npr. 2022"
                 min="1900"
-                max="2100"
+                max={new Date().getFullYear()}
                 value={formData.year}
                 onChange={handleChange}
                 required
@@ -168,12 +217,8 @@ function Vozila({
                   Dizel
                 </option>
 
-                <option value="Hibrid">
-                  Hibrid
-                </option>
-
-                <option value="Električno">
-                  Električno
+                <option value="Električni">
+                  Električni
                 </option>
               </select>
             </div>
@@ -187,7 +232,7 @@ function Vozila({
                 id="mileage"
                 name="mileage"
                 type="number"
-                placeholder="npr. 24500"
+                placeholder="npr. 25000"
                 min="0"
                 value={formData.mileage}
                 onChange={handleChange}
@@ -197,6 +242,14 @@ function Vozila({
           </div>
 
           <div className="form-actions">
+            <button
+              type="button"
+              className="service-cancel-button"
+              onClick={resetForm}
+            >
+              Odustani
+            </button>
+
             <button
               type="submit"
               className="primary-button"
@@ -214,13 +267,12 @@ function Vozila({
           </div>
 
           <h2>
-            Nema dodanih motocikala
+            Garaža je prazna
           </h2>
 
           <p>
             Dodaj svoj prvi motocikl kako bi
-            mogao pratiti servise, gorivo,
-            kilometražu i troškove.
+            započeo evidenciju.
           </p>
 
           <button
@@ -234,62 +286,44 @@ function Vozila({
       )}
 
       {vehicles.length > 0 && (
-        <div className="vehicles-grid">
+        <div className="vehicle-grid">
           {vehicles.map((vehicle) => (
             <article
               className="vehicle-card"
               key={vehicle.id}
+              onClick={() =>
+                onSelectVehicle(vehicle)
+              }
             >
-              <div className="vehicle-card-top">
-                <div className="vehicle-icon">
-                  🏍️
-                </div>
-
-                <span className="vehicle-year">
-                  {vehicle.year}
-                </span>
+              <div className="vehicle-card-icon">
+                🏍️
               </div>
 
-              <h2>
-                {vehicle.brand} {vehicle.model}
-              </h2>
+              <div className="vehicle-card-content">
+                <p className="page-label">
+                  {vehicle.year}
+                </p>
 
-              <div className="vehicle-details">
-                <div>
+                <h2>
+                  {vehicle.brand}{' '}
+                  {vehicle.model}
+                </h2>
+
+                <div className="vehicle-card-info">
                   <span>
-                    Gorivo
+                    Gorivo: {vehicle.fuel}
                   </span>
 
-                  <strong>
-                    {vehicle.fuel}
-                  </strong>
-                </div>
-
-                <div>
                   <span>
-                    Kilometraža
-                  </span>
-
-                  <strong>
                     {Number(
                       vehicle.mileage,
                     ).toLocaleString(
                       'hr-HR',
                     )}{' '}
                     km
-                  </strong>
+                  </span>
                 </div>
               </div>
-
-              <button
-                type="button"
-                className="vehicle-details-button"
-                onClick={() =>
-                  onSelectVehicle(vehicle)
-                }
-              >
-                Pogledaj detalje
-              </button>
             </article>
           ))}
         </div>
