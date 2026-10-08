@@ -19,6 +19,8 @@ function Servisi({
     price: '',
   })
 
+  const [error, setError] = useState('')
+
   function handleChange(event) {
     const { name, value } = event.target
 
@@ -26,6 +28,8 @@ function Servisi({
       ...current,
       [name]: value,
     }))
+
+    setError('')
   }
 
   function resetForm() {
@@ -38,19 +42,60 @@ function Servisi({
     })
 
     setEditingServiceId(null)
+    setError('')
     setShowForm(false)
   }
 
   function handleSubmit(event) {
     event.preventDefault()
 
+    const mileage = Number(formData.mileage)
+    const price = Number(formData.price)
+
+    if (
+      !formData.vehicleId ||
+      !formData.date ||
+      !formData.description.trim() ||
+      formData.mileage === '' ||
+      formData.price === ''
+    ) {
+      setError('Molimo ispuni sva polja.')
+      return
+    }
+
+    if (mileage < 0) {
+      setError(
+        'Kilometraža ne može biti negativna.',
+      )
+      return
+    }
+
+    if (price <= 0) {
+      setError(
+        'Cijena servisa mora biti veća od 0.',
+      )
+      return
+    }
+
+    const selectedVehicle = vehicles.find(
+      (vehicle) =>
+        vehicle.id === Number(formData.vehicleId),
+    )
+
+    if (!selectedVehicle) {
+      setError(
+        'Odabrani motocikl nije pronađen.',
+      )
+      return
+    }
+
     const service = {
       id: editingServiceId || Date.now(),
       vehicleId: Number(formData.vehicleId),
       date: formData.date,
-      description: formData.description,
-      mileage: formData.mileage,
-      price: formData.price,
+      description: formData.description.trim(),
+      mileage,
+      price,
     }
 
     if (editingServiceId) {
@@ -71,6 +116,7 @@ function Servisi({
       price: service.price,
     })
 
+    setError('')
     setEditingServiceId(service.id)
     setShowForm(true)
   }
@@ -192,6 +238,12 @@ function Servisi({
                     : 'Unesi podatke o obavljenom servisu.'}
                 </p>
               </div>
+
+              {error && (
+                <div className="form-error">
+                  {error}
+                </div>
+              )}
 
               <div className="form-grid">
                 <div className="form-group">
