@@ -18,6 +18,8 @@ function Podsjetnici({
     date: '',
   })
 
+  const [error, setError] = useState('')
+
   function handleChange(event) {
     const { name, value } = event.target
 
@@ -25,6 +27,8 @@ function Podsjetnici({
       ...current,
       [name]: value,
     }))
+
+    setError('')
   }
 
   function resetForm() {
@@ -36,17 +40,46 @@ function Podsjetnici({
     })
 
     setEditingReminderId(null)
+    setError('')
     setShowForm(false)
   }
 
   function handleSubmit(event) {
     event.preventDefault()
 
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    const reminderDate = new Date(formData.date)
+    reminderDate.setHours(0, 0, 0, 0)
+
+    if (
+      !formData.vehicleId ||
+      !formData.type ||
+      !formData.title.trim() ||
+      !formData.date
+    ) {
+      setError('Molimo ispuni sva polja.')
+      return
+    }
+
+    if (Number.isNaN(reminderDate.getTime())) {
+      setError('Odabrani datum nije ispravan.')
+      return
+    }
+
+    if (reminderDate < today) {
+      setError(
+        'Datum podsjetnika ne može biti u prošlosti.',
+      )
+      return
+    }
+
     const reminder = {
       id: editingReminderId || Date.now(),
       vehicleId: Number(formData.vehicleId),
       type: formData.type,
-      title: formData.title,
+      title: formData.title.trim(),
       date: formData.date,
     }
 
@@ -67,6 +100,7 @@ function Podsjetnici({
       date: reminder.date,
     })
 
+    setError('')
     setEditingReminderId(reminder.id)
     setShowForm(true)
   }
@@ -235,6 +269,12 @@ function Podsjetnici({
                     : 'Unesi podatke o novom podsjetniku.'}
                 </p>
               </div>
+
+              {error && (
+                <div className="form-error">
+                  {error}
+                </div>
+              )}
 
               <div className="form-grid">
                 <div className="form-group">

@@ -8,7 +8,8 @@ function Gorivo({
   onUpdateFuelRecord,
 }) {
   const [showForm, setShowForm] = useState(false)
-  const [editingRecordId, setEditingRecordId] = useState(null)
+  const [editingRecordId, setEditingRecordId] =
+    useState(null)
 
   const [formData, setFormData] = useState({
     vehicleId: '',
@@ -18,6 +19,8 @@ function Gorivo({
     mileage: '',
   })
 
+  const [error, setError] = useState('')
+
   function handleChange(event) {
     const { name, value } = event.target
 
@@ -25,33 +28,11 @@ function Gorivo({
       ...current,
       [name]: value,
     }))
+
+    setError('')
   }
 
-  function handleSubmit(event) {
-    event.preventDefault()
-
-    if (editingRecordId) {
-      onUpdateFuelRecord({
-        id: editingRecordId,
-        vehicleId: Number(formData.vehicleId),
-        date: formData.date,
-        liters: formData.liters,
-        price: formData.price,
-        mileage: formData.mileage,
-      })
-    } else {
-      const newRecord = {
-        id: Date.now(),
-        vehicleId: Number(formData.vehicleId),
-        date: formData.date,
-        liters: formData.liters,
-        price: formData.price,
-        mileage: formData.mileage,
-      }
-
-      onAddFuelRecord(newRecord)
-    }
-
+  function resetForm() {
     setFormData({
       vehicleId: '',
       date: '',
@@ -61,7 +42,65 @@ function Gorivo({
     })
 
     setEditingRecordId(null)
+    setError('')
     setShowForm(false)
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    const liters = Number(formData.liters)
+    const price = Number(formData.price)
+    const mileage = Number(formData.mileage)
+
+    if (
+      !formData.vehicleId ||
+      !formData.date ||
+      !formData.liters ||
+      !formData.price ||
+      formData.mileage === ''
+    ) {
+      setError('Molimo ispuni sva polja.')
+      return
+    }
+
+    if (liters <= 0) {
+      setError(
+        'Količina goriva mora biti veća od 0.',
+      )
+      return
+    }
+
+    if (price <= 0) {
+      setError(
+        'Cijena goriva mora biti veća od 0.',
+      )
+      return
+    }
+
+    if (mileage < 0) {
+      setError(
+        'Kilometraža ne može biti negativna.',
+      )
+      return
+    }
+
+    const fuelRecord = {
+      id: editingRecordId || Date.now(),
+      vehicleId: Number(formData.vehicleId),
+      date: formData.date,
+      liters,
+      price,
+      mileage,
+    }
+
+    if (editingRecordId) {
+      onUpdateFuelRecord(fuelRecord)
+    } else {
+      onAddFuelRecord(fuelRecord)
+    }
+
+    resetForm()
   }
 
   function handleEditRecord(record) {
@@ -73,21 +112,13 @@ function Gorivo({
       mileage: record.mileage,
     })
 
+    setError('')
     setEditingRecordId(record.id)
     setShowForm(true)
   }
 
   function handleCancelEdit() {
-    setFormData({
-      vehicleId: '',
-      date: '',
-      liters: '',
-      price: '',
-      mileage: '',
-    })
-
-    setEditingRecordId(null)
-    setShowForm(false)
+    resetForm()
   }
 
   function getVehicle(vehicleId) {
@@ -291,6 +322,12 @@ function Gorivo({
                     : 'Unesi podatke o točenju goriva.'}
                 </p>
               </div>
+
+              {error && (
+                <div className="form-error">
+                  {error}
+                </div>
+              )}
 
               <div className="form-grid">
                 <div className="form-group">

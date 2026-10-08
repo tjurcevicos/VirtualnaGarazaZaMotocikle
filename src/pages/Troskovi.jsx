@@ -8,7 +8,8 @@ function Troskovi({
   onUpdateExpense,
 }) {
   const [showForm, setShowForm] = useState(false)
-  const [editingExpenseId, setEditingExpenseId] = useState(null)
+  const [editingExpenseId, setEditingExpenseId] =
+    useState(null)
 
   const [formData, setFormData] = useState({
     vehicleId: '',
@@ -18,6 +19,8 @@ function Troskovi({
     amount: '',
   })
 
+  const [error, setError] = useState('')
+
   function handleChange(event) {
     const { name, value } = event.target
 
@@ -25,6 +28,8 @@ function Troskovi({
       ...current,
       [name]: value,
     }))
+
+    setError('')
   }
 
   function resetForm() {
@@ -37,19 +42,40 @@ function Troskovi({
     })
 
     setEditingExpenseId(null)
+    setError('')
     setShowForm(false)
   }
 
   function handleSubmit(event) {
     event.preventDefault()
 
+    const amount = Number(formData.amount)
+
+    if (
+      !formData.vehicleId ||
+      !formData.category ||
+      !formData.date ||
+      !formData.description.trim() ||
+      formData.amount === ''
+    ) {
+      setError('Molimo ispuni sva polja.')
+      return
+    }
+
+    if (amount <= 0) {
+      setError(
+        'Iznos troška mora biti veći od 0.',
+      )
+      return
+    }
+
     const expense = {
       id: editingExpenseId || Date.now(),
       vehicleId: Number(formData.vehicleId),
       category: formData.category,
       date: formData.date,
-      description: formData.description,
-      amount: formData.amount,
+      description: formData.description.trim(),
+      amount,
     }
 
     if (editingExpenseId) {
@@ -70,6 +96,7 @@ function Troskovi({
       amount: expense.amount,
     })
 
+    setError('')
     setEditingExpenseId(expense.id)
     setShowForm(true)
   }
@@ -275,6 +302,12 @@ function Troskovi({
                     : 'Unesi podatke o novom trošku.'}
                 </p>
               </div>
+
+              {error && (
+                <div className="form-error">
+                  {error}
+                </div>
+              )}
 
               <div className="form-grid">
                 <div className="form-group">
