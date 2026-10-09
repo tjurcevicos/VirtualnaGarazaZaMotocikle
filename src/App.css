@@ -2189,3 +2189,15 @@
     grid-template-columns: 1fr;
   }
 }
+
+.vehicle-card-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 12px;
+}
+
+.vehicle-card-info span {
+  line-height: 1.5;
+}
