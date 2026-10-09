@@ -17,6 +17,8 @@ function DetaljiVozila({
     price: '',
   })
 
+  const [error, setError] = useState('')
+
   const vehicleServices = services.filter(
     (service) => service.vehicleId === vehicle.id,
   )
@@ -28,22 +30,11 @@ function DetaljiVozila({
       ...current,
       [name]: value,
     }))
+
+    setError('')
   }
 
-  function handleServiceSubmit(event) {
-    event.preventDefault()
-
-    const newService = {
-      id: Date.now(),
-      vehicleId: vehicle.id,
-      date: serviceData.date,
-      description: serviceData.description,
-      mileage: serviceData.mileage,
-      price: serviceData.price,
-    }
-
-    onAddService(newService)
-
+  function resetServiceForm() {
     setServiceData({
       date: '',
       description: '',
@@ -51,7 +42,53 @@ function DetaljiVozila({
       price: '',
     })
 
+    setError('')
     setShowServiceForm(false)
+  }
+
+  function handleServiceSubmit(event) {
+    event.preventDefault()
+
+    const mileage = Number(serviceData.mileage)
+    const price = Number(serviceData.price)
+    const today = new Date().toISOString().split('T')[0]
+
+    if (
+      !serviceData.date ||
+      !serviceData.description.trim() ||
+      serviceData.mileage === '' ||
+      serviceData.price === ''
+    ) {
+      setError('Molimo ispuni sva polja.')
+      return
+    }
+
+    if (serviceData.date > today) {
+      setError('Datum servisa ne može biti u budućnosti.')
+      return
+    }
+
+    if (mileage < 0) {
+      setError('Kilometraža ne može biti negativna.')
+      return
+    }
+
+    if (price <= 0) {
+      setError('Cijena servisa mora biti veća od 0.')
+      return
+    }
+
+    const newService = {
+      id: Date.now(),
+      vehicleId: vehicle.id,
+      date: serviceData.date,
+      description: serviceData.description.trim(),
+      mileage,
+      price,
+    }
+
+    onAddService(newService)
+    resetServiceForm()
   }
 
   return (
@@ -86,56 +123,30 @@ function DetaljiVozila({
 
       <div className="vehicle-detail-grid">
         <div className="detail-card">
-          <span>
-            Marka
-          </span>
-
-          <strong>
-            {vehicle.brand}
-          </strong>
+          <span>Marka</span>
+          <strong>{vehicle.brand}</strong>
         </div>
 
         <div className="detail-card">
-          <span>
-            Model
-          </span>
-
-          <strong>
-            {vehicle.model}
-          </strong>
+          <span>Model</span>
+          <strong>{vehicle.model}</strong>
         </div>
 
         <div className="detail-card">
-          <span>
-            Godina
-          </span>
-
-          <strong>
-            {vehicle.year}
-          </strong>
+          <span>Godina</span>
+          <strong>{vehicle.year}</strong>
         </div>
 
         <div className="detail-card">
-          <span>
-            Gorivo
-          </span>
-
-          <strong>
-            {vehicle.fuel}
-          </strong>
+          <span>Gorivo</span>
+          <strong>{vehicle.fuel}</strong>
         </div>
 
         <div className="detail-card">
-          <span>
-            Kilometraža
-          </span>
+          <span>Kilometraža</span>
 
           <strong>
-            {Number(
-              vehicle.mileage,
-            ).toLocaleString(
-              'hr-HR',
-            )}{' '}
+            {Number(vehicle.mileage).toLocaleString('hr-HR')}{' '}
             km
           </strong>
         </div>
@@ -148,23 +159,21 @@ function DetaljiVozila({
               ODRŽAVANJE
             </p>
 
-            <h2>
-              Servisna povijest
-            </h2>
+            <h2>Servisna povijest</h2>
           </div>
 
           <button
             type="button"
             className="primary-button"
-            onClick={() =>
-              setShowServiceForm(
-                (current) => !current,
-              )
-            }
+            onClick={() => {
+              if (showServiceForm) {
+                resetServiceForm()
+              } else {
+                setShowServiceForm(true)
+              }
+            }}
           >
-            {showServiceForm
-              ? 'Zatvori'
-              : '+ Dodaj servis'}
+            {showServiceForm ? 'Zatvori' : '+ Dodaj servis'}
           </button>
         </div>
 
@@ -174,25 +183,30 @@ function DetaljiVozila({
             onSubmit={handleServiceSubmit}
           >
             <div className="form-header">
-              <h2>
-                Dodaj servis
-              </h2>
+              <h2>Dodaj servis</h2>
 
               <p>
                 Unesi podatke o obavljenom servisu.
               </p>
             </div>
 
+            {error && (
+              <div className="form-error" role="alert">
+                {error}
+              </div>
+            )}
+
             <div className="form-grid">
               <div className="form-group">
-                <label htmlFor="date">
+                <label htmlFor="detailServiceDate">
                   Datum
                 </label>
 
                 <input
-                  id="date"
+                  id="detailServiceDate"
                   name="date"
                   type="date"
+                  max={new Date().toISOString().split('T')[0]}
                   value={serviceData.date}
                   onChange={handleServiceChange}
                   required
@@ -200,16 +214,17 @@ function DetaljiVozila({
               </div>
 
               <div className="form-group">
-                <label htmlFor="mileage">
+                <label htmlFor="detailServiceMileage">
                   Kilometraža
                 </label>
 
                 <input
-                  id="mileage"
+                  id="detailServiceMileage"
                   name="mileage"
                   type="number"
                   placeholder="npr. 25000"
                   min="0"
+                  step="1"
                   value={serviceData.mileage}
                   onChange={handleServiceChange}
                   required
@@ -217,16 +232,16 @@ function DetaljiVozila({
               </div>
 
               <div className="form-group">
-                <label htmlFor="price">
+                <label htmlFor="detailServicePrice">
                   Cijena
                 </label>
 
                 <input
-                  id="price"
+                  id="detailServicePrice"
                   name="price"
                   type="number"
                   placeholder="npr. 150"
-                  min="0"
+                  min="0.01"
                   step="0.01"
                   value={serviceData.price}
                   onChange={handleServiceChange}
@@ -235,12 +250,12 @@ function DetaljiVozila({
               </div>
 
               <div className="form-group service-description-group">
-                <label htmlFor="description">
+                <label htmlFor="detailServiceDescription">
                   Opis servisa
                 </label>
 
                 <input
-                  id="description"
+                  id="detailServiceDescription"
                   name="description"
                   type="text"
                   placeholder="npr. Zamjena ulja i filtera"
@@ -252,6 +267,14 @@ function DetaljiVozila({
             </div>
 
             <div className="form-actions">
+              <button
+                type="button"
+                className="service-cancel-button"
+                onClick={resetServiceForm}
+              >
+                Odustani
+              </button>
+
               <button
                 type="submit"
                 className="primary-button"
@@ -269,9 +292,7 @@ function DetaljiVozila({
                 🔧
               </div>
 
-              <h3>
-                Nema evidentiranih servisa
-              </h3>
+              <h3>Nema evidentiranih servisa</h3>
 
               <p>
                 Dodaj prvi servis ovog motocikla
@@ -281,9 +302,7 @@ function DetaljiVozila({
               <button
                 type="button"
                 className="primary-button"
-                onClick={() =>
-                  setShowServiceForm(true)
-                }
+                onClick={() => setShowServiceForm(true)}
               >
                 + Dodaj prvi servis
               </button>
@@ -303,14 +322,10 @@ function DetaljiVozila({
                   </div>
 
                   <div>
-                    <h3>
-                      {service.description}
-                    </h3>
+                    <h3>{service.description}</h3>
 
                     <p>
-                      {new Date(
-                        service.date,
-                      ).toLocaleDateString(
+                      {new Date(service.date).toLocaleDateString(
                         'hr-HR',
                       )}
                     </p>
@@ -319,14 +334,10 @@ function DetaljiVozila({
 
                 <div className="service-card-details">
                   <div>
-                    <span>
-                      Kilometraža
-                    </span>
+                    <span>Kilometraža</span>
 
                     <strong>
-                      {Number(
-                        service.mileage,
-                      ).toLocaleString(
+                      {Number(service.mileage).toLocaleString(
                         'hr-HR',
                       )}{' '}
                       km
@@ -334,14 +345,10 @@ function DetaljiVozila({
                   </div>
 
                   <div>
-                    <span>
-                      Cijena
-                    </span>
+                    <span>Cijena</span>
 
                     <strong>
-                      {Number(
-                        service.price,
-                      ).toLocaleString(
+                      {Number(service.price).toLocaleString(
                         'hr-HR',
                         {
                           minimumFractionDigits: 2,
@@ -355,11 +362,7 @@ function DetaljiVozila({
                   <button
                     type="button"
                     className="service-delete-button"
-                    onClick={() =>
-                      onDeleteService(
-                        service.id,
-                      )
-                    }
+                    onClick={() => onDeleteService(service.id)}
                   >
                     Obriši
                   </button>
@@ -377,9 +380,7 @@ function DetaljiVozila({
               TROŠKOVI
             </p>
 
-            <h2>
-              Troškovi motocikla
-            </h2>
+            <h2>Troškovi motocikla</h2>
           </div>
         </div>
 
@@ -388,9 +389,7 @@ function DetaljiVozila({
             €
           </div>
 
-          <h3>
-            Troškovi
-          </h3>
+          <h3>Troškovi</h3>
 
           <p>
             Ovdje ćemo kasnije pratiti
@@ -405,9 +404,7 @@ function DetaljiVozila({
         <button
           type="button"
           className="danger-button"
-          onClick={() =>
-            onDelete(vehicle.id)
-          }
+          onClick={() => onDelete(vehicle.id)}
         >
           Obriši motocikl
         </button>
