@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getPhoto, savePhoto } from '../utils/photoStorage'
 
 function Vozila({
   vehicles,
@@ -15,7 +16,50 @@ function Vozila({
     mileage: '',
   })
 
+  const [photoFile, setPhotoFile] = useState(null)
+  const [photos, setPhotos] = useState({})
   const [error, setError] = useState('')
+  const [isSaving, setIsSaving] = useState(false)
+
+  // Izračun URL-a izravno iz datoteke - bez useEffect-a i bez kršenja ESLint pravila
+  const photoPreview = photoFile ? URL.createObjectURL(photoFile) : ''
+
+  useEffect(() => {
+    let cancelled = false
+    const loadedUrls = []
+
+    async function loadPhotos() {
+      const entries = await Promise.all(
+        vehicles.map(async (vehicle) => {
+          try {
+            const url = await getPhoto(vehicle.id)
+
+            if (url) {
+              loadedUrls.push(url)
+            }
+
+            return [vehicle.id, url]
+          } catch {
+            return [vehicle.id, null]
+          }
+        }),
+      )
+
+      if (cancelled) {
+        loadedUrls.forEach((url) => URL.revokeObjectURL(url))
+        return
+      }
+
+      setPhotos(Object.fromEntries(entries))
+    }
+
+    loadPhotos()
+
+    return () => {
+      cancelled = true
+      loadedUrls.forEach((url) => URL.revokeObjectURL(url))
+    }
+  }, [vehicles])
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -28,7 +72,38 @@ function Vozila({
     setError('')
   }
 
+  function handlePhotoChange(event) {
+    const file = event.target.files?.[0]
+
+    // Ako već postoji stari pregled, oslobađamo memoriju prije odabira nove slike
+    if (photoPreview) {
+      URL.revokeObjectURL(photoPreview)
+    }
+
+    if (!file) return
+
+    if (!file.type.startsWith('image/')) {
+      setError('Odabrana datoteka mora biti fotografija.')
+      event.target.value = ''
+      return
+    }
+
+    if (file.size > 8 * 1024 * 1024) {
+      setError('Fotografija ne smije biti veća od 8 MB.')
+      event.target.value = ''
+      return
+    }
+
+    setPhotoFile(file)
+    setError('')
+  }
+
   function resetForm() {
+    // Oslobađamo memoriju od privremenog URL-a pri zatvaranju/resetu forme
+    if (photoPreview) {
+      URL.revokeObjectURL(photoPreview)
+    }
+
     setFormData({
       brand: '',
       model: '',
@@ -37,11 +112,12 @@ function Vozila({
       mileage: '',
     })
 
+    setPhotoFile(null)
     setError('')
     setShowForm(false)
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
 
     const year = Number(formData.year)
@@ -52,9 +128,9 @@ function Vozila({
       !formData.model.trim() ||
       !formData.year ||
       !formData.fuel ||
-      !formData.mileage
+      formData.mileage === ''
     ) {
-      setError('Molimo ispuni sva polja.')
+      setError('Molimo ispuni sva obavezna polja.')
       return
     }
 
@@ -65,10 +141,8 @@ function Vozila({
       return
     }
 
-    if (mileage < 0) {
-      setError(
-        'Kilometraža ne može biti negativna.',
-      )
+    if (!Number.isFinite(mileage) || mileage < 0) {
+      setError('Kilometraža ne može biti negativna.')
       return
     }
 
@@ -81,25 +155,35 @@ function Vozila({
       mileage,
     }
 
-    onAddVehicle(vehicle)
-    resetForm()
+    setIsSaving(true)
+    setError('')
+
+    try {
+      if (photoFile) {
+        await savePhoto(vehicle.id, photoFile)
+      }
+
+      onAddVehicle(vehicle)
+      resetForm()
+    } catch {
+      setError(
+        'Fotografiju nije bilo moguće spremiti. Pokušaj ponovno.',
+      )
+    } finally {
+      setIsSaving(false)
+    }
   }
 
   return (
     <section className="page">
       <div className="page-header vehicle-header">
         <div>
-          <p className="page-label">
-            MOJA GARAŽA
-          </p>
+          <p className="page-label">MOJA GARAŽA</p>
 
-          <h1>
-            Moji motocikli
-          </h1>
+          <h1>Moji motocikli</h1>
 
           <p className="page-description">
-            Dodaj i upravljaj svojim motociklima
-            na jednom mjestu.
+            Dodaj i upravljaj svojim motociklima na jednom mjestu.
           </p>
         </div>
 
@@ -114,39 +198,29 @@ function Vozila({
             }
           }}
         >
-          {showForm
-            ? 'Zatvori'
-            : '+ Dodaj motocikl'}
+          {showForm ? 'Zatvori' : '+ Dodaj motocikl'}
         </button>
       </div>
 
       {showForm && (
-        <form
-          className="vehicle-form"
-          onSubmit={handleSubmit}
-        >
+        <form className="vehicle-form" onSubmit={handleSubmit}>
           <div className="form-header">
-            <h2>
-              Dodaj motocikl
-            </h2>
+            <h2>Dodaj motocikl</h2>
 
             <p>
-              Unesi osnovne podatke o svom
-              motociklu.
+              Unesi osnovne podatke i odaberi fotografiju svog motocikla.
             </p>
           </div>
 
           {error && (
-            <div className="form-error">
+            <div className="form-error" role="alert">
               {error}
             </div>
           )}
 
           <div className="form-grid">
             <div className="form-group">
-              <label htmlFor="brand">
-                Marka
-              </label>
+              <label htmlFor="brand">Marka</label>
 
               <input
                 id="brand"
@@ -160,9 +234,7 @@ function Vozila({
             </div>
 
             <div className="form-group">
-              <label htmlFor="model">
-                Model
-              </label>
+              <label htmlFor="model">Model</label>
 
               <input
                 id="model"
@@ -176,9 +248,7 @@ function Vozila({
             </div>
 
             <div className="form-group">
-              <label htmlFor="year">
-                Godina
-              </label>
+              <label htmlFor="year">Godina</label>
 
               <input
                 id="year"
@@ -194,9 +264,7 @@ function Vozila({
             </div>
 
             <div className="form-group">
-              <label htmlFor="fuel">
-                Gorivo
-              </label>
+              <label htmlFor="fuel">Gorivo</label>
 
               <select
                 id="fuel"
@@ -205,28 +273,15 @@ function Vozila({
                 onChange={handleChange}
                 required
               >
-                <option value="">
-                  Odaberi gorivo
-                </option>
-
-                <option value="Benzin">
-                  Benzin
-                </option>
-
-                <option value="Dizel">
-                  Dizel
-                </option>
-
-                <option value="Električni">
-                  Električni
-                </option>
+                <option value="">Odaberi gorivo</option>
+                <option value="Benzin">Benzin</option>
+                <option value="Dizel">Dizel</option>
+                <option value="Električni">Električni</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label htmlFor="mileage">
-                Kilometraža
-              </label>
+              <label htmlFor="mileage">Kilometraža</label>
 
               <input
                 id="mileage"
@@ -241,93 +296,80 @@ function Vozila({
             </div>
           </div>
 
-          <div className="form-actions">
-            <button
-              type="button"
-              className="service-cancel-button"
-              onClick={resetForm}
-            >
-              Odustani
-            </button>
+          <div className="form-group vehicle-photo-field">
+            <label htmlFor="vehicle-photo">
+              Fotografija motocikla (nije obavezna)
+            </label>
 
+            <input
+              id="vehicle-photo"
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoChange}
+            />
+
+            <p className="photo-help">
+              Odaberi fotografiju do 8 MB.
+            </p>
+
+            {photoPreview && (
+              <div className="vehicle-photo-preview">
+                <img
+                  src={photoPreview}
+                  alt="Pregled fotografije motocikla"
+                />
+
+                <button
+                  type="button"
+                  className="service-cancel-button"
+                  onClick={() => {
+                    if (photoPreview) {
+                      URL.revokeObjectURL(photoPreview)
+                    }
+                    setPhotoFile(null)
+
+                    const input = document.getElementById('vehicle-photo')
+                    if (input) {
+                      input.value = ''
+                    }
+                  }}
+                >
+                  Ukloni fotografiju
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="form-actions">
             <button
               type="submit"
               className="primary-button"
+              disabled={isSaving}
             >
-              Spremi motocikl
+              {isSaving ? 'Spremanje...' : 'Spremi motocikl'}
             </button>
           </div>
         </form>
       )}
 
-      {vehicles.length === 0 && !showForm && (
-        <div className="empty-state">
-          <div className="empty-icon">
-            🏍️
-          </div>
-
-          <h2>
-            Garaža je prazna
-          </h2>
-
-          <p>
-            Dodaj svoj prvi motocikl kako bi
-            započeo evidenciju.
-          </p>
-
-          <button
-            type="button"
-            className="primary-button"
-            onClick={() => setShowForm(true)}
+      {/* Popis vozila (kartice/lista) */}
+      <div className="vehicles-list">
+        {vehicles.map((vehicle) => (
+          <div 
+            key={vehicle.id} 
+            className="vehicle-card"
+            onClick={() => onSelectVehicle(vehicle)}
           >
-            + Dodaj prvi motocikl
-          </button>
-        </div>
-      )}
-
-      {vehicles.length > 0 && (
-        <div className="vehicle-grid">
-          {vehicles.map((vehicle) => (
-            <article
-              className="vehicle-card"
-              key={vehicle.id}
-              onClick={() =>
-                onSelectVehicle(vehicle)
-              }
-            >
-              <div className="vehicle-card-icon">
-                🏍️
-              </div>
-
-              <div className="vehicle-card-content">
-                <p className="page-label">
-                  {vehicle.year}
-                </p>
-
-                <h2>
-                  {vehicle.brand}{' '}
-                  {vehicle.model}
-                </h2>
-
-                <div className="vehicle-card-info">
-                  <span>
-                    Gorivo: {vehicle.fuel}
-                  </span>
-
-                  <span>
-                    {Number(
-                      vehicle.mileage,
-                    ).toLocaleString(
-                      'hr-HR',
-                    )}{' '}
-                    km
-                  </span>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      )}
+            {photos[vehicle.id] ? (
+              <img src={photos[vehicle.id]} alt={`${vehicle.brand} ${vehicle.model}`} />
+            ) : (
+              <div className="no-photo">Nema fotografije</div>
+            )}
+            <h3>{vehicle.brand} {vehicle.model}</h3>
+            <p>{vehicle.year}. god | {vehicle.mileage} km</p>
+          </div>
+        ))}
+      </div>
     </section>
   )
 }

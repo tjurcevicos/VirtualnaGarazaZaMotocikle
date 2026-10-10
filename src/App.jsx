@@ -11,6 +11,8 @@ import Gorivo from './pages/Gorivo'
 import Troskovi from './pages/Troskovi'
 import Podsjetnici from './pages/Podsjetnici'
 
+import { deletePhoto } from './utils/photoStorage'
+
 function App() {
   const [activePage, setActivePage] = useState('home')
   const [selectedVehicle, setSelectedVehicle] = useState(null)
@@ -136,6 +138,13 @@ function App() {
     )
 
     setSelectedVehicle(null)
+
+    deletePhoto(id).catch((error) => {
+      console.error(
+        'Brisanje fotografije nije uspjelo:',
+        error,
+      )
+    })
   }
 
   function handleAddService(service) {
