@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+
+import { useEffect, useRef, useState } from 'react'
 import { getPhoto, savePhoto } from '../utils/photoStorage'
 
 function Vozila({
@@ -17,47 +18,87 @@ function Vozila({
   })
 
   const [photoFile, setPhotoFile] = useState(null)
+  const [photoPreview, setPhotoPreview] = useState('')
   const [photos, setPhotos] = useState({})
   const [error, setError] = useState('')
   const [isSaving, setIsSaving] = useState(false)
 
-  // Izračun URL-a izravno iz datoteke - bez useEffect-a i bez kršenja ESLint pravila
-  const photoPreview = photoFile ? URL.createObjectURL(photoFile) : ''
+  const previewUrlRef = useRef(null)
+  const photoInputRef = useRef(null)
 
+  // Oslobodi URL pregleda fotografije.
+  function clearPhotoPreview() {
+    if (previewUrlRef.current) {
+      URL.revokeObjectURL(previewUrlRef.current)
+      previewUrlRef.current = null
+    }
+
+    setPhotoPreview('')
+  }
+
+  // Oslobodi privremeni URL ako se komponenta ukloni.
+  useEffect(() => {
+    return () => {
+      if (previewUrlRef.current) {
+        URL.revokeObjectURL(previewUrlRef.current)
+        previewUrlRef.current = null
+      }
+    }
+  }, [])
+
+  // Učitaj spremljene fotografije motocikala.
   useEffect(() => {
     let cancelled = false
     const loadedUrls = []
 
     async function loadPhotos() {
-      const entries = await Promise.all(
-        vehicles.map(async (vehicle) => {
-          try {
-            const url = await getPhoto(vehicle.id)
+      try {
+        const entries = await Promise.all(
+          vehicles.map(async (vehicle) => {
+            try {
+              const url = await getPhoto(vehicle.id)
 
-            if (url) {
-              loadedUrls.push(url)
+              if (url) {
+                loadedUrls.push(url)
+              }
+
+              return [vehicle.id, url]
+            } catch (photoError) {
+              console.error(
+                `Učitavanje fotografije motocikla ${vehicle.id} nije uspjelo:`,
+                photoError,
+              )
+
+              return [vehicle.id, null]
             }
+          }),
+        )
 
-            return [vehicle.id, url]
-          } catch {
-            return [vehicle.id, null]
-          }
-        }),
-      )
+        if (cancelled) {
+          loadedUrls.forEach((url) => {
+            URL.revokeObjectURL(url)
+          })
 
-      if (cancelled) {
-        loadedUrls.forEach((url) => URL.revokeObjectURL(url))
-        return
+          return
+        }
+
+        setPhotos(Object.fromEntries(entries))
+      } catch (loadError) {
+        console.error(
+          'Učitavanje fotografija nije uspjelo:',
+          loadError,
+        )
       }
-
-      setPhotos(Object.fromEntries(entries))
     }
 
     loadPhotos()
 
     return () => {
       cancelled = true
-      loadedUrls.forEach((url) => URL.revokeObjectURL(url))
+
+      loadedUrls.forEach((url) => {
+        URL.revokeObjectURL(url)
+      })
     }
   }, [vehicles])
 
@@ -75,12 +116,11 @@ function Vozila({
   function handlePhotoChange(event) {
     const file = event.target.files?.[0]
 
-    // Ako već postoji stari pregled, oslobađamo memoriju prije odabira nove slike
-    if (photoPreview) {
-      URL.revokeObjectURL(photoPreview)
+    // Ako je korisnik zatvorio dijalog bez odabira,
+    // zadrži prethodno odabranu fotografiju.
+    if (!file) {
+      return
     }
-
-    if (!file) return
 
     if (!file.type.startsWith('image/')) {
       setError('Odabrana datoteka mora biti fotografija.')
@@ -94,15 +134,31 @@ function Vozila({
       return
     }
 
+    // Oslobodi prethodni pregled prije stvaranja novog.
+    clearPhotoPreview()
+
+    const previewUrl = URL.createObjectURL(file)
+
+    previewUrlRef.current = previewUrl
+
+    setPhotoPreview(previewUrl)
     setPhotoFile(file)
     setError('')
   }
 
-  function resetForm() {
-    // Oslobađamo memoriju od privremenog URL-a pri zatvaranju/resetu forme
-    if (photoPreview) {
-      URL.revokeObjectURL(photoPreview)
+  function handleRemovePhoto() {
+    clearPhotoPreview()
+    setPhotoFile(null)
+
+    if (photoInputRef.current) {
+      photoInputRef.current.value = ''
     }
+
+    setError('')
+  }
+
+  function resetForm() {
+    clearPhotoPreview()
 
     setFormData({
       brand: '',
@@ -115,10 +171,18 @@ function Vozila({
     setPhotoFile(null)
     setError('')
     setShowForm(false)
+
+    if (photoInputRef.current) {
+      photoInputRef.current.value = ''
+    }
   }
 
   async function handleSubmit(event) {
     event.preventDefault()
+
+    if (isSaving) {
+      return
+    }
 
     const year = Number(formData.year)
     const mileage = Number(formData.mileage)
@@ -134,7 +198,11 @@ function Vozila({
       return
     }
 
-    if (year < 1900 || year > new Date().getFullYear()) {
+    if (
+      !Number.isInteger(year) ||
+      year < 1900 ||
+      year > new Date().getFullYear()
+    ) {
       setError(
         `Godina motocikla mora biti između 1900. i ${new Date().getFullYear()}.`,
       )
@@ -165,12 +233,24 @@ function Vozila({
 
       onAddVehicle(vehicle)
       resetForm()
-    } catch {
+    } catch (saveError) {
+      console.error(
+        'Spremanje motocikla ili fotografije nije uspjelo:',
+        saveError,
+      )
+
       setError(
-        'Fotografiju nije bilo moguće spremiti. Pokušaj ponovno.',
+        'Motocikl nije bilo moguće spremiti. Provjeri podatke i pokušaj ponovno.',
       )
     } finally {
       setIsSaving(false)
+    }
+  }
+
+  function handleVehicleKeyDown(event, vehicle) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      onSelectVehicle(vehicle)
     }
   }
 
@@ -197,6 +277,7 @@ function Vozila({
               setShowForm(true)
             }
           }}
+          disabled={isSaving}
         >
           {showForm ? 'Zatvori' : '+ Dodaj motocikl'}
         </button>
@@ -302,6 +383,7 @@ function Vozila({
             </label>
 
             <input
+              ref={photoInputRef}
               id="vehicle-photo"
               type="file"
               accept="image/*"
@@ -322,17 +404,8 @@ function Vozila({
                 <button
                   type="button"
                   className="service-cancel-button"
-                  onClick={() => {
-                    if (photoPreview) {
-                      URL.revokeObjectURL(photoPreview)
-                    }
-                    setPhotoFile(null)
-
-                    const input = document.getElementById('vehicle-photo')
-                    if (input) {
-                      input.value = ''
-                    }
-                  }}
+                  onClick={handleRemovePhoto}
+                  disabled={isSaving}
                 >
                   Ukloni fotografiju
                 </button>
@@ -352,21 +425,37 @@ function Vozila({
         </form>
       )}
 
-      {/* Popis vozila (kartice/lista) */}
       <div className="vehicles-list">
         {vehicles.map((vehicle) => (
-          <div 
-            key={vehicle.id} 
+          <div
+            key={vehicle.id}
             className="vehicle-card"
+            role="button"
+            tabIndex={0}
             onClick={() => onSelectVehicle(vehicle)}
+            onKeyDown={(event) =>
+              handleVehicleKeyDown(event, vehicle)
+            }
+            aria-label={`Otvori detalje motocikla ${vehicle.brand} ${vehicle.model}`}
           >
             {photos[vehicle.id] ? (
-              <img src={photos[vehicle.id]} alt={`${vehicle.brand} ${vehicle.model}`} />
+              <img
+                src={photos[vehicle.id]}
+                alt={`${vehicle.brand} ${vehicle.model}`}
+              />
             ) : (
-              <div className="no-photo">Nema fotografije</div>
+              <div className="no-photo">
+                Nema fotografije
+              </div>
             )}
-            <h3>{vehicle.brand} {vehicle.model}</h3>
-            <p>{vehicle.year}. god | {vehicle.mileage} km</p>
+
+            <h3>
+              {vehicle.brand} {vehicle.model}
+            </h3>
+
+            <p>
+              {vehicle.year}. god | {vehicle.mileage} km
+            </p>
           </div>
         ))}
       </div>

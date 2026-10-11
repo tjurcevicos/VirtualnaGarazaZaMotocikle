@@ -1,4 +1,10 @@
-import { useState } from 'react'
+
+import { useEffect, useRef, useState } from 'react'
+import {
+  getPhoto,
+  savePhoto,
+  deletePhoto,
+} from '../utils/photoStorage'
 
 function DetaljiVozila({
   vehicle,
@@ -19,9 +25,142 @@ function DetaljiVozila({
 
   const [error, setError] = useState('')
 
+  const [photoUrl, setPhotoUrl] = useState(null)
+  const [photoError, setPhotoError] = useState('')
+  const [isSavingPhoto, setIsSavingPhoto] = useState(false)
+
+  const photoInputRef = useRef(null)
+
   const vehicleServices = services.filter(
     (service) => service.vehicleId === vehicle.id,
   )
+
+  // Učitaj fotografiju postojećeg motocikla.
+  useEffect(() => {
+    let cancelled = false
+    let loadedUrl = null
+
+    setPhotoUrl(null)
+    setPhotoError('')
+
+    async function loadVehiclePhoto() {
+      try {
+        const url = await getPhoto(vehicle.id)
+        loadedUrl = url
+
+        if (cancelled) {
+          if (url) URL.revokeObjectURL(url)
+          return
+        }
+
+        setPhotoUrl(url)
+      } catch (loadError) {
+        console.error(
+          'Učitavanje fotografije nije uspjelo:',
+          loadError,
+        )
+
+        if (!cancelled) {
+          setPhotoError(
+            'Fotografiju nije moguće učitati. Pokušaj ponovno.',
+          )
+        }
+      }
+    }
+
+    loadVehiclePhoto()
+
+    return () => {
+      cancelled = true
+
+      if (loadedUrl) {
+        URL.revokeObjectURL(loadedUrl)
+      }
+    }
+  }, [vehicle.id])
+
+  // Naknadno dodavanje ili zamjena fotografije.
+  async function handlePhotoChange(event) {
+    const file = event.target.files?.[0]
+
+    if (!file) return
+
+    setPhotoError('')
+
+    if (!file.type.startsWith('image/')) {
+      setPhotoError('Odabrana datoteka mora biti fotografija.')
+      event.target.value = ''
+      return
+    }
+
+    if (file.size > 8 * 1024 * 1024) {
+      setPhotoError('Fotografija ne smije biti veća od 8 MB.')
+      event.target.value = ''
+      return
+    }
+
+    setIsSavingPhoto(true)
+
+    try {
+      await savePhoto(vehicle.id, file)
+
+      const newUrl = await getPhoto(vehicle.id)
+
+      setPhotoUrl((previousUrl) => {
+        if (previousUrl) {
+          URL.revokeObjectURL(previousUrl)
+        }
+
+        return newUrl
+      })
+    } catch (saveError) {
+      console.error(
+        'Spremanje fotografije nije uspjelo:',
+        saveError,
+      )
+
+      setPhotoError(
+        'Fotografiju nije moguće spremiti. Pokušaj ponovno.',
+      )
+    } finally {
+      setIsSavingPhoto(false)
+
+      if (photoInputRef.current) {
+        photoInputRef.current.value = ''
+      }
+    }
+  }
+
+  // Ukloni samo fotografiju, ne i motocikl.
+  async function handleRemovePhoto() {
+    if (isSavingPhoto) return
+
+    setIsSavingPhoto(true)
+    setPhotoError('')
+
+    try {
+      await deletePhoto(vehicle.id)
+
+      setPhotoUrl((previousUrl) => {
+        if (previousUrl) {
+          URL.revokeObjectURL(previousUrl)
+        }
+
+        return null
+      })
+    } catch (removeError) {
+      console.error(
+        'Uklanjanje fotografije nije uspjelo:',
+        removeError,
+      )
+
+      setPhotoError(
+        'Fotografiju nije moguće ukloniti. Pokušaj ponovno.',
+      )
+    } finally {
+      setIsSavingPhoto(false)
+    }
+  }
 
   function handleServiceChange(event) {
     const { name, value } = event.target
@@ -68,12 +207,12 @@ function DetaljiVozila({
       return
     }
 
-    if (mileage < 0) {
+    if (!Number.isFinite(mileage) || mileage < 0) {
       setError('Kilometraža ne može biti negativna.')
       return
     }
 
-    if (price <= 0) {
+    if (!Number.isFinite(price) || price <= 0) {
       setError('Cijena servisa mora biti veća od 0.')
       return
     }
@@ -119,6 +258,79 @@ function DetaljiVozila({
             {vehicle.year} • {vehicle.fuel}
           </p>
         </div>
+      </div>
+
+      {/* Fotografija motocikla */}
+      <div className="detail-section vehicle-photo-section">
+        <div className="detail-section-header">
+          <div>
+            <p className="page-label">
+              MOJA GARAŽA
+            </p>
+
+            <h2>Fotografija motocikla</h2>
+          </div>
+        </div>
+
+        <div className="detail-vehicle-photo">
+          {photoUrl ? (
+            <img
+              src={photoUrl}
+              alt={`${vehicle.brand} ${vehicle.model}`}
+            />
+          ) : (
+            <div className="detail-no-photo">
+              <span>🏍️</span>
+              <p>Još nema fotografije ovog motocikla.</p>
+            </div>
+          )}
+        </div>
+
+        {photoError && (
+          <div className="form-error" role="alert">
+            {photoError}
+          </div>
+        )}
+
+        <div className="vehicle-photo-actions">
+          <label
+            htmlFor="detailVehiclePhoto"
+            className={`primary-button ${
+              isSavingPhoto ? 'photo-button-disabled' : ''
+            }`}
+          >
+            {isSavingPhoto
+              ? 'Spremanje...'
+              : photoUrl
+                ? 'Promijeni fotografiju'
+                : 'Dodaj fotografiju'}
+          </label>
+
+          <input
+            ref={photoInputRef}
+            id="detailVehiclePhoto"
+            type="file"
+            accept="image/*"
+            onChange={handlePhotoChange}
+            disabled={isSavingPhoto}
+            hidden
+          />
+
+          {photoUrl && (
+            <button
+              type="button"
+              className="service-cancel-button"
+              onClick={handleRemovePhoto}
+              disabled={isSavingPhoto}
+            >
+              Ukloni fotografiju
+            </button>
+          )}
+        </div>
+
+        <p className="photo-help">
+          Odaberi sliku do 8 MB. Fotografija se sprema uz ovaj motocikl.
+        </p>
       </div>
 
       <div className="vehicle-detail-grid">
