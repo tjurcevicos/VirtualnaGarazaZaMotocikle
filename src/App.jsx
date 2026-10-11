@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import './App.css'
 
@@ -19,80 +20,47 @@ function App() {
 
   const [vehicles, setVehicles] = useState(() => {
     const savedVehicles = localStorage.getItem('vehicles')
-
-    return savedVehicles
-      ? JSON.parse(savedVehicles)
-      : []
+    return savedVehicles ? JSON.parse(savedVehicles) : []
   })
 
   const [services, setServices] = useState(() => {
     const savedServices = localStorage.getItem('services')
-
-    return savedServices
-      ? JSON.parse(savedServices)
-      : []
+    return savedServices ? JSON.parse(savedServices) : []
   })
 
   const [fuelRecords, setFuelRecords] = useState(() => {
-    const savedFuelRecords =
-      localStorage.getItem('fuelRecords')
-
-    return savedFuelRecords
-      ? JSON.parse(savedFuelRecords)
-      : []
+    const savedFuelRecords = localStorage.getItem('fuelRecords')
+    return savedFuelRecords ? JSON.parse(savedFuelRecords) : []
   })
 
   const [expenses, setExpenses] = useState(() => {
-    const savedExpenses =
-      localStorage.getItem('expenses')
-
-    return savedExpenses
-      ? JSON.parse(savedExpenses)
-      : []
+    const savedExpenses = localStorage.getItem('expenses')
+    return savedExpenses ? JSON.parse(savedExpenses) : []
   })
 
   const [reminders, setReminders] = useState(() => {
-    const savedReminders =
-      localStorage.getItem('reminders')
-
-    return savedReminders
-      ? JSON.parse(savedReminders)
-      : []
+    const savedReminders = localStorage.getItem('reminders')
+    return savedReminders ? JSON.parse(savedReminders) : []
   })
 
   useEffect(() => {
-    localStorage.setItem(
-      'vehicles',
-      JSON.stringify(vehicles),
-    )
+    localStorage.setItem('vehicles', JSON.stringify(vehicles))
   }, [vehicles])
 
   useEffect(() => {
-    localStorage.setItem(
-      'services',
-      JSON.stringify(services),
-    )
+    localStorage.setItem('services', JSON.stringify(services))
   }, [services])
 
   useEffect(() => {
-    localStorage.setItem(
-      'fuelRecords',
-      JSON.stringify(fuelRecords),
-    )
+    localStorage.setItem('fuelRecords', JSON.stringify(fuelRecords))
   }, [fuelRecords])
 
   useEffect(() => {
-    localStorage.setItem(
-      'expenses',
-      JSON.stringify(expenses),
-    )
+    localStorage.setItem('expenses', JSON.stringify(expenses))
   }, [expenses])
 
   useEffect(() => {
-    localStorage.setItem(
-      'reminders',
-      JSON.stringify(reminders),
-    )
+    localStorage.setItem('reminders', JSON.stringify(reminders))
   }, [reminders])
 
   function handleNavigate(page) {
@@ -110,10 +78,19 @@ function App() {
   }
 
   function handleAddVehicle(vehicle) {
-    setVehicles((current) => [
-      ...current,
-      vehicle,
-    ])
+    setVehicles((current) => [...current, vehicle])
+  }
+
+  function handleUpdateVehicle(updatedVehicle) {
+    setVehicles((current) =>
+      current.map((vehicle) =>
+        vehicle.id === updatedVehicle.id
+          ? updatedVehicle
+          : vehicle,
+      ),
+    )
+
+    setSelectedVehicle(updatedVehicle)
   }
 
   function handleDeleteVehicle(id) {
@@ -148,10 +125,7 @@ function App() {
   }
 
   function handleAddService(service) {
-    setServices((current) => [
-      ...current,
-      service,
-    ])
+    setServices((current) => [...current, service])
   }
 
   function handleDeleteService(id) {
@@ -171,10 +145,7 @@ function App() {
   }
 
   function handleAddFuelRecord(record) {
-    setFuelRecords((current) => [
-      ...current,
-      record,
-    ])
+    setFuelRecords((current) => [...current, record])
   }
 
   function handleDeleteFuelRecord(id) {
@@ -194,10 +165,7 @@ function App() {
   }
 
   function handleAddExpense(expense) {
-    setExpenses((current) => [
-      ...current,
-      expense,
-    ])
+    setExpenses((current) => [...current, expense])
   }
 
   function handleDeleteExpense(id) {
@@ -217,10 +185,7 @@ function App() {
   }
 
   function handleAddReminder(reminder) {
-    setReminders((current) => [
-      ...current,
-      reminder,
-    ])
+    setReminders((current) => [...current, reminder])
   }
 
   function handleDeleteReminder(id) {
@@ -245,11 +210,16 @@ function App() {
         <DetaljiVozila
           vehicle={selectedVehicle}
           services={services}
+          expenses={expenses}
           onBack={handleBackToVehicles}
           onDelete={handleDeleteVehicle}
           onAddService={handleAddService}
           onDeleteService={handleDeleteService}
           onUpdateService={handleUpdateService}
+          onUpdateVehicle={handleUpdateVehicle}
+          onAddExpense={handleAddExpense}
+          onDeleteExpense={handleDeleteExpense}
+          onUpdateExpense={handleUpdateExpense}
         />
       )
     }
