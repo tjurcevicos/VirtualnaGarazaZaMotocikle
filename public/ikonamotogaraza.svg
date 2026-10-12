@@ -1,0 +1,52 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="13" fill="#17191f"></rect>
+
+  <!-- Garaža -->
+  <path d="M6 26 32 7 58 26V56H6Z" fill="#292d36" stroke="#e63946" stroke-width="2.5" stroke-linejoin="round"></path>
+  <path d="M12 28 32 13 52 28" fill="none" stroke="#f4f5f7" stroke-width="2"></path>
+  <path d="M11 32H53V52H11Z" fill="#1b1e25" stroke="#484e5a" stroke-width="1.5"></path>
+
+  <!-- Stražnji kotač -->
+  <circle cx="17" cy="46" r="8" fill="#101216" stroke="#dce0e6" stroke-width="2.5"></circle>
+  <circle cx="17" cy="46" r="3" fill="#e63946"></circle>
+  <circle cx="17" cy="46" r="1" fill="#f4f5f7"></circle>
+
+  <!-- Prednji kotač -->
+  <circle cx="48" cy="46" r="8" fill="#101216" stroke="#dce0e6" stroke-width="2.5"></circle>
+  <circle cx="48" cy="46" r="3" fill="#e63946"></circle>
+  <circle cx="48" cy="46" r="1" fill="#f4f5f7"></circle>
+
+  <!-- Stražnji blatobran i rep -->
+  <path d="M11 38 15 34 23 35 28 40 23 42 17 39Z" fill="#e63946" stroke="#f4f5f7" stroke-width="1"></path>
+
+  <!-- Sportski spremnik goriva -->
+  <path d="M25 30
+           Q27 27 32 28
+           L39 31
+           Q42 33 39 37
+           L33 40
+           L26 37
+           Q23 34 25 30Z" fill="#e63946" stroke="#f4f5f7" stroke-width="1.3"></path>
+
+  <!-- Sjedalo -->
+  <path d="M20 29 26 27 33 28 30 31 23 32Z" fill="#111318" stroke="#dce0e6" stroke-width="1.2"></path>
+
+  <!-- Motor i okvir -->
+  <path d="M27 38 31 44 40 44 44 37" fill="none" stroke="#dce0e6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M30 38 36 37 40 42 33 43Z" fill="#737b89" stroke="#f4f5f7" stroke-width="1"></path>
+  <path d="M32 39 36 39 38 42 33 42Z" fill="#e63946"></path>
+
+  <!-- Prednja vilica -->
+  <path d="M40 34 45 31 49 38" fill="none" stroke="#f4f5f7" stroke-width="2.2" stroke-linecap="round"></path>
+
+  <!-- Upravljač -->
+  <path d="M39 31 43 28 48 29" fill="none" stroke="#dce0e6" stroke-width="2" stroke-linecap="round"></path>
+  <path d="M47 28 51 29" stroke="#e63946" stroke-width="2.5" stroke-linecap="round"></path>
+
+  <!-- Prednje svjetlo -->
+  <path d="M43 32 47 31 49 34 45 35Z" fill="#fff4cf" stroke="#f4f5f7" stroke-width="1"></path>
+
+  <!-- Detalji motora -->
+  <path d="M28 44 24 46M35 45 38 47" stroke="#e63946" stroke-width="2" stroke-linecap="round"></path>
+</svg>
