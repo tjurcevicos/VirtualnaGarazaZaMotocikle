@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 
 import Sidebar from './components/Sidebar'
@@ -13,55 +13,24 @@ import Troskovi from './pages/Troskovi'
 import Podsjetnici from './pages/Podsjetnici'
 
 import { deletePhoto } from './utils/photoStorage'
+import useGarageData from './hooks/useGarageData'
 
 function App() {
   const [activePage, setActivePage] = useState('home')
   const [selectedVehicle, setSelectedVehicle] = useState(null)
 
-  const [vehicles, setVehicles] = useState(() => {
-    const savedVehicles = localStorage.getItem('vehicles')
-    return savedVehicles ? JSON.parse(savedVehicles) : []
-  })
-
-  const [services, setServices] = useState(() => {
-    const savedServices = localStorage.getItem('services')
-    return savedServices ? JSON.parse(savedServices) : []
-  })
-
-  const [fuelRecords, setFuelRecords] = useState(() => {
-    const savedFuelRecords = localStorage.getItem('fuelRecords')
-    return savedFuelRecords ? JSON.parse(savedFuelRecords) : []
-  })
-
-  const [expenses, setExpenses] = useState(() => {
-    const savedExpenses = localStorage.getItem('expenses')
-    return savedExpenses ? JSON.parse(savedExpenses) : []
-  })
-
-  const [reminders, setReminders] = useState(() => {
-    const savedReminders = localStorage.getItem('reminders')
-    return savedReminders ? JSON.parse(savedReminders) : []
-  })
-
-  useEffect(() => {
-    localStorage.setItem('vehicles', JSON.stringify(vehicles))
-  }, [vehicles])
-
-  useEffect(() => {
-    localStorage.setItem('services', JSON.stringify(services))
-  }, [services])
-
-  useEffect(() => {
-    localStorage.setItem('fuelRecords', JSON.stringify(fuelRecords))
-  }, [fuelRecords])
-
-  useEffect(() => {
-    localStorage.setItem('expenses', JSON.stringify(expenses))
-  }, [expenses])
-
-  useEffect(() => {
-    localStorage.setItem('reminders', JSON.stringify(reminders))
-  }, [reminders])
+  const {
+    vehicles,
+    setVehicles,
+    services,
+    setServices,
+    fuelRecords,
+    setFuelRecords,
+    expenses,
+    setExpenses,
+    reminders,
+    setReminders,
+  } = useGarageData()
 
   function handleNavigate(page) {
     setActivePage(page)
