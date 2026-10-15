@@ -3,6 +3,7 @@ import { useState } from 'react'
 import './App.css'
 
 import Sidebar from './components/Sidebar'
+import Auth from './components/Auth'
 
 import Home from './pages/Home'
 import Vozila from './pages/Vozila'
@@ -16,13 +17,18 @@ import { deletePhoto } from './utils/photoStorage'
 import useGarageData from './hooks/useGarageData'
 
 import {
+  getCurrentUser,
+  logoutUser,
+} from './services/authService'
+
+import {
   addVehicle,
   updateVehicle,
   deleteVehicle,
   deleteVehicleRelatedData,
 } from './services/vehicleService'
 
-function App() {
+function GarageApp({ user, onLogout }) {
   const [activePage, setActivePage] = useState('home')
   const [selectedVehicle, setSelectedVehicle] = useState(null)
 
@@ -37,7 +43,7 @@ function App() {
     setExpenses,
     reminders,
     setReminders,
-  } = useGarageData()
+  } = useGarageData(user.id)
 
   function handleNavigate(page) {
     setActivePage(page)
@@ -272,9 +278,72 @@ function App() {
       />
 
       <main className="main-content">
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            gap: '14px',
+            marginBottom: '18px',
+          }}
+        >
+          <span
+            style={{
+              color: '#aeb4ba',
+              fontSize: '13px',
+            }}
+          >
+            {user.name}
+          </span>
+
+          <button
+            type="button"
+            onClick={onLogout}
+            style={{
+              padding: '8px 14px',
+              backgroundColor: '#24282c',
+              border: '1px solid #41464b',
+              borderRadius: '6px',
+              color: '#ffffff',
+              cursor: 'pointer',
+            }}
+          >
+            Odjava
+          </button>
+        </div>
+
         {renderPage()}
       </main>
     </div>
+  )
+}
+
+function App() {
+  const [currentUser, setCurrentUser] = useState(
+    () => getCurrentUser(),
+  )
+
+  function handleAuthenticated(user) {
+    setCurrentUser(user)
+  }
+
+  function handleLogout() {
+    logoutUser()
+    setCurrentUser(null)
+  }
+
+  if (!currentUser) {
+    return (
+      <Auth onAuthenticated={handleAuthenticated} />
+    )
+  }
+
+  return (
+    <GarageApp
+      key={currentUser.id}
+      user={currentUser}
+      onLogout={handleLogout}
+    />
   )
 }
 
