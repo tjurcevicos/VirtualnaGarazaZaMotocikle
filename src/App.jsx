@@ -15,6 +15,13 @@ import Podsjetnici from './pages/Podsjetnici'
 import { deletePhoto } from './utils/photoStorage'
 import useGarageData from './hooks/useGarageData'
 
+import {
+  addVehicle,
+  updateVehicle,
+  deleteVehicle,
+  deleteVehicleRelatedData,
+} from './services/vehicleService'
+
 function App() {
   const [activePage, setActivePage] = useState('home')
   const [selectedVehicle, setSelectedVehicle] = useState(null)
@@ -47,16 +54,12 @@ function App() {
   }
 
   function handleAddVehicle(vehicle) {
-    setVehicles((current) => [...current, vehicle])
+    setVehicles((current) => addVehicle(current, vehicle))
   }
 
   function handleUpdateVehicle(updatedVehicle) {
     setVehicles((current) =>
-      current.map((vehicle) =>
-        vehicle.id === updatedVehicle.id
-          ? updatedVehicle
-          : vehicle,
-      ),
+      updateVehicle(current, updatedVehicle),
     )
 
     setSelectedVehicle(updatedVehicle)
@@ -64,23 +67,23 @@ function App() {
 
   function handleDeleteVehicle(id) {
     setVehicles((current) =>
-      current.filter((vehicle) => vehicle.id !== id),
+      deleteVehicle(current, id),
     )
 
     setServices((current) =>
-      current.filter((service) => service.vehicleId !== id),
+      deleteVehicleRelatedData(current, id),
     )
 
     setFuelRecords((current) =>
-      current.filter((record) => record.vehicleId !== id),
+      deleteVehicleRelatedData(current, id),
     )
 
     setExpenses((current) =>
-      current.filter((expense) => expense.vehicleId !== id),
+      deleteVehicleRelatedData(current, id),
     )
 
     setReminders((current) =>
-      current.filter((reminder) => reminder.vehicleId !== id),
+      deleteVehicleRelatedData(current, id),
     )
 
     setSelectedVehicle(null)
