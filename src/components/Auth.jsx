@@ -58,9 +58,6 @@ function Auth({ onAuthenticated }) {
 
       <section className="auth-card">
         <div className="auth-brand">
-          <div className="auth-logo" aria-hidden="true">
-            🏍️
-          </div>
 
           <h1 className="auth-title">
             VIRTUALNA GARAŽA
