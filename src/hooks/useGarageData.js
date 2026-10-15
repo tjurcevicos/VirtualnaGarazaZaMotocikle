@@ -2,78 +2,130 @@
 import { useEffect, useState } from 'react'
 import { loadData, saveData } from '../utils/storageFacade'
 
-function useGarageData() {
-  const [vehicles, setVehicles] = useState(() =>
-    loadData('vehicles'),
-  )
+function useGarageData(userId = null) {
+  const [garageState, setGarageState] = useState(() => ({
+    userId,
+    vehicles: loadData('vehicles', userId),
+    services: loadData('services', userId),
+    fuelRecords: loadData('fuelRecords', userId),
+    expenses: loadData('expenses', userId),
+    reminders: loadData('reminders', userId),
+  }))
 
-  const [services, setServices] = useState(() =>
-    loadData('services'),
-  )
-
-  const [fuelRecords, setFuelRecords] = useState(() =>
-    loadData('fuelRecords'),
-  )
-
-  const [expenses, setExpenses] = useState(() =>
-    loadData('expenses'),
-  )
-
-  const [reminders, setReminders] = useState(() =>
-    loadData('reminders'),
-  )
+  const currentGarage =
+    garageState.userId === userId
+      ? garageState
+      : {
+          userId,
+          vehicles: loadData('vehicles', userId),
+          services: loadData('services', userId),
+          fuelRecords: loadData('fuelRecords', userId),
+          expenses: loadData('expenses', userId),
+          reminders: loadData('reminders', userId),
+        }
 
   useEffect(() => {
+    if (garageState.userId !== userId) {
+      setGarageState({
+        userId,
+        vehicles: loadData('vehicles', userId),
+        services: loadData('services', userId),
+        fuelRecords: loadData('fuelRecords', userId),
+        expenses: loadData('expenses', userId),
+        reminders: loadData('reminders', userId),
+      })
+    }
+  }, [userId, garageState.userId])
+
+  useEffect(() => {
+    if (garageState.userId !== userId) {
+      return
+    }
+
     try {
-      saveData('vehicles', vehicles)
+      saveData('vehicles', garageState.vehicles, userId)
     } catch (error) {
       console.error('Spremanje motocikala nije uspjelo:', error)
     }
-  }, [vehicles])
+  }, [garageState.vehicles, garageState.userId, userId])
 
   useEffect(() => {
+    if (garageState.userId !== userId) {
+      return
+    }
+
     try {
-      saveData('services', services)
+      saveData('services', garageState.services, userId)
     } catch (error) {
       console.error('Spremanje servisa nije uspjelo:', error)
     }
-  }, [services])
+  }, [garageState.services, garageState.userId, userId])
 
   useEffect(() => {
+    if (garageState.userId !== userId) {
+      return
+    }
+
     try {
-      saveData('fuelRecords', fuelRecords)
+      saveData('fuelRecords', garageState.fuelRecords, userId)
     } catch (error) {
       console.error('Spremanje goriva nije uspjelo:', error)
     }
-  }, [fuelRecords])
+  }, [garageState.fuelRecords, garageState.userId, userId])
 
   useEffect(() => {
+    if (garageState.userId !== userId) {
+      return
+    }
+
     try {
-      saveData('expenses', expenses)
+      saveData('expenses', garageState.expenses, userId)
     } catch (error) {
       console.error('Spremanje troškova nije uspjelo:', error)
     }
-  }, [expenses])
+  }, [garageState.expenses, garageState.userId, userId])
 
   useEffect(() => {
+    if (garageState.userId !== userId) {
+      return
+    }
+
     try {
-      saveData('reminders', reminders)
+      saveData('reminders', garageState.reminders, userId)
     } catch (error) {
       console.error('Spremanje podsjetnika nije uspjelo:', error)
     }
-  }, [reminders])
+  }, [garageState.reminders, garageState.userId, userId])
+
+  function updateData(key, value) {
+    setGarageState((current) => {
+      if (current.userId !== userId) {
+        return current
+      }
+
+      const nextValue =
+        typeof value === 'function'
+          ? value(current[key])
+          : value
+
+      return {
+        ...current,
+        [key]: nextValue,
+      }
+    })
+  }
 
   return {
-    vehicles,
-    setVehicles,
-    services,
-    setServices,
-    fuelRecords,
-    setFuelRecords,
-    expenses,
-    setExpenses,
-    reminders,
-    setReminders,
+    vehicles: currentGarage.vehicles,
+    setVehicles: (value) => updateData('vehicles', value),
+    services: currentGarage.services,
+    setServices: (value) => updateData('services', value),
+    fuelRecords: currentGarage.fuelRecords,
+    setFuelRecords: (value) => updateData('fuelRecords', value),
+    expenses: currentGarage.expenses,
+    setExpenses: (value) => updateData('expenses', value),
+    reminders: currentGarage.reminders,
+    setReminders: (value) => updateData('reminders', value),
   }
 }
 
