@@ -1,3 +1,4 @@
+import UsporedbaMotocikala from '../components/UsporedbaMotocikala'
 import { useEffect, useState } from 'react'
 import { getPhoto } from '../utils/photoStorage'
 import { reminderInfo, ownershipForVehicle } from '../utils/garageInsights'
@@ -450,6 +451,8 @@ function Home({
           <p className="garage-ownership-note">Trošak po kilometru računa se prema razlici trenutačne i početne kilometraže evidencije. Za postojeće motocikle unesi početnu kilometražu u detaljima. Ne uključuje kupovnu cijenu motocikla.</p>
         </section>
       )}
+
+      <UsporedbaMotocikala vehicles={vehicles} services={services} fuelRecords={fuelRecords} expenses={expenses} />
 
       <div className="dashboard-summary">
 
