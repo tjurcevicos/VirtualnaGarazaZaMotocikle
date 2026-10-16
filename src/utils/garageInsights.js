@@ -38,6 +38,8 @@ export function ownershipForVehicle(vehicle, services, fuelRecords, expenses) {
   const extraCost = sum(otherExpenses, 'amount')
   const total = serviceCost + fuelCost + extraCost
   const mileage = Number(vehicle.mileage)
-  const perKm = Number.isFinite(mileage) && mileage > 0 ? total / mileage : null
+  const initialMileage = vehicle.initialMileage === undefined || vehicle.initialMileage === null || vehicle.initialMileage === '' ? null : Number(vehicle.initialMileage)
+  const traveledKm = initialMileage !== null && Number.isFinite(initialMileage) && initialMileage >= 0 && Number.isFinite(mileage) && mileage > initialMileage ? mileage - initialMileage : null
+  const perKm = traveledKm === null ? null : total / traveledKm
   return { serviceCost, fuelCost, extraCost, total, perKm, omitted: expenseItems.length - otherExpenses.length }
 }

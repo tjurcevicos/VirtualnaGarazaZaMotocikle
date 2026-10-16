@@ -441,13 +441,13 @@ function Home({
                   <span>Gorivo <strong>{formatEuro(item.fuelCost)}</strong></span>
                   <span>Servisi <strong>{formatEuro(item.serviceCost)}</strong></span>
                   <span>Ostalo <strong>{formatEuro(item.extraCost)}</strong></span>
-                  <span>Po kilometru <strong>{item.perKm === null ? 'Nema podataka' : `${item.perKm.toLocaleString('hr-HR', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} €/km`}</strong></span>
+                  <span>Po kilometru <strong>{item.perKm === null ? 'Nema podataka' : `${item.perKm.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €/km`}</strong></span>
                 </div>
                 {item.omitted > 0 && <small>Stavke goriva i servisa iz Troškova izostavljene su kada postoje zasebne evidencije tih kategorija.</small>}
               </article>
             ))}
           </div>
-          <p className="garage-ownership-note">Trošak po kilometru temelji se na trenutačno upisanoj ukupnoj kilometraži, ne na kilometrima prijeđenima tijekom evidencije. Ne uključuje kupovnu cijenu motocikla.</p>
+          <p className="garage-ownership-note">Trošak po kilometru računa se prema razlici trenutačne i početne kilometraže evidencije. Za postojeće motocikle unesi početnu kilometražu u detaljima. Ne uključuje kupovnu cijenu motocikla.</p>
         </section>
       )}
 

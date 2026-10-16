@@ -15,6 +15,7 @@ function Vozila({
     year: '',
     fuel: '',
     mileage: '',
+    initialMileage: '',
   })
 
   const [photoFile, setPhotoFile] = useState(null)
@@ -161,6 +162,7 @@ function Vozila({
       year: '',
       fuel: '',
       mileage: '',
+    initialMileage: '',
     })
 
     setPhotoFile(null)
@@ -181,6 +183,7 @@ function Vozila({
 
     const year = Number(formData.year)
     const mileage = Number(formData.mileage)
+    const initialMileage = Number(formData.initialMileage)
 
     if (
       !formData.brand.trim() ||
@@ -209,6 +212,11 @@ function Vozila({
       return
     }
 
+    if (formData.initialMileage === '' || !Number.isFinite(initialMileage) || initialMileage < 0 || initialMileage > mileage) {
+      setError('Početna kilometraža mora biti između 0 i trenutačne kilometraže.')
+      return
+    }
+
     const vehicle = {
       id: Date.now(),
       brand: formData.brand.trim(),
@@ -216,6 +224,7 @@ function Vozila({
       year,
       fuel: formData.fuel,
       mileage,
+      initialMileage,
     }
 
     setIsSaving(true)
@@ -370,6 +379,10 @@ function Vozila({
                 required
               />
             </div>
+              <div className="form-group">
+                <label htmlFor="initialMileage">Početna kilometraža evidencije (km)</label>
+                <input id="initialMileage" name="initialMileage" type="number" min="0" step="1" placeholder="npr. 24000" value={formData.initialMileage} onChange={handleChange} required />
+              </div>
           </div>
 
           <div className="form-group vehicle-photo-field">

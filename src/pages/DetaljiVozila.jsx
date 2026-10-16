@@ -27,6 +27,7 @@ function DetaljiVozila({
     year: String(vehicle.year ?? ''),
     fuel: vehicle.fuel ?? '',
     mileage: String(vehicle.mileage ?? ''),
+    initialMileage: String(vehicle.initialMileage ?? ''),
   })
 
   const [serviceData, setServiceData] = useState({
@@ -63,6 +64,7 @@ function DetaljiVozila({
       year: String(vehicle.year ?? ''),
       fuel: vehicle.fuel ?? '',
       mileage: String(vehicle.mileage ?? ''),
+    initialMileage: String(vehicle.initialMileage ?? ''),
     })
 
     setShowVehicleForm(false)
@@ -74,6 +76,7 @@ function DetaljiVozila({
     vehicle.year,
     vehicle.fuel,
     vehicle.mileage,
+    vehicle.initialMileage,
   ])
 
   useEffect(() => {
@@ -137,6 +140,7 @@ function DetaljiVozila({
       year: String(vehicle.year ?? ''),
       fuel: vehicle.fuel ?? '',
       mileage: String(vehicle.mileage ?? ''),
+    initialMileage: String(vehicle.initialMileage ?? ''),
     })
 
     setVehicleError('')
@@ -152,6 +156,7 @@ function DetaljiVozila({
     const model = vehicleForm.model.trim()
     const year = Number(vehicleForm.year)
     const mileage = Number(vehicleForm.mileage)
+    const initialMileage = Number(vehicleForm.initialMileage)
     const currentYear = new Date().getFullYear()
 
     if (
@@ -181,6 +186,11 @@ function DetaljiVozila({
       return
     }
 
+    if (vehicleForm.initialMileage === '' || !Number.isFinite(initialMileage) || initialMileage < 0 || initialMileage > mileage) {
+      setVehicleError('Početna kilometraža mora biti između 0 i trenutačne kilometraže.')
+      return
+    }
+
     setIsSavingVehicle(true)
 
     try {
@@ -191,6 +201,7 @@ function DetaljiVozila({
         year,
         fuel: vehicleForm.fuel,
         mileage,
+        initialMileage,
       })
 
       setShowVehicleForm(false)
@@ -572,6 +583,10 @@ function DetaljiVozila({
                   required
                 />
               </div>
+              <div className="form-group">
+                <label htmlFor="editInitialMileage">Početna kilometraža evidencije (km)</label>
+                <input id="editInitialMileage" name="initialMileage" type="number" min="0" step="1" value={vehicleForm.initialMileage} onChange={handleVehicleChange} required />
+              </div>
             </div>
 
             <div className="form-actions">
@@ -623,6 +638,10 @@ function DetaljiVozila({
             <strong>
               {Number(vehicle.mileage).toLocaleString('hr-HR')} km
             </strong>
+          </div>
+          <div className="detail-card">
+            <span>Početna kilometraža evidencije</span>
+            <strong>{vehicle.initialMileage === undefined || vehicle.initialMileage === null ? 'Nije unesena' : `${Number(vehicle.initialMileage).toLocaleString('hr-HR')} km`}</strong>
           </div>
         </div>
       </div>
