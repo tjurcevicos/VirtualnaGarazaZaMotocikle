@@ -472,3 +472,8 @@
     width: 100%;
   }
 }
+
+.vehicle-detail-page .vehicle-detail-grid + .coming-soon-card,
+.vehicle-detail-page .vehicle-detail-grid + .services-list {
+  margin-top: 20px;
+}

@@ -209,7 +209,6 @@ function Gorivo({
   const averageConsumption =
     calculateConsumption()
 
-  // Detaljnija statistika, odvojeno za svaki motocikl.
   const detailedFuelStatistics = statisticsVehicleId
     ? calculateVehicleFuelStatistics(fuelRecords, statisticsVehicleId)
     : calculateFuelStatistics(fuelRecords)

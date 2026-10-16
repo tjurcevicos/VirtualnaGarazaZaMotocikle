@@ -268,3 +268,16 @@
   border-color: #555c62;
   color: #ffffff;
 }
+
+.service-summary{gap:16px;margin-bottom:26px}
+.service-summary-card{position:relative;overflow:hidden;padding:24px;border:1px solid #343a40;border-radius:15px;background:linear-gradient(145deg,#23272b,#191d20);box-shadow:0 8px 24px #0000001a;transition:transform .2s ease,border-color .2s ease}
+.service-summary-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e63946,transparent)}
+.service-summary-card:hover{transform:translateY(-2px);border-color:#75444a}
+.service-summary-card span{color:#a8b0b7;font-weight:600}
+.service-summary-card strong{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.service-card{border:1px solid #333940;border-radius:15px;background:linear-gradient(140deg,#202428,#181c1f);box-shadow:0 6px 22px #00000016;transition:border-color .2s ease,transform .2s ease}
+.service-card:hover{border-color:#6a3b43;transform:translateY(-2px)}
+.service-card-main h2,.service-card-main h3{letter-spacing:-.02em}
+.service-card-details strong{font-variant-numeric:tabular-nums}
+.service-page-form{border-radius:16px;border-color:#343a40;box-shadow:0 14px 36px #00000024}
+@media(max-width:600px){.service-summary-card{padding:18px}.service-card{border-radius:12px}}

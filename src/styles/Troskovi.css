@@ -373,3 +373,16 @@
   }
 
 }
+
+.expense-summary{gap:14px;margin-bottom:26px}
+.expense-summary-card{position:relative;overflow:hidden;padding:22px;border:1px solid #343a40;border-radius:15px;background:linear-gradient(145deg,#22272b,#191d20);box-shadow:0 8px 24px #00000018;transition:transform .2s ease,border-color .2s ease}
+.expense-summary-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e63946,transparent)}
+.expense-summary-card:hover{transform:translateY(-2px);border-color:#75444a}
+.expense-summary-card span{color:#adb4bb;font-weight:600}
+.expense-summary-card strong{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.expense-card{border:1px solid #333940;border-radius:15px;background:linear-gradient(145deg,#202428,#181c1f);box-shadow:0 7px 22px #00000018;transition:transform .2s ease,border-color .2s ease}
+.expense-card:hover{transform:translateY(-2px);border-color:#75444a}
+.expense-card-details strong{font-variant-numeric:tabular-nums}
+.expense-icon{border-radius:11px}
+.expense-form{border-radius:16px;border-color:#343a40}
+@media(max-width:600px){.expense-summary-card{padding:18px}.expense-card{border-radius:12px}}
