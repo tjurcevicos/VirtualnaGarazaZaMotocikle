@@ -16,11 +16,11 @@
 
   padding: 20px;
 
-  border: 1px solid #2b2f33;
+  border: 1px solid var(--vg-border);
 
   border-radius: 10px;
 
-  background: #191c1f;
+  background: var(--vg-surface);
 
 }
 
@@ -30,7 +30,7 @@
 
   margin-bottom: 8px;
 
-  color: #777f85;
+  color: var(--vg-muted);
 
   font-size: 12px;
 
@@ -38,7 +38,7 @@
 
 .expense-summary-card strong {
 
-  color: #ffffff;
+  color: var(--vg-text);
 
   font-size: 20px;
 
@@ -78,11 +78,11 @@
 
   padding: 20px;
 
-  border: 1px solid #2b2f33;
+  border: 1px solid var(--vg-border);
 
   border-radius: 12px;
 
-  background: #191c1f;
+  background: var(--vg-surface);
 
 }
 
@@ -112,9 +112,9 @@
 
   border-radius: 10px;
 
-  background: #24282c;
+  background: var(--vg-soft);
 
-  color: #ffffff;
+  color: var(--vg-text);
 
   font-size: 20px;
 
@@ -124,7 +124,7 @@
 
   margin: 0 0 5px;
 
-  color: #ffffff;
+  color: var(--vg-text);
 
   font-size: 16px;
 
@@ -142,7 +142,7 @@
 
 .expense-card-main small {
 
-  color: #777f85;
+  color: var(--vg-muted);
 
   font-size: 12px;
 
@@ -170,7 +170,7 @@
 
   margin-bottom: 5px;
 
-  color: #777f85;
+  color: var(--vg-muted);
 
   font-size: 11px;
 
@@ -178,7 +178,7 @@
 
 .expense-card-details strong {
 
-  color: #ffffff;
+  color: var(--vg-text);
 
   font-size: 14px;
 
@@ -198,13 +198,13 @@
 
   padding: 7px 10px;
 
-  border: 1px solid #34393e;
+  border: 1px solid var(--vg-border);
 
   border-radius: 6px;
 
   background: transparent;
 
-  color: #b7bdc2;
+  color: var(--vg-muted);
 
   font-family: inherit;
 
@@ -224,11 +224,11 @@
 
 .expense-edit-button:hover {
 
-  background: #24282c;
+  background: var(--vg-soft);
 
-  border-color: #555c62;
+  border-color: var(--vg-muted);
 
-  color: #ffffff;
+  color: var(--vg-text);
 
 }
 
@@ -262,7 +262,7 @@
 
   background: #2a191b;
 
-  border-color: #e63946;
+  border-color: var(--vg-accent);
 
 }
 
@@ -270,13 +270,13 @@
 
   padding: 10px 16px;
 
-  border: 1px solid #34393e;
+  border: 1px solid var(--vg-border);
 
   border-radius: 7px;
 
   background: transparent;
 
-  color: #b7bdc2;
+  color: var(--vg-muted);
 
   font-family: inherit;
 
@@ -296,11 +296,11 @@
 
 .expense-cancel-button:hover {
 
-  background: #24282c;
+  background: var(--vg-soft);
 
-  border-color: #555c62;
+  border-color: var(--vg-muted);
 
-  color: #ffffff;
+  color: var(--vg-text);
 
 }
 
@@ -375,30 +375,30 @@
 }
 
 .expense-summary{gap:14px;margin-bottom:26px}
-.expense-summary-card{position:relative;overflow:hidden;padding:22px;border:1px solid #343a40;border-radius:15px;background:linear-gradient(145deg,#22272b,#191d20);box-shadow:0 8px 24px #00000018;transition:transform .2s ease,border-color .2s ease}
-.expense-summary-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e63946,transparent)}
+.expense-summary-card{position:relative;overflow:hidden;padding:22px;border:1px solid var(--vg-border);border-radius:15px;background:linear-gradient(145deg,var(--vg-card),#191d20);box-shadow:0 8px 24px #00000018;transition:transform .2s ease,border-color .2s ease}
+.expense-summary-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--vg-accent),transparent)}
 .expense-summary-card:hover{transform:translateY(-2px);border-color:#75444a}
-.expense-summary-card span{color:#adb4bb;font-weight:600}
+.expense-summary-card span{color:var(--vg-muted);font-weight:600}
 .expense-summary-card strong{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-.expense-card{border:1px solid #333940;border-radius:15px;background:linear-gradient(145deg,#202428,#181c1f);box-shadow:0 7px 22px #00000018;transition:transform .2s ease,border-color .2s ease}
+.expense-card{border:1px solid #333940;border-radius:15px;background:linear-gradient(145deg,var(--vg-card),#181c1f);box-shadow:0 7px 22px #00000018;transition:transform .2s ease,border-color .2s ease}
 .expense-card:hover{transform:translateY(-2px);border-color:#75444a}
 .expense-card-details strong{font-variant-numeric:tabular-nums}
 .expense-icon{border-radius:11px}
-.expense-form{border-radius:16px;border-color:#343a40}
+.expense-form{border-radius:16px;border-color:var(--vg-border)}
 @media(max-width:600px){.expense-summary-card{padding:18px}.expense-card{border-radius:12px}}
 
-.expense-filter-panel{padding:22px;margin:22px 0;border:1px solid #343a40;border-radius:16px;background:linear-gradient(145deg,#22272b,#191d20)}
+.expense-filter-panel{padding:22px;margin:22px 0;border:1px solid var(--vg-border);border-radius:16px;background:linear-gradient(145deg,var(--vg-card),#191d20)}
 .expense-filter-heading{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:20px}
 .expense-filter-heading h2{font-size:1.2rem;margin:0 0 6px}
-.expense-filter-heading p{color:#adb4bb;margin:0}
+.expense-filter-heading p{color:var(--vg-muted);margin:0}
 .expense-filter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:15px}
 .expense-filter-grid .form-group{min-width:0}
 .expense-filter-grid input,.expense-filter-grid select{width:100%;min-width:0}
 .expense-filter-reset{padding:10px 16px;border:1px solid #59616a;border-radius:10px;background:transparent;color:inherit;cursor:pointer}
-.expense-filter-reset:hover:not(:disabled){border-color:#e63946}
+.expense-filter-reset:hover:not(:disabled){border-color:var(--vg-accent)}
 .expense-filter-reset:disabled{opacity:.45;cursor:not-allowed}
-.expense-filter-results{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:20px;padding-top:15px;border-top:1px solid #343a40;color:#adb4bb}
-.expense-filter-results strong{color:#fff;font-variant-numeric:tabular-nums}
+.expense-filter-results{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:20px;padding-top:15px;border-top:1px solid var(--vg-border);color:var(--vg-muted)}
+.expense-filter-results strong{color:var(--vg-text);font-variant-numeric:tabular-nums}
 @media(max-width:650px){.expense-filter-panel{padding:16px}.expense-filter-grid{grid-template-columns:1fr}.expense-filter-results{flex-direction:column}}
 
 .pdf-export-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
