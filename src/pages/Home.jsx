@@ -632,7 +632,25 @@ function Home({
 
                   <div className="dashboard-vehicle-icon">
 
-                    🏍️
+                    {photoSlides.find(
+                      (slide) => String(slide.vehicle.id) === String(vehicle.id),
+                    )?.photoUrl ? (
+                      <img
+                        src={photoSlides.find(
+                          (slide) => String(slide.vehicle.id) === String(vehicle.id),
+                        ).photoUrl}
+                        alt={`${vehicle.brand} ${vehicle.model}`}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          borderRadius: '8px',
+                          display: 'block',
+                        }}
+                      />
+                    ) : (
+                      '🏍️'
+                    )}
 
                   </div>
 
@@ -1119,7 +1137,4 @@ function Home({
   )
 
 }
-
-
-
 export default Home
