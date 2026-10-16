@@ -93,3 +93,24 @@
     transform: none;
   }
 }
+
+.nav-icon {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+}
+.nav-label {
+  flex: 1;
+}
+.nav-chevron {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  opacity: .55;
+}
+.nav-item.active .nav-icon {
+  color: #ff5965;
+}
+.nav-item.active .nav-chevron {
+  opacity: 1;
+}

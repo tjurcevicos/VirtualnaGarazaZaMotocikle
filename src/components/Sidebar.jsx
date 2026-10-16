@@ -1,53 +1,48 @@
+const icons = {
+  home: <><path d="m3 10 9-7 9 7" /><path d="M5 9v12h14V9" /><path d="M9 21v-7h6v7" /></>,
+  vozila: <><circle cx="5.5" cy="17" r="3" /><circle cx="18.5" cy="17" r="3" /><path d="M8.5 17h5l-3-7h-4l-2 4" /><path d="m13.5 17 2-5h3l2 2" /><path d="M10 10 8 7h3" /></>,
+  servisi: <><path d="M14.7 6.3a5 5 0 0 0-6.4 6.4L3 18a2.1 2.1 0 0 0 3 3l5.3-5.3a5 5 0 0 0 6.4-6.4L14 13l-3-3z" /></>,
+  gorivo: <><path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16" /><path d="M3 21h13M6 7h7v5H6z" /><path d="m15 9 3 3v6a2 2 0 0 0 4 0v-7l-3-4" /></>,
+  troskovi: <><ellipse cx="12" cy="6" rx="8" ry="3" /><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6" /><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" /></>,
+  podsjetnici: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" /><path d="M10 21h4" /></>,
+}
+
 function Sidebar({ activePage, onNavigate }) {
   const menuItems = [
-    {
-      id: 'home',
-      label: 'Početna',
-    },
-    {
-      id: 'vozila',
-      label: 'Vozila',
-    },
-    {
-      id: 'servisi',
-      label: 'Servisi',
-    },
-    {
-      id: 'gorivo',
-      label: 'Gorivo',
-    },
-    {
-      id: 'troskovi',
-      label: 'Troškovi',
-    },
-    {
-      id: 'podsjetnici',
-      label: 'Podsjetnici',
-    },
+    { id: 'home', label: 'Početna' },
+    { id: 'vozila', label: 'Vozila' },
+    { id: 'servisi', label: 'Servisi' },
+    { id: 'gorivo', label: 'Gorivo' },
+    { id: 'troskovi', label: 'Troškovi' },
+    { id: 'podsjetnici', label: 'Podsjetnici' },
   ]
 
   return (
     <aside className="sidebar">
       <div className="logo">
         <div className="logo-icon">VG</div>
-
         <div className="logo-text">
           <strong>Virtualna</strong>
           <span>Garaža</span>
         </div>
       </div>
 
-      <nav className="navigation">
+      <nav className="navigation" aria-label="Glavna navigacija">
         {menuItems.map((item) => (
           <button
             key={item.id}
             type="button"
-            className={`nav-item ${
-              activePage === item.id ? 'active' : ''
-            }`}
+            className={`nav-item ${activePage === item.id ? 'active' : ''}`}
             onClick={() => onNavigate(item.id)}
+            aria-current={activePage === item.id ? 'page' : undefined}
           >
-            {item.label}
+            <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              {icons[item.id]}
+            </svg>
+            <span className="nav-label">{item.label}</span>
+            <svg className="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
           </button>
         ))}
       </nav>
