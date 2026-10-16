@@ -382,23 +382,3 @@
 .fuel-card-details strong{font-variant-numeric:tabular-nums}
 .fuel-icon{border-radius:11px}
 @media(max-width:600px){.fuel-summary-card{padding:18px}.fuel-card{border-radius:12px}}
-
-.fuel-statistics {
-  padding: 24px;
-  margin-bottom: 24px;
-}
-
-.fuel-statistics .form-header {
-  margin-bottom: 20px;
-}
-
-.fuel-statistics .fuel-summary {
-  margin-top: 20px;
-  margin-bottom: 0;
-}
-
-@media (max-width: 650px) {
-  .fuel-statistics {
-    padding: 18px;
-  }
-}

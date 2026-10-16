@@ -1,3 +1,4 @@
+import { LinijskiGraf } from '../components/StatistickiGrafovi'
 import { useState } from 'react'
 import {
   calculateFuelStatistics,
@@ -14,6 +15,7 @@ function Gorivo({
 }) {
   const [showForm, setShowForm] = useState(false)
   const [statisticsVehicleId, setStatisticsVehicleId] = useState('')
+  const [filterVehicleId, setFilterVehicleId] = useState('')
   const [editingRecordId, setEditingRecordId] =
     useState(null)
 
@@ -231,6 +233,33 @@ function Gorivo({
   }
 
 
+  const filteredFuelRecords = filterVehicleId
+    ? fuelRecords.filter((record) => String(record.vehicleId) === filterVehicleId)
+    : fuelRecords
+
+  const consumptionPoints = []
+  const fuelByVehicle = new Map()
+  filteredFuelRecords.forEach((record) => {
+    const key = String(record.vehicleId)
+    if (!fuelByVehicle.has(key)) fuelByVehicle.set(key, [])
+    fuelByVehicle.get(key).push(record)
+  })
+  fuelByVehicle.forEach((records, vehicleId) => {
+    const sorted = [...records].sort((a, b) => Number(a.mileage) - Number(b.mileage))
+    for (let i = 1; i < sorted.length; i += 1) {
+      const distance = Number(sorted[i].mileage) - Number(sorted[i - 1].mileage)
+      if (distance <= 0 || Number(sorted[i].liters) <= 0) continue
+      const vehicle = vehicles.find((item) => String(item.id) === vehicleId)
+      consumptionPoints.push({
+        label: sorted[i].date ? sorted[i].date.slice(5).replace('-', '.') : String(i),
+        value: (Number(sorted[i].liters) / distance) * 100,
+        date: sorted[i].date,
+        vehicle: vehicle ? `${vehicle.brand} ${vehicle.model}` : vehicleId,
+      })
+    }
+  })
+  consumptionPoints.sort((a, b) => String(a.date).localeCompare(String(b.date)))
+
   return (
     <section className="page">
       <div className="page-header vehicle-header">
@@ -351,6 +380,17 @@ function Gorivo({
               </div>
             </div>
           )}
+
+          <div className="analytics-filter">
+            <label htmlFor="fuel-record-filter">Prikaži točenja za motocikl</label>
+            <select id="fuel-record-filter" value={filterVehicleId} onChange={(event) => setFilterVehicleId(event.target.value)}>
+              <option value="">Svi motocikli</option>
+              {vehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.brand} {vehicle.model}</option>)}
+            </select>
+          </div>
+          <div className="analytics-section">
+            <LinijskiGraf title="Graf potrošnje goriva" subtitle="Procjena L/100 km između uzastopnih unosa kilometraže za isti motocikl. Za usporedbu odaberi jedan motocikl." points={consumptionPoints} unit="L/100 km" />
+          </div>
 
           {fuelRecords.length > 0 && (
             <div className="fuel-statistics">
@@ -672,7 +712,7 @@ function Gorivo({
 
           {fuelRecords.length > 0 && (
             <div className="fuel-list">
-              {fuelRecords.map((record) => {
+              {filteredFuelRecords.map((record) => {
                 const vehicle = getVehicle(
                   record.vehicleId,
                 )

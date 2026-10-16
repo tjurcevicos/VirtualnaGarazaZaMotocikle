@@ -1,3 +1,4 @@
+import { StupcastiGraf } from '../components/StatistickiGrafovi'
 import { useState } from 'react'
 
 function Troskovi({
@@ -8,6 +9,7 @@ function Troskovi({
   onUpdateExpense,
 }) {
   const [showForm, setShowForm] = useState(false)
+  const [filterVehicleId, setFilterVehicleId] = useState('')
   const [editingExpenseId, setEditingExpenseId] =
     useState(null)
 
@@ -146,6 +148,21 @@ function Troskovi({
         total + Number(expense.amount),
       0,
     )
+
+  const filteredExpenses = filterVehicleId
+    ? expenses.filter((expense) => String(expense.vehicleId) === filterVehicleId)
+    : expenses
+
+  const monthlyTotals = new Map()
+  filteredExpenses.forEach((expense) => {
+    const month = String(expense.date || '').slice(0, 7)
+    if (!/^\d{4}-\d{2}$/.test(month)) return
+    monthlyTotals.set(month, (monthlyTotals.get(month) || 0) + Number(expense.amount || 0))
+  })
+  const monthlyPoints = [...monthlyTotals.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .slice(-12)
+    .map(([key, value]) => ({ key, label: `${key.slice(5)}.${key.slice(2, 4)}.`, value }))
 
   return (
     <section className="page">
@@ -457,6 +474,17 @@ function Troskovi({
             </form>
           )}
 
+          <div className="analytics-filter">
+            <label htmlFor="expense-vehicle-filter">Prikaži troškove za motocikl</label>
+            <select id="expense-vehicle-filter" value={filterVehicleId} onChange={(event) => setFilterVehicleId(event.target.value)}>
+              <option value="">Svi motocikli</option>
+              {vehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.brand} {vehicle.model}</option>)}
+            </select>
+          </div>
+          <div className="analytics-section">
+            <StupcastiGraf title="Mjesečni troškovi" subtitle="Ukupni evidentirani troškovi po mjesecima, do 12 posljednjih mjeseci s unosima." points={monthlyPoints} />
+          </div>
+
           {expenses.length === 0 &&
             !showForm && (
               <div className="empty-state">
@@ -488,7 +516,7 @@ function Troskovi({
 
           {expenses.length > 0 && (
             <div className="expense-list">
-              {expenses.map((expense) => {
+              {filteredExpenses.map((expense) => {
                 const vehicle = getVehicle(
                   expense.vehicleId,
                 )
