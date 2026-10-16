@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getPhoto } from '../utils/photoStorage'
+import { reminderInfo, ownershipForVehicle } from '../utils/garageInsights'
 
 function Home({
 
@@ -291,6 +292,21 @@ function Home({
 
 
 
+  const urgentReminders = reminders
+    .map((reminder) => ({ ...reminder, info: reminderInfo(reminder.date) }))
+    .filter((reminder) => reminder.info.kind !== 'active')
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)))
+
+  const ownership = vehicles.map((vehicle) => ({
+    vehicle,
+    ...ownershipForVehicle(vehicle, services, fuelRecords, expenses),
+  }))
+
+  const formatEuro = (value) => `${value.toLocaleString('hr-HR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })} €`
+
   const latestService = [...services]
 
     .sort(
@@ -379,6 +395,61 @@ function Home({
           </div>
         )}
       </section>
+
+      {urgentReminders.length > 0 && (
+        <section className="garage-alerts" aria-label="Važni rokovi">
+          <div className="garage-insight-heading">
+            <div>
+              <p className="page-label">VAŽNI ROKOVI</p>
+              <h2>Podsjetnici koji traže pažnju</h2>
+            </div>
+            <strong>{urgentReminders.length}</strong>
+          </div>
+          <div className="garage-alert-list">
+            {urgentReminders.slice(0, 4).map((reminder) => (
+              <div className={`garage-alert garage-alert-${reminder.info.kind}`} key={reminder.id}>
+                <div>
+                  <strong>{reminder.title}</strong>
+                  <span>{getVehicle(reminder.vehicleId)?.brand || 'Motocikl'} {getVehicle(reminder.vehicleId)?.model || ''} · {reminder.type}</span>
+                </div>
+                <span className="garage-alert-status">{reminder.info.detail}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {ownership.length > 0 && (
+        <section className="garage-ownership" aria-label="Trošak vlasništva">
+          <div className="garage-insight-heading">
+            <div>
+              <p className="page-label">ANALIZA TROŠKOVA</p>
+              <h2>Trošak vlasništva po motociklu</h2>
+              <p className="page-description">Zbroj evidentiranog goriva, servisa i ostalih troškova.</p>
+            </div>
+          </div>
+          <div className="garage-ownership-grid">
+            {ownership.map((item) => (
+              <article className="garage-ownership-card" key={item.vehicle.id}>
+                <span className="garage-ownership-label">{item.vehicle.year} · MOTOCIKL</span>
+                <h3>{item.vehicle.brand} {item.vehicle.model}</h3>
+                <div className="garage-ownership-total">
+                  <span>Ukupno evidentirano</span>
+                  <strong>{formatEuro(item.total)}</strong>
+                </div>
+                <div className="garage-ownership-breakdown">
+                  <span>Gorivo <strong>{formatEuro(item.fuelCost)}</strong></span>
+                  <span>Servisi <strong>{formatEuro(item.serviceCost)}</strong></span>
+                  <span>Ostalo <strong>{formatEuro(item.extraCost)}</strong></span>
+                  <span>Po kilometru <strong>{item.perKm === null ? 'Nema podataka' : `${item.perKm.toLocaleString('hr-HR', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} €/km`}</strong></span>
+                </div>
+                {item.omitted > 0 && <small>Stavke goriva i servisa iz Troškova izostavljene su kada postoje zasebne evidencije tih kategorija.</small>}
+              </article>
+            ))}
+          </div>
+          <p className="garage-ownership-note">Trošak po kilometru temelji se na trenutačno upisanoj ukupnoj kilometraži, ne na kilometrima prijeđenima tijekom evidencije. Ne uključuje kupovnu cijenu motocikla.</p>
+        </section>
+      )}
 
       <div className="dashboard-summary">
 

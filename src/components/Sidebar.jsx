@@ -20,7 +20,7 @@ function Sidebar({ activePage, onNavigate }) {
   return (
     <aside className="sidebar">
       <div className="logo">
-        <div className="logo-icon">VG</div>
+        <div className="logo-icon"><img src="/ikonamotogaraza.svg" alt="" aria-hidden="true" /></div>
         <div className="logo-text">
           <strong>Virtualna</strong>
           <span>Garaža</span>

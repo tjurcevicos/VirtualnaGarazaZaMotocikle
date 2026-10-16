@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { reminderInfo } from '../utils/garageInsights'
 
 function Podsjetnici({
   vehicles,
@@ -112,54 +113,27 @@ function Podsjetnici({
   }
 
   function getReminderStatus(date) {
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-
-    const reminderDate = new Date(date)
-    reminderDate.setHours(0, 0, 0, 0)
-
-    const difference =
-      reminderDate.getTime() -
-      today.getTime()
-
-    const days =
-      difference / (1000 * 60 * 60 * 24)
-
-    if (days < 0) {
-      return 'Istekao'
-    }
-
-    if (days <= 7) {
-      return 'Uskoro'
-    }
-
-    return 'Aktivan'
+    return reminderInfo(date).label
   }
 
   function getStatusClass(date) {
-    const status = getReminderStatus(date)
-
-    if (status === 'Istekao') {
-      return 'reminder-status expired'
-    }
-
-    if (status === 'Uskoro') {
-      return 'reminder-status upcoming'
-    }
-
-    return 'reminder-status active'
+    return `reminder-status ${reminderInfo(date).kind}`
   }
+
+  const [reminderFilter, setReminderFilter] = useState('all')
+  const visibleReminders = reminders
+    .filter((reminder) => reminderFilter === 'all' || reminderInfo(reminder.date).kind === reminderFilter)
+    .slice()
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)))
 
   const upcomingReminders = reminders.filter(
     (reminder) =>
-      getReminderStatus(reminder.date) ===
-      'Uskoro',
+      reminderInfo(reminder.date).kind === 'upcoming',
   ).length
 
   const expiredReminders = reminders.filter(
     (reminder) =>
-      getReminderStatus(reminder.date) ===
-      'Istekao',
+      reminderInfo(reminder.date).kind === 'expired',
   ).length
 
   return (
@@ -431,8 +405,23 @@ function Podsjetnici({
             )}
 
           {reminders.length > 0 && (
+            <div className="garage-reminder-filters">
+              <label htmlFor="reminderStatusFilter">Prikaži podsjetnike</label>
+              <select id="reminderStatusFilter" value={reminderFilter} onChange={(event) => setReminderFilter(event.target.value)}>
+                <option value="all">Svi rokovi</option>
+                <option value="expired">Istekli</option>
+                <option value="upcoming">Uskoro (7 dana)</option>
+                <option value="active">Aktivni</option>
+              </select>
+              <span>{visibleReminders.length} prikazano</span>
+            </div>
+          )}
+          {reminders.length > 0 && visibleReminders.length === 0 && (
+            <div className="empty-state"><h2>Nema podsjetnika za odabrani status</h2></div>
+          )}
+          {visibleReminders.length > 0 && (
             <div className="reminder-list">
-              {reminders.map((reminder) => {
+              {visibleReminders.map((reminder) => {
                 const vehicle = getVehicle(
                   reminder.vehicleId,
                 )
@@ -484,9 +473,8 @@ function Podsjetnici({
                           reminder.date,
                         )}
                       >
-                        {getReminderStatus(
-                          reminder.date,
-                        )}
+                        {getReminderStatus(reminder.date)}
+                        <small className="garage-reminder-days">{reminderInfo(reminder.date).detail}</small>
                       </span>
 
                       <div className="reminder-actions">

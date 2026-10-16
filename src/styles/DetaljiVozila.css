@@ -477,3 +477,5 @@
 .vehicle-detail-page .vehicle-detail-grid + .services-list {
   margin-top: 20px;
 }
+
+.detail-section .vehicle-detail-grid + .coming-soon-card { margin-top: 20px; }
