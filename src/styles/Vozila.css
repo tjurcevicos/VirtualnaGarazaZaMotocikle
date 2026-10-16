@@ -1,0 +1,91 @@
+.vehicles-list {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+
+  gap: 24px;
+
+}
+
+.vehicle-card {
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+}
+
+.vehicle-card > img {
+
+  display: block;
+
+  width: 100%;
+
+  height: 200px;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  border-radius: 12px;
+
+}
+
+.vehicle-card > .no-photo {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+
+  height: 200px;
+
+  box-sizing: border-box;
+
+  border-radius: 12px;
+
+}
+
+@media (max-width: 600px) {
+
+  .vehicles-list {
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+
+  }
+
+  .vehicle-card > img,
+
+  .vehicle-card > .no-photo {
+
+    height: 140px;
+
+  }
+
+}
+
+@media (max-width: 380px) {
+
+  .vehicles-list {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
+
+.vehicles-list .vehicle-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+}
