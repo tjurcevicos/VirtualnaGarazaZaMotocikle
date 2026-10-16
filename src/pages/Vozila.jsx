@@ -26,7 +26,6 @@ function Vozila({
   const previewUrlRef = useRef(null)
   const photoInputRef = useRef(null)
 
-  // Oslobodi URL pregleda fotografije.
   function clearPhotoPreview() {
     if (previewUrlRef.current) {
       URL.revokeObjectURL(previewUrlRef.current)
@@ -36,7 +35,6 @@ function Vozila({
     setPhotoPreview('')
   }
 
-  // Oslobodi privremeni URL ako se komponenta ukloni.
   useEffect(() => {
     return () => {
       if (previewUrlRef.current) {
@@ -46,7 +44,6 @@ function Vozila({
     }
   }, [])
 
-  // Učitaj spremljene fotografije motocikala.
   useEffect(() => {
     let cancelled = false
     const loadedUrls = []
@@ -116,8 +113,7 @@ function Vozila({
   function handlePhotoChange(event) {
     const file = event.target.files?.[0]
 
-    // Ako je korisnik zatvorio dijalog bez odabira,
-    // zadrži prethodno odabranu fotografiju.
+
     if (!file) {
       return
     }
@@ -134,7 +130,6 @@ function Vozila({
       return
     }
 
-    // Oslobodi prethodni pregled prije stvaranja novog.
     clearPhotoPreview()
 
     const previewUrl = URL.createObjectURL(file)
@@ -438,24 +433,28 @@ function Vozila({
             }
             aria-label={`Otvori detalje motocikla ${vehicle.brand} ${vehicle.model}`}
           >
-            {photos[vehicle.id] ? (
-              <img
-                src={photos[vehicle.id]}
-                alt={`${vehicle.brand} ${vehicle.model}`}
-              />
-            ) : (
-              <div className="no-photo">
-                Nema fotografije
+            <div className="vehicle-card-media">
+              {photos[vehicle.id] ? (
+                <img
+                  src={photos[vehicle.id]}
+                  alt={`${vehicle.brand} ${vehicle.model}`}
+                />
+              ) : (
+                <div className="no-photo">Nema fotografije</div>
+              )}
+              <span className="vehicle-card-year">{vehicle.year}.</span>
+            </div>
+
+            <div className="vehicle-card-content">
+              <span className="vehicle-card-eyebrow">MOJ MOTOCIKL</span>
+              <h3>{vehicle.brand} {vehicle.model}</h3>
+              <div className="vehicle-card-specs">
+                <span>Godina <strong>{vehicle.year}.</strong></span>
+                <span>Kilometraža <strong>{Number(vehicle.mileage).toLocaleString('hr-HR')} km</strong></span>
+                <span>Gorivo <strong>{vehicle.fuel || 'Nije navedeno'}</strong></span>
               </div>
-            )}
-
-            <h3>
-              {vehicle.brand} {vehicle.model}
-            </h3>
-
-            <p>
-              {vehicle.year}. god | {vehicle.mileage} km
-            </p>
+              <span className="vehicle-card-action">Detalji motocikla <span aria-hidden="true">→</span></span>
+            </div>
           </div>
         ))}
       </div>
