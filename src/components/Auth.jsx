@@ -1,9 +1,11 @@
+import { usePreferences } from '../i18n/Preferences'
 
 import { useState } from 'react'
 import { loginUser, registerUser } from '../services/authService'
 import './Auth.css'
 
 function Auth({ onAuthenticated }) {
+  const { t } = usePreferences()
   const [mode, setMode] = useState('login')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -61,7 +63,7 @@ function Auth({ onAuthenticated }) {
 
           <h1 className="auth-title">
             VIRTUALNA GARAŽA
-            <span>ZA MOTOCIKLE</span>
+            <span>{t('ZA MOTOCIKLE')}</span>
           </h1>
 
           <p className="auth-tagline">
@@ -72,7 +74,7 @@ function Auth({ onAuthenticated }) {
         <div
           className="auth-tabs"
           role="group"
-          aria-label="Odabir prijave ili registracije"
+          aria-label={t('Odabir prijave ili registracije' )}
         >
           <button
             type="button"
@@ -120,7 +122,7 @@ function Auth({ onAuthenticated }) {
                 id="auth-name"
                 name="name"
                 type="text"
-                placeholder="Unesi svoje ime"
+                placeholder={t('Unesi svoje ime' )}
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 autoComplete="name"
@@ -140,7 +142,7 @@ function Auth({ onAuthenticated }) {
               id="auth-email"
               name="email"
               type="email"
-              placeholder="Unesi e-mail adresu"
+              placeholder={t('Unesi e-mail adresu' )}
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               autoComplete="email"
@@ -213,7 +215,7 @@ function Auth({ onAuthenticated }) {
         </form>
 
         <div className="auth-divider">
-          <span>ili</span>
+          <span>{t('ili')}</span>
         </div>
 
         <div className="auth-footer">

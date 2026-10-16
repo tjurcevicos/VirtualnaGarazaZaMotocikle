@@ -1,3 +1,4 @@
+import { usePreferences } from '../i18n/Preferences'
 
 import { useEffect, useRef, useState } from 'react'
 import { getPhoto, savePhoto } from '../utils/photoStorage'
@@ -7,6 +8,7 @@ function Vozila({
   onAddVehicle,
   onSelectVehicle,
 }) {
+  const { t } = usePreferences()
   const [showForm, setShowForm] = useState(false)
 
   const [formData, setFormData] = useState({
@@ -262,9 +264,9 @@ function Vozila({
     <section className="page">
       <div className="page-header vehicle-header">
         <div>
-          <p className="page-label">MOJA GARAŽA</p>
+          <p className="page-label">{t('MOJA GARAŽA')}</p>
 
-          <h1>Moji motocikli</h1>
+          <h1>{t('Moji motocikli')}</h1>
 
           <p className="page-description">
             Dodaj i upravljaj svojim motociklima na jednom mjestu.
@@ -290,7 +292,7 @@ function Vozila({
       {showForm && (
         <form className="vehicle-form" onSubmit={handleSubmit}>
           <div className="form-header">
-            <h2>Dodaj motocikl</h2>
+            <h2>{t('Dodaj motocikl')}</h2>
 
             <p>
               Unesi osnovne podatke i odaberi fotografiju svog motocikla.
@@ -305,13 +307,13 @@ function Vozila({
 
           <div className="form-grid">
             <div className="form-group">
-              <label htmlFor="brand">Marka</label>
+              <label htmlFor="brand">{t('Marka')}</label>
 
               <input
                 id="brand"
                 name="brand"
                 type="text"
-                placeholder="npr. Suzuki"
+                placeholder={t('npr. Suzuki' )}
                 value={formData.brand}
                 onChange={handleChange}
                 required
@@ -319,13 +321,13 @@ function Vozila({
             </div>
 
             <div className="form-group">
-              <label htmlFor="model">Model</label>
+              <label htmlFor="model">{t('Model')}</label>
 
               <input
                 id="model"
                 name="model"
                 type="text"
-                placeholder="npr. GSX-R 1300 Hayabusa"
+                placeholder={t('npr. GSX-R 1300 Hayabusa' )}
                 value={formData.model}
                 onChange={handleChange}
                 required
@@ -333,13 +335,13 @@ function Vozila({
             </div>
 
             <div className="form-group">
-              <label htmlFor="year">Godina</label>
+              <label htmlFor="year">{t('Godina')}</label>
 
               <input
                 id="year"
                 name="year"
                 type="number"
-                placeholder="npr. 2022"
+                placeholder={t('npr. 2022' )}
                 min="1900"
                 max={new Date().getFullYear()}
                 value={formData.year}
@@ -349,7 +351,7 @@ function Vozila({
             </div>
 
             <div className="form-group">
-              <label htmlFor="fuel">Gorivo</label>
+              <label htmlFor="fuel">{t('Gorivo')}</label>
 
               <select
                 id="fuel"
@@ -358,21 +360,21 @@ function Vozila({
                 onChange={handleChange}
                 required
               >
-                <option value="">Odaberi gorivo</option>
-                <option value="Benzin">Benzin</option>
-                <option value="Dizel">Dizel</option>
-                <option value="Električni">Električni</option>
+                <option value="">{t('Odaberi gorivo')}</option>
+                <option value="Benzin">{t('Benzin')}</option>
+                <option value="Dizel">{t('Dizel')}</option>
+                <option value="Električni">{t('Električni')}</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label htmlFor="mileage">Kilometraža</label>
+              <label htmlFor="mileage">{t('Kilometraža')}</label>
 
               <input
                 id="mileage"
                 name="mileage"
                 type="number"
-                placeholder="npr. 25000"
+                placeholder={t('npr. 25000' )}
                 min="0"
                 value={formData.mileage}
                 onChange={handleChange}
@@ -380,8 +382,8 @@ function Vozila({
               />
             </div>
               <div className="form-group">
-                <label htmlFor="initialMileage">Početna kilometraža evidencije (km)</label>
-                <input id="initialMileage" name="initialMileage" type="number" min="0" step="1" placeholder="npr. 24000" value={formData.initialMileage} onChange={handleChange} required />
+                <label htmlFor="initialMileage">{t('Početna kilometraža evidencije (km)')}</label>
+                <input id="initialMileage" name="initialMileage" type="number" min="0" step="1" placeholder={t('npr. 24000' )} value={formData.initialMileage} onChange={handleChange} required />
               </div>
           </div>
 
@@ -406,7 +408,7 @@ function Vozila({
               <div className="vehicle-photo-preview">
                 <img
                   src={photoPreview}
-                  alt="Pregled fotografije motocikla"
+                  alt={t('Pregled fotografije motocikla' )}
                 />
 
                 <button
@@ -453,20 +455,20 @@ function Vozila({
                   alt={`${vehicle.brand} ${vehicle.model}`}
                 />
               ) : (
-                <div className="no-photo">Nema fotografije</div>
+                <div className="no-photo">{t('Nema fotografije')}</div>
               )}
               <span className="vehicle-card-year">{vehicle.year}.</span>
             </div>
 
             <div className="vehicle-card-content">
-              <span className="vehicle-card-eyebrow">MOJ MOTOCIKL</span>
+              <span className="vehicle-card-eyebrow">{t('MOJ MOTOCIKL')}</span>
               <h3>{vehicle.brand} {vehicle.model}</h3>
               <div className="vehicle-card-specs">
-                <span>Godina <strong>{vehicle.year}.</strong></span>
-                <span>Kilometraža <strong>{Number(vehicle.mileage).toLocaleString('hr-HR')} km</strong></span>
-                <span>Gorivo <strong>{vehicle.fuel || 'Nije navedeno'}</strong></span>
+                <span>{t('Godina')}<strong>{vehicle.year}.</strong></span>
+                <span>{t('Kilometraža')}<strong>{Number(vehicle.mileage).toLocaleString('hr-HR')} km</strong></span>
+                <span>{t('Gorivo')}<strong>{vehicle.fuel || 'Nije navedeno'}</strong></span>
               </div>
-              <span className="vehicle-card-action">Detalji motocikla <span aria-hidden="true">→</span></span>
+              <span className="vehicle-card-action">{t('Detalji motocikla')}<span aria-hidden="true">→</span></span>
             </div>
           </div>
         ))}

@@ -1,8 +1,10 @@
+import { usePreferences } from '../i18n/Preferences'
 function formatNumber(value, digits = 1) {
   return Number(value).toLocaleString('hr-HR', { maximumFractionDigits: digits })
 }
 
 export function LinijskiGraf({ title, subtitle, points, unit = '' }) {
+  const { t } = usePreferences()
   const values = points.filter((point) => Number.isFinite(point.value))
   const max = Math.max(...values.map((point) => point.value), 0.1)
   const min = Math.min(...values.map((point) => point.value), 0)
@@ -15,7 +17,7 @@ export function LinijskiGraf({ title, subtitle, points, unit = '' }) {
     <section className="analytics-panel">
       <div className="analytics-heading"><h2>{title}</h2><p>{subtitle}</p></div>
       {values.length < 2 ? (
-        <p className="analytics-empty">Za graf su potrebna najmanje dva usporediva točenja.</p>
+        <p className="analytics-empty">{t('Za graf su potrebna najmanje dva usporediva točenja.')}</p>
       ) : (
         <div className="analytics-scroll">
           <svg className="analytics-line" viewBox="0 0 720 235" role="img" aria-label={title}>
@@ -33,11 +35,12 @@ export function LinijskiGraf({ title, subtitle, points, unit = '' }) {
 }
 
 export function StupcastiGraf({ title, subtitle, points, unit = '€' }) {
+  const { t } = usePreferences()
   const max = Math.max(...points.map((point) => point.value), 1)
   return (
     <section className="analytics-panel">
       <div className="analytics-heading"><h2>{title}</h2><p>{subtitle}</p></div>
-      {points.length === 0 ? <p className="analytics-empty">Nema podataka za odabrani motocikl.</p> : (
+      {points.length === 0 ? <p className="analytics-empty">{t('Nema podataka za odabrani motocikl.')}</p> : (
         <div className="analytics-bars" role="img" aria-label={title}>
           {points.map((point) => <div className="analytics-bar-column" key={point.key}>
             <strong>{formatNumber(point.value, 2)} {unit}</strong>

@@ -1,3 +1,4 @@
+import { usePreferences } from '../i18n/Preferences'
 import { LinijskiGraf } from '../components/StatistickiGrafovi'
 import { useState } from 'react'
 import {
@@ -13,6 +14,7 @@ function Gorivo({
   onDeleteFuelRecord,
   onUpdateFuelRecord,
 }) {
+  const { t } = usePreferences()
   const [showForm, setShowForm] = useState(false)
   const [statisticsVehicleId, setStatisticsVehicleId] = useState('')
   const [filterVehicleId, setFilterVehicleId] = useState('')
@@ -382,20 +384,20 @@ function Gorivo({
           )}
 
           <div className="analytics-filter">
-            <label htmlFor="fuel-record-filter">Prikaži točenja za motocikl</label>
+            <label htmlFor="fuel-record-filter">{t('Prikaži točenja za motocikl')}</label>
             <select id="fuel-record-filter" value={filterVehicleId} onChange={(event) => setFilterVehicleId(event.target.value)}>
-              <option value="">Svi motocikli</option>
+              <option value="">{t('Svi motocikli')}</option>
               {vehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.brand} {vehicle.model}</option>)}
             </select>
           </div>
           <div className="analytics-section">
-            <LinijskiGraf title="Graf potrošnje goriva" subtitle="Procjena L/100 km između uzastopnih unosa kilometraže za isti motocikl. Za usporedbu odaberi jedan motocikl." points={consumptionPoints} unit="L/100 km" />
+            <LinijskiGraf title={t('Graf potrošnje goriva' )} subtitle="Procjena L/100 km između uzastopnih unosa kilometraže za isti motocikl. Za usporedbu odaberi jedan motocikl." points={consumptionPoints} unit="L/100 km" />
           </div>
 
           {fuelRecords.length > 0 && (
             <div className="fuel-statistics">
               <div className="form-header">
-                <h2>Detaljna statistika goriva</h2>
+                <h2>{t('Detaljna statistika goriva')}</h2>
                 <p>
                   Pregled cijena goriva i troška po kilometru.
                   Za točan izračun odaberi pojedini motocikl.
@@ -413,7 +415,7 @@ function Gorivo({
                     setStatisticsVehicleId(event.target.value)
                   }
                 >
-                  <option value="">Svi motocikli</option>
+                  <option value="">{t('Svi motocikli')}</option>
                   {vehicles.map((vehicle) => (
                     <option key={vehicle.id} value={vehicle.id}>
                       {vehicle.brand} {vehicle.model}
@@ -425,7 +427,7 @@ function Gorivo({
               {statisticsRecords.length > 0 ? (
                 <div className="fuel-summary">
                   <div className="fuel-summary-card">
-                    <span>Prosječna cijena litre</span>
+                    <span>{t('Prosječna cijena litre')}</span>
                     <strong>
                       {formatFuelNumber(
                         detailedFuelStatistics.averagePricePerLiter,
@@ -434,7 +436,7 @@ function Gorivo({
                     </strong>
                   </div>
                   <div className="fuel-summary-card">
-                    <span>Najniža cijena litre</span>
+                    <span>{t('Najniža cijena litre')}</span>
                     <strong>
                       {formatFuelNumber(
                         detailedFuelStatistics.lowestPricePerLiter,
@@ -443,7 +445,7 @@ function Gorivo({
                     </strong>
                   </div>
                   <div className="fuel-summary-card">
-                    <span>Najviša cijena litre</span>
+                    <span>{t('Najviša cijena litre')}</span>
                     <strong>
                       {formatFuelNumber(
                         detailedFuelStatistics.highestPricePerLiter,
@@ -452,7 +454,7 @@ function Gorivo({
                     </strong>
                   </div>
                   <div className="fuel-summary-card">
-                    <span>Trošak goriva po kilometru</span>
+                    <span>{t('Trošak goriva po kilometru')}</span>
                     <strong>
                       {statisticsVehicleId
                         ? detailedFuelStatistics.fuelCostPerKm !== null
@@ -466,7 +468,7 @@ function Gorivo({
                   </div>
                 </div>
               ) : (
-                <p>Za ovaj motocikl još nema evidentiranih točenja.</p>
+                <p>{t('Za ovaj motocikl još nema evidentiranih točenja.')}</p>
               )}
             </div>
           )}
@@ -549,7 +551,7 @@ function Gorivo({
                     id="liters"
                     name="liters"
                     type="number"
-                    placeholder="npr. 14.5"
+                    placeholder={t('npr. 14.5' )}
                     min="0"
                     step="0.01"
                     value={formData.liters}
@@ -567,7 +569,7 @@ function Gorivo({
                     id="unitPrice"
                     name="unitPrice"
                     type="number"
-                    placeholder="npr. 1.52"
+                    placeholder={t('npr. 1.52' )}
                     min="0.001"
                     step="0.001"
                     value={formData.unitPrice}
@@ -585,7 +587,7 @@ function Gorivo({
                     id="mileage"
                     name="mileage"
                     type="number"
-                    placeholder="npr. 26500"
+                    placeholder={t('npr. 26500' )}
                     min="0"
                     value={formData.mileage}
                     onChange={handleChange}
@@ -606,7 +608,7 @@ function Gorivo({
                             .toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'
                         : ''
                     }
-                    placeholder="Izračunava se automatski"
+                    placeholder={t('Izračunava se automatski' )}
                     readOnly
                   />
                 </div>
@@ -619,7 +621,7 @@ function Gorivo({
                     id="station"
                     name="station"
                     type="text"
-                    placeholder="npr. INA, Petrol, Tifon"
+                    placeholder={t('npr. INA, Petrol, Tifon' )}
                     value={formData.station}
                     onChange={handleChange}
                   />
@@ -800,15 +802,15 @@ function Gorivo({
 
                       {record.station && (
                         <div>
-                          <span>Benzinska postaja</span>
+                          <span>{t('Benzinska postaja')}</span>
                           <strong>{record.station}</strong>
                         </div>
                       )}
 
                       {record.fullTank === true && (
                         <div>
-                          <span>Spremnik</span>
-                          <strong>Napunjeno do vrha</strong>
+                          <span>{t('Spremnik')}</span>
+                          <strong>{t('Napunjeno do vrha')}</strong>
                         </div>
                       )}
 

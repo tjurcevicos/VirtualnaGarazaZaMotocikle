@@ -1,3 +1,4 @@
+import { usePreferences } from '../i18n/Preferences'
 import { useState } from 'react'
 import { reminderInfo } from '../utils/garageInsights'
 
@@ -8,6 +9,7 @@ function Podsjetnici({
   onDeleteReminder,
   onUpdateReminder,
 }) {
+  const { t } = usePreferences()
   const [showForm, setShowForm] = useState(false)
   const [editingReminderId, setEditingReminderId] =
     useState(null)
@@ -330,7 +332,7 @@ function Podsjetnici({
                     id="reminderTitle"
                     name="title"
                     type="text"
-                    placeholder="npr. Godišnji servis"
+                    placeholder={t('npr. Godišnji servis' )}
                     value={formData.title}
                     onChange={handleChange}
                     required
@@ -406,18 +408,18 @@ function Podsjetnici({
 
           {reminders.length > 0 && (
             <div className="garage-reminder-filters">
-              <label htmlFor="reminderStatusFilter">Prikaži podsjetnike</label>
+              <label htmlFor="reminderStatusFilter">{t('Prikaži podsjetnike')}</label>
               <select id="reminderStatusFilter" value={reminderFilter} onChange={(event) => setReminderFilter(event.target.value)}>
-                <option value="all">Svi rokovi</option>
-                <option value="expired">Istekli</option>
-                <option value="upcoming">Uskoro (7 dana)</option>
-                <option value="active">Aktivni</option>
+                <option value="all">{t('Svi rokovi')}</option>
+                <option value="expired">{t('Istekli')}</option>
+                <option value="upcoming">{t('Uskoro (7 dana)')}</option>
+                <option value="active">{t('Aktivni')}</option>
               </select>
               <span>{visibleReminders.length} prikazano</span>
             </div>
           )}
           {reminders.length > 0 && visibleReminders.length === 0 && (
-            <div className="empty-state"><h2>Nema podsjetnika za odabrani status</h2></div>
+            <div className="empty-state"><h2>{t('Nema podsjetnika za odabrani status')}</h2></div>
           )}
           {visibleReminders.length > 0 && (
             <div className="reminder-list">

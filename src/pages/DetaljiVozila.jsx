@@ -1,3 +1,4 @@
+import { usePreferences } from '../i18n/Preferences'
 import { exportGaragePdf } from '../utils/pdfExport'
 
 import { useEffect, useRef, useState } from 'react'
@@ -17,6 +18,7 @@ function DetaljiVozila({
   onDeleteService,
   onUpdateVehicle,
 }) {
+  const { t } = usePreferences()
   const [showServiceForm, setShowServiceForm] = useState(false)
   const [pdfBusy, setPdfBusy] = useState(false)
   const [pdfError, setPdfError] = useState('')
@@ -419,7 +421,7 @@ function DetaljiVozila({
         <div className="vehicle-detail-icon">🏍️</div>
 
         <div>
-          <p className="page-label">MOTOCIKL</p>
+          <p className="page-label">{t('MOTOCIKL')}</p>
 
           <h1>
             {vehicle.brand} {vehicle.model}
@@ -434,8 +436,8 @@ function DetaljiVozila({
       <div className="detail-section vehicle-photo-section">
         <div className="detail-section-header">
           <div>
-            <p className="page-label">MOJA GARAŽA</p>
-            <h2>Fotografija motocikla</h2>
+            <p className="page-label">{t('MOJA GARAŽA')}</p>
+            <h2>{t('Fotografija motocikla')}</h2>
           </div>
         </div>
 
@@ -448,7 +450,7 @@ function DetaljiVozila({
           ) : (
             <div className="detail-no-photo">
               <span>🏍️</span>
-              <p>Još nema fotografije ovog motocikla.</p>
+              <p>{t('Još nema fotografije ovog motocikla.')}</p>
             </div>
           )}
         </div>
@@ -504,8 +506,8 @@ function DetaljiVozila({
       <div className="detail-section">
         <div className="detail-section-header">
           <div>
-            <p className="page-label">PODACI</p>
-            <h2>Podaci o motociklu</h2>
+            <p className="page-label">{t('PODACI')}</p>
+            <h2>{t('Podaci o motociklu')}</h2>
           </div>
 
           <button
@@ -528,7 +530,7 @@ function DetaljiVozila({
             onSubmit={handleVehicleSubmit}
           >
             <div className="form-header">
-              <h2>Uredi motocikl</h2>
+              <h2>{t('Uredi motocikl')}</h2>
               <p>
                 Izmijeni osnovne podatke svog motocikla.
               </p>
@@ -594,10 +596,10 @@ function DetaljiVozila({
                   onChange={handleVehicleChange}
                   required
                 >
-                  <option value="">Odaberi gorivo</option>
-                  <option value="Benzin">Benzin</option>
-                  <option value="Dizel">Dizel</option>
-                  <option value="Električni">Električni</option>
+                  <option value="">{t('Odaberi gorivo')}</option>
+                  <option value="Benzin">{t('Benzin')}</option>
+                  <option value="Dizel">{t('Dizel')}</option>
+                  <option value="Električni">{t('Električni')}</option>
                 </select>
               </div>
 
@@ -617,7 +619,7 @@ function DetaljiVozila({
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="editInitialMileage">Početna kilometraža evidencije (km)</label>
+                <label htmlFor="editInitialMileage">{t('Početna kilometraža evidencije (km)')}</label>
                 <input id="editInitialMileage" name="initialMileage" type="number" min="0" step="1" value={vehicleForm.initialMileage} onChange={handleVehicleChange} required />
               </div>
             </div>
@@ -647,33 +649,33 @@ function DetaljiVozila({
 
         <div className="vehicle-detail-grid">
           <div className="detail-card">
-            <span>Marka</span>
+            <span>{t('Marka')}</span>
             <strong>{vehicle.brand}</strong>
           </div>
 
           <div className="detail-card">
-            <span>Model</span>
+            <span>{t('Model')}</span>
             <strong>{vehicle.model}</strong>
           </div>
 
           <div className="detail-card">
-            <span>Godina</span>
+            <span>{t('Godina')}</span>
             <strong>{vehicle.year}</strong>
           </div>
 
           <div className="detail-card">
-            <span>Gorivo</span>
+            <span>{t('Gorivo')}</span>
             <strong>{vehicle.fuel}</strong>
           </div>
 
           <div className="detail-card">
-            <span>Kilometraža</span>
+            <span>{t('Kilometraža')}</span>
             <strong>
               {Number(vehicle.mileage).toLocaleString('hr-HR')} km
             </strong>
           </div>
           <div className="detail-card">
-            <span>Početna kilometraža evidencije</span>
+            <span>{t('Početna kilometraža evidencije')}</span>
             <strong>{vehicle.initialMileage === undefined || vehicle.initialMileage === null ? 'Nije unesena' : `${Number(vehicle.initialMileage).toLocaleString('hr-HR')} km`}</strong>
           </div>
         </div>
@@ -682,8 +684,8 @@ function DetaljiVozila({
       <div className="detail-section">
         <div className="detail-section-header">
           <div>
-            <p className="page-label">ODRŽAVANJE</p>
-            <h2>Servisna povijest</h2>
+            <p className="page-label">{t('ODRŽAVANJE')}</p>
+            <h2>{t('Servisna povijest')}</h2>
           </div>
 
           <button
@@ -705,8 +707,8 @@ function DetaljiVozila({
             onSubmit={handleServiceSubmit}
           >
             <div className="form-header">
-              <h2>Dodaj servis</h2>
-              <p>Unesi podatke o obavljenom servisu.</p>
+              <h2>{t('Dodaj servis')}</h2>
+              <p>{t('Unesi podatke o obavljenom servisu.')}</p>
             </div>
 
             {error && (
@@ -717,7 +719,7 @@ function DetaljiVozila({
 
             <div className="form-grid">
               <div className="form-group">
-                <label htmlFor="detailServiceDate">Datum</label>
+                <label htmlFor="detailServiceDate">{t('Datum')}</label>
                 <input
                   id="detailServiceDate"
                   name="date"
@@ -737,7 +739,7 @@ function DetaljiVozila({
                   id="detailServiceMileage"
                   name="mileage"
                   type="number"
-                  placeholder="npr. 25000"
+                  placeholder={t('npr. 25000' )}
                   min="0"
                   step="1"
                   value={serviceData.mileage}
@@ -747,12 +749,12 @@ function DetaljiVozila({
               </div>
 
               <div className="form-group">
-                <label htmlFor="detailServicePrice">Cijena</label>
+                <label htmlFor="detailServicePrice">{t('Cijena')}</label>
                 <input
                   id="detailServicePrice"
                   name="price"
                   type="number"
-                  placeholder="npr. 150"
+                  placeholder={t('npr. 150' )}
                   min="0.01"
                   step="0.01"
                   value={serviceData.price}
@@ -769,7 +771,7 @@ function DetaljiVozila({
                   id="detailServiceDescription"
                   name="description"
                   type="text"
-                  placeholder="npr. Zamjena ulja i filtera"
+                  placeholder={t('npr. Zamjena ulja i filtera' )}
                   value={serviceData.description}
                   onChange={handleServiceChange}
                   required
@@ -799,7 +801,7 @@ function DetaljiVozila({
         {vehicleServices.length === 0 && !showServiceForm && (
           <div className="coming-soon-card">
             <div className="coming-soon-icon">🔧</div>
-            <h3>Nema evidentiranih servisa</h3>
+            <h3>{t('Nema evidentiranih servisa')}</h3>
             <p>
               Dodaj prvi servis ovog motocikla kako bi imao pregled
               održavanja.
@@ -834,14 +836,14 @@ function DetaljiVozila({
 
                 <div className="service-card-details">
                   <div>
-                    <span>Kilometraža</span>
+                    <span>{t('Kilometraža')}</span>
                     <strong>
                       {Number(service.mileage).toLocaleString('hr-HR')} km
                     </strong>
                   </div>
 
                   <div>
-                    <span>Cijena</span>
+                    <span>{t('Cijena')}</span>
                     <strong>
                       {Number(service.price).toLocaleString('hr-HR', {
                         minimumFractionDigits: 2,
@@ -867,8 +869,8 @@ function DetaljiVozila({
       <div className="detail-section">
         <div className="detail-section-header">
           <div>
-            <p className="page-label">TROŠKOVI</p>
-            <h2>Troškovi motocikla</h2>
+            <p className="page-label">{t('TROŠKOVI')}</p>
+            <h2>{t('Troškovi motocikla')}</h2>
             <button type="button" className="primary-button" onClick={handleVehiclePdf} disabled={pdfBusy || (vehicleExpenses.length === 0 && vehicleServices.length === 0)}>
               {pdfBusy ? 'Izvoz...' : 'PDF izvještaj'}
             </button>
@@ -880,11 +882,11 @@ function DetaljiVozila({
         </div>
         <div className="vehicle-detail-grid">
           <div className="detail-card">
-            <span>Broj troškova</span>
+            <span>{t('Broj troškova')}</span>
             <strong>{vehicleExpenses.length}</strong>
           </div>
           <div className="detail-card">
-            <span>Ukupno potrošeno</span>
+            <span>{t('Ukupno potrošeno')}</span>
             <strong>
               {totalVehicleExpenses.toLocaleString('hr-HR', {
                 minimumFractionDigits: 2,
@@ -897,7 +899,7 @@ function DetaljiVozila({
         {vehicleExpenses.length === 0 ? (
           <div className="coming-soon-card">
             <div className="coming-soon-icon">€</div>
-            <h3>Nema evidentiranih troškova</h3>
+            <h3>{t('Nema evidentiranih troškova')}</h3>
             <p>
               Troškove možeš dodati na stranici Troškovi. Kada ih povežeš
               s ovim motociklom, prikazat će se ovdje.
@@ -924,7 +926,7 @@ function DetaljiVozila({
                   </div>
                   <div className="service-card-details">
                     <div>
-                      <span>Iznos</span>
+                      <span>{t('Iznos')}</span>
                       <strong>
                         {Number(expense.amount || 0).toLocaleString('hr-HR', {
                           minimumFractionDigits: 2,

@@ -1,3 +1,4 @@
+import { usePreferences } from '../i18n/Preferences'
 import { useState } from 'react'
 
 function Servisi({
@@ -7,6 +8,7 @@ function Servisi({
   onDeleteService,
   onUpdateService,
 }) {
+  const { t } = usePreferences()
   const [showForm, setShowForm] = useState(false)
   const [editingServiceId, setEditingServiceId] =
     useState(null)
@@ -298,7 +300,7 @@ function Servisi({
                     id="serviceMileage"
                     name="mileage"
                     type="number"
-                    placeholder="npr. 25000"
+                    placeholder={t('npr. 25000' )}
                     min="0"
                     value={formData.mileage}
                     onChange={handleChange}
@@ -315,7 +317,7 @@ function Servisi({
                     id="servicePrice"
                     name="price"
                     type="number"
-                    placeholder="npr. 150"
+                    placeholder={t('npr. 150' )}
                     min="0"
                     step="0.01"
                     value={formData.price}
@@ -333,7 +335,7 @@ function Servisi({
                     id="serviceDescription"
                     name="description"
                     type="text"
-                    placeholder="npr. Zamjena ulja i filtera"
+                    placeholder={t('npr. Zamjena ulja i filtera' )}
                     value={formData.description}
                     onChange={handleChange}
                     required

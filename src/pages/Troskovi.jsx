@@ -1,3 +1,4 @@
+import { usePreferences } from '../i18n/Preferences'
 import { exportGaragePdf } from '../utils/pdfExport'
 import { StupcastiGraf } from '../components/StatistickiGrafovi'
 import { useState } from 'react'
@@ -9,6 +10,7 @@ function Troskovi({
   onDeleteExpense,
   onUpdateExpense,
 }) {
+  const { t } = usePreferences()
   const [showForm, setShowForm] = useState(false)
   const [pdfError, setPdfError] = useState('')
   const [pdfBusy, setPdfBusy] = useState(false)
@@ -477,7 +479,7 @@ function Troskovi({
                     id="amount"
                     name="amount"
                     type="number"
-                    placeholder="npr. 150"
+                    placeholder={t('npr. 150' )}
                     min="0"
                     step="0.01"
                     value={formData.amount}
@@ -495,7 +497,7 @@ function Troskovi({
                     id="expenseDescription"
                     name="description"
                     type="text"
-                    placeholder="npr. Zamjena prednjih guma"
+                    placeholder={t('npr. Zamjena prednjih guma' )}
                     value={formData.description}
                     onChange={handleChange}
                     required
@@ -529,8 +531,8 @@ function Troskovi({
           <div className="expense-filter-panel">
             <div className="expense-filter-heading">
               <div>
-                <h2>Filtriranje troškova</h2>
-                <p>Pronađi troškove prema motociklu, kategoriji i razdoblju.</p>
+                <h2>{t('Filtriranje troškova')}</h2>
+                <p>{t('Pronađi troškove prema motociklu, kategoriji i razdoblju.')}</p>
               </div>
               <button type="button" className="expense-filter-reset" disabled={!filtersActive} onClick={() => {
                 setFilterVehicleId('')
@@ -538,48 +540,48 @@ function Troskovi({
                 setFilterFrom('')
                 setFilterTo('')
                 setSortOrder('newest')
-              }}>Poništi filtre</button>
+              }}>{t('Poništi filtre')}</button>
             </div>
             <div className="expense-filter-grid">
               <div className="form-group">
-                <label htmlFor="expense-vehicle-filter">Motocikl</label>
+                <label htmlFor="expense-vehicle-filter">{t('Motocikl')}</label>
                 <select id="expense-vehicle-filter" value={filterVehicleId} onChange={(event) => setFilterVehicleId(event.target.value)}>
-                  <option value="">Svi motocikli</option>
+                  <option value="">{t('Svi motocikli')}</option>
                   {vehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.brand} {vehicle.model}</option>)}
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="expense-category-filter">Kategorija</label>
+                <label htmlFor="expense-category-filter">{t('Kategorija')}</label>
                 <select id="expense-category-filter" value={filterCategory} onChange={(event) => setFilterCategory(event.target.value)}>
-                  <option value="">Sve kategorije</option>
+                  <option value="">{t('Sve kategorije')}</option>
                   {categories.map((category) => <option key={category} value={category}>{category}</option>)}
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="expense-from-filter">Datum od</label>
+                <label htmlFor="expense-from-filter">{t('Datum od')}</label>
                 <input id="expense-from-filter" type="date" max={filterTo || undefined} value={filterFrom} onChange={(event) => setFilterFrom(event.target.value)} />
               </div>
               <div className="form-group">
-                <label htmlFor="expense-to-filter">Datum do</label>
+                <label htmlFor="expense-to-filter">{t('Datum do')}</label>
                 <input id="expense-to-filter" type="date" min={filterFrom || undefined} value={filterTo} onChange={(event) => setFilterTo(event.target.value)} />
               </div>
               <div className="form-group">
-                <label htmlFor="expense-sort-filter">Poredak</label>
+                <label htmlFor="expense-sort-filter">{t('Poredak')}</label>
                 <select id="expense-sort-filter" value={sortOrder} onChange={(event) => setSortOrder(event.target.value)}>
-                  <option value="newest">Najnoviji prvo</option>
-                  <option value="oldest">Najstariji prvo</option>
-                  <option value="highest">Najveći iznos prvo</option>
-                  <option value="lowest">Najmanji iznos prvo</option>
+                  <option value="newest">{t('Najnoviji prvo')}</option>
+                  <option value="oldest">{t('Najstariji prvo')}</option>
+                  <option value="highest">{t('Najveći iznos prvo')}</option>
+                  <option value="lowest">{t('Najmanji iznos prvo')}</option>
                 </select>
               </div>
             </div>
             <div className="expense-filter-results" aria-live="polite">
-              <span>Prikazano <strong>{filteredExpenses.length}</strong> od {expenses.length} troškova</span>
-              <span>Ukupno u odabiru <strong>{filteredTotal.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</strong></span>
+              <span>{t('Prikazano')}<strong>{filteredExpenses.length}</strong> od {expenses.length} troškova</span>
+              <span>{t('Ukupno u odabiru')}<strong>{filteredTotal.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</strong></span>
             </div>
           </div>
           <div className="analytics-section">
-            <StupcastiGraf title="Mjesečni troškovi" subtitle="Ukupni evidentirani troškovi po mjesecima, do 12 posljednjih mjeseci s unosima." points={monthlyPoints} />
+            <StupcastiGraf title={t('Mjesečni troškovi' )} subtitle="Ukupni evidentirani troškovi po mjesecima, do 12 posljednjih mjeseci s unosima." points={monthlyPoints} />
           </div>
 
           {expenses.length === 0 &&
@@ -612,7 +614,7 @@ function Troskovi({
             )}
 
           {expenses.length > 0 && filteredExpenses.length === 0 && (
-            <div className="empty-state"><h2>Nema troškova za odabrane filtre</h2><p>Promijeni razdoblje ili poništi filtre.</p></div>
+            <div className="empty-state"><h2>{t('Nema troškova za odabrane filtre')}</h2><p>{t('Promijeni razdoblje ili poništi filtre.')}</p></div>
           )}
 
           {expenses.length > 0 && filteredExpenses.length > 0 && (

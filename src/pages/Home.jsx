@@ -1,3 +1,4 @@
+import { usePreferences } from '../i18n/Preferences'
 import UsporedbaMotocikala from '../components/UsporedbaMotocikala'
 import { useEffect, useState } from 'react'
 import { getPhoto } from '../utils/photoStorage'
@@ -16,6 +17,7 @@ function Home({
   reminders,
 
 }) {
+  const { t } = usePreferences()
   const [photoSlides, setPhotoSlides] = useState([])
   const [activeSlide, setActiveSlide] = useState(0)
 
@@ -353,9 +355,9 @@ function Home({
         <div className="garage-hero-overlay" />
 
         <div className="garage-hero-content">
-          <p className="page-label">VIRTUALNA GARAŽA</p>
+          <p className="page-label">{t('VIRTUALNA GARAŽA')}</p>
 
-          <h1>Dobrodošao u svoju garažu</h1>
+          <h1>{t('Dobrodošao u svoju garažu')}</h1>
 
           <p className="page-description">
             Pregled svih važnih podataka o tvojim motociklima na jednom mjestu.
@@ -363,7 +365,7 @@ function Home({
 
           {currentSlide && (
             <div className="garage-hero-bike">
-              <span className="garage-hero-bike-label">U tvojoj garaži</span>
+              <span className="garage-hero-bike-label">{t('U tvojoj garaži')}</span>
               <strong>
                 {currentSlide.vehicle.brand} {currentSlide.vehicle.model}
               </strong>
@@ -377,7 +379,7 @@ function Home({
         </div>
 
         {photoSlides.length > 1 && (
-          <div className="garage-hero-controls" aria-label="Fotografije motocikala">
+          <div className="garage-hero-controls" aria-label={t('Fotografije motocikala' )}>
             <span className="garage-hero-slide-count">
               {activeSlide + 1} / {photoSlides.length}
             </span>
@@ -398,11 +400,11 @@ function Home({
       </section>
 
       {urgentReminders.length > 0 && (
-        <section className="garage-alerts" aria-label="Važni rokovi">
+        <section className="garage-alerts" aria-label={t('Važni rokovi' )}>
           <div className="garage-insight-heading">
             <div>
-              <p className="page-label">VAŽNI ROKOVI</p>
-              <h2>Podsjetnici koji traže pažnju</h2>
+              <p className="page-label">{t('VAŽNI ROKOVI')}</p>
+              <h2>{t('Podsjetnici koji traže pažnju')}</h2>
             </div>
             <strong>{urgentReminders.length}</strong>
           </div>
@@ -421,12 +423,12 @@ function Home({
       )}
 
       {ownership.length > 0 && (
-        <section className="garage-ownership" aria-label="Trošak vlasništva">
+        <section className="garage-ownership" aria-label={t('Trošak vlasništva' )}>
           <div className="garage-insight-heading">
             <div>
-              <p className="page-label">ANALIZA TROŠKOVA</p>
-              <h2>Trošak vlasništva po motociklu</h2>
-              <p className="page-description">Zbroj evidentiranog goriva, servisa i ostalih troškova.</p>
+              <p className="page-label">{t('ANALIZA TROŠKOVA')}</p>
+              <h2>{t('Trošak vlasništva po motociklu')}</h2>
+              <p className="page-description">{t('Zbroj evidentiranog goriva, servisa i ostalih troškova.')}</p>
             </div>
           </div>
           <div className="garage-ownership-grid">
@@ -435,20 +437,20 @@ function Home({
                 <span className="garage-ownership-label">{item.vehicle.year} · MOTOCIKL</span>
                 <h3>{item.vehicle.brand} {item.vehicle.model}</h3>
                 <div className="garage-ownership-total">
-                  <span>Ukupno evidentirano</span>
+                  <span>{t('Ukupno evidentirano')}</span>
                   <strong>{formatEuro(item.total)}</strong>
                 </div>
                 <div className="garage-ownership-breakdown">
-                  <span>Gorivo <strong>{formatEuro(item.fuelCost)}</strong></span>
-                  <span>Servisi <strong>{formatEuro(item.serviceCost)}</strong></span>
-                  <span>Ostalo <strong>{formatEuro(item.extraCost)}</strong></span>
-                  <span>Po kilometru <strong>{item.perKm === null ? 'Nema podataka' : `${item.perKm.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €/km`}</strong></span>
+                  <span>{t('Gorivo')}<strong>{formatEuro(item.fuelCost)}</strong></span>
+                  <span>{t('Servisi')}<strong>{formatEuro(item.serviceCost)}</strong></span>
+                  <span>{t('Ostalo')}<strong>{formatEuro(item.extraCost)}</strong></span>
+                  <span>{t('Po kilometru')}<strong>{item.perKm === null ? 'Nema podataka' : `${item.perKm.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €/km`}</strong></span>
                 </div>
-                {item.omitted > 0 && <small>Stavke goriva i servisa iz Troškova izostavljene su kada postoje zasebne evidencije tih kategorija.</small>}
+                {item.omitted > 0 && <small>{t('Stavke goriva i servisa iz Troškova izostavljene su kada postoje zasebne evidencije tih kategorija.')}</small>}
               </article>
             ))}
           </div>
-          <p className="garage-ownership-note">Trošak po kilometru računa se prema razlici trenutačne i početne kilometraže evidencije. Za postojeće motocikle unesi početnu kilometražu u detaljima. Ne uključuje kupovnu cijenu motocikla.</p>
+          <p className="garage-ownership-note">{t('Trošak po kilometru računa se prema razlici trenutačne i početne kilometraže evidencije. Za postojeće motocikle unesi početnu kilometražu u detaljima. Ne uključuje kupovnu cijenu motocikla.')}</p>
         </section>
       )}
 
