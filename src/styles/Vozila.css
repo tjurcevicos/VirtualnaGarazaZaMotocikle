@@ -1,3 +1,242 @@
+.vehicle-header {
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+}
+
+.vehicle-form {
+
+  margin-bottom: 24px;
+
+  padding: 28px;
+
+  border: 1px solid #2b2f33;
+
+  border-radius: 12px;
+
+  background: #191c1f;
+
+}
+
+.vehicles-grid {
+
+  display: grid;
+
+  grid-template-columns:
+
+    repeat(2, 1fr);
+
+  gap: 18px;
+
+}
+
+.vehicle-card {
+
+  padding: 24px;
+
+  border: 1px solid #2b2f33;
+
+  border-radius: 12px;
+
+  background: #191c1f;
+
+  transition:
+
+    border-color 0.2s ease,
+
+    transform 0.2s ease;
+
+}
+
+.vehicle-card:hover {
+
+  border-color: #3b4146;
+
+  transform: translateY(-2px);
+
+}
+
+.vehicle-card-top {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+
+}
+
+.vehicle-icon {
+
+  width: 46px;
+
+  height: 46px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #24282c;
+
+  font-size: 22px;
+
+}
+
+.vehicle-year {
+
+  color: #8f969c;
+
+  font-size: 13px;
+
+}
+
+.vehicle-card h2 {
+
+  margin: 0 0 22px;
+
+  color: #ffffff;
+
+  font-size: 22px;
+
+}
+
+.vehicle-details {
+
+  display: grid;
+
+  grid-template-columns:
+
+    repeat(2, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 18px;
+
+}
+
+.vehicle-details div {
+
+  padding: 13px;
+
+  border-radius: 8px;
+
+  background: #111315;
+
+}
+
+.vehicle-details span {
+
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #777f85;
+
+  font-size: 11px;
+
+}
+
+.vehicle-details strong {
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+}
+
+.vehicle-details-button {
+
+  width: 100%;
+
+  padding: 11px 14px;
+
+  border: 1px solid #34393e;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #d9dde0;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+
+    background-color 0.2s ease,
+
+    border-color 0.2s ease;
+
+}
+
+.vehicle-details-button:hover {
+
+  background: #24282c;
+
+  border-color: #4a5157;
+
+}
+
+.vehicle-card-info {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: 8px 16px;
+
+  margin-top: 12px;
+
+}
+
+.vehicle-card-info span {
+
+  line-height: 1.5;
+
+}
+
+.vehicle-form .form-grid > .form-group:last-child {
+  display: flex;
+  justify-content: center;
+  align-self: stretch;
+}
+
+.vehicle-form .form-grid > .form-group:last-child label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.vehicle-form .form-grid > .form-group:last-child input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  margin: 0;
+  padding: 0;
+  accent-color: #e63946;
+}
+
 .vehicles-list {
 
   display: grid;
