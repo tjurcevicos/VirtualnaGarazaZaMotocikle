@@ -12,6 +12,7 @@ import Servisi from './pages/Servisi'
 import Gorivo from './pages/Gorivo'
 import Troskovi from './pages/Troskovi'
 import Podsjetnici from './pages/Podsjetnici'
+import Postavke from './pages/Postavke'
 
 import { deletePhoto } from './utils/photoStorage'
 import useGarageData from './hooks/useGarageData'
@@ -255,6 +256,9 @@ function GarageApp({ user, onLogout }) {
             onUpdateReminder={handleUpdateReminder}
           />
         )
+
+      case 'postavke':
+        return <Postavke userId={user.id} />
 
       case 'home':
       default:

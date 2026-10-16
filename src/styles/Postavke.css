@@ -1,0 +1,28 @@
+.postavke-page{color:#f3f5f6;max-width:1240px;margin:0 auto;padding:8px 0 36px}
+.postavke-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
+.postavke-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;color:#ef4755}
+.postavke-heading h1{font-size:32px;line-height:1.2;margin:9px 0 8px;font-weight:750}
+.postavke-heading p,.postavke-card p,.postavke-confirm p{color:#a6afb7;line-height:1.7;margin:0}
+.postavke-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.postavke-card,.postavke-confirm{background:linear-gradient(155deg,#20262b,#171c20);border:1px solid #333b42;border-radius:16px;padding:28px;box-shadow:0 12px 28px #00000020}
+.postavke-card{display:flex;flex-direction:column;align-items:flex-start;gap:17px;min-height:285px}
+.postavke-card-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:12px;background:#5b2028;color:#ff6470;font-size:26px;font-weight:700}
+.postavke-card h2,.postavke-confirm h2{font-size:19px;margin:0;font-weight:700}
+.postavke-card p{flex:1;font-size:14px}
+.postavke-primary,.postavke-file,.postavke-secondary,.postavke-danger{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,border-color .2s;color:#fff}
+.postavke-primary{background:#dc3545;border:1px solid #ef4755}
+.postavke-primary:hover{background:#ef4755}
+.postavke-file,.postavke-secondary{background:#30383e;border:1px solid #4b565f}
+.postavke-file:hover,.postavke-secondary:hover{background:#3b454d}
+.postavke-file input{display:none}
+.postavke-danger{background:#b72d39;border:1px solid #db3b49}
+.postavke-danger:hover{background:#cf3644}
+.postavke-primary:disabled,.postavke-secondary:disabled,.postavke-danger:disabled,.postavke-disabled{opacity:.55;pointer-events:none}
+.postavke-confirm{margin-top:20px;display:flex;flex-direction:column;gap:16px}
+.postavke-warning{color:#ffb1b6!important}
+.postavke-actions{display:flex;gap:12px;flex-wrap:wrap}
+.postavke-message,.postavke-error{padding:13px 16px;border-radius:10px;margin-top:18px;font-size:14px}
+.postavke-message{background:#183c30;color:#a1ebc7;border:1px solid #2c6651}
+.postavke-error{background:#47232a;color:#ffc1c7;border:1px solid #7a3945}
+.postavke-footnote{color:#87929c;font-size:12px;margin-top:22px;line-height:1.7}
+@media(max-width:780px){.postavke-grid{grid-template-columns:1fr}.postavke-card{min-height:0}.postavke-heading h1{font-size:27px}}
