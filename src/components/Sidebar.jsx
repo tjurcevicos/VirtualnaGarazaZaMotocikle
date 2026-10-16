@@ -1,3 +1,4 @@
+import { usePreferences } from '../i18n/Preferences'
 const icons = {
   home: <><path d="m3 10 9-7 9 7" /><path d="M5 9v12h14V9" /><path d="M9 21v-7h6v7" /></>,
   vozila: <><circle cx="5.5" cy="17" r="3" /><circle cx="18.5" cy="17" r="3" /><path d="M8.5 17h5l-3-7h-4l-2 4" /><path d="m13.5 17 2-5h3l2 2" /><path d="M10 10 8 7h3" /></>,
@@ -9,6 +10,7 @@ const icons = {
 }
 
 function Sidebar({ activePage, onNavigate }) {
+  const { t } = usePreferences()
   const menuItems = [
     { id: 'home', label: 'Početna' },
     { id: 'vozila', label: 'Vozila' },
@@ -41,7 +43,7 @@ function Sidebar({ activePage, onNavigate }) {
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               {icons[item.id]}
             </svg>
-            <span className="nav-label">{item.label}</span>
+            <span className="nav-label">{t(item.label)}</span>
             <svg className="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="m9 18 6-6-6-6" />
             </svg>

@@ -1,8 +1,10 @@
+import { usePreferences } from '../i18n/Preferences'
 import { useState } from 'react'
 import { createBackup, downloadBackup, restoreBackup, validateBackup } from '../utils/backupStorage'
 import '../styles/Postavke.css'
 
 function Postavke({ userId }) {
+  const { theme, setTheme, language, setLanguage, t } = usePreferences()
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
@@ -54,18 +56,40 @@ function Postavke({ userId }) {
   return (
     <div className="postavke-page">
       <div className="postavke-heading">
-        <div><span className="postavke-eyebrow">VIRTUALNA GARAŽA</span><h1>Postavke</h1><p>Upravljanje sigurnosnim kopijama podataka garaže.</p></div>
+        <div><span className="postavke-eyebrow">VIRTUALNA GARAŽA</span><h1>{t('Postavke')}</h1><p>Upravljanje sigurnosnim kopijama podataka garaže.</p></div>
       </div>
+      <section className="postavke-personalization">
+        <div className="postavke-personalization-header"><h2>{t('Izgled aplikacije')}</h2><p>Odaberi izgled cijele garaže. Promjene se automatski spremaju.</p></div>
+        <div className="postavke-theme-grid">
+          {[
+            ['dark','Tamna'], ['light','Svijetla'], ['blue','Plava'],
+            ['graphite','Grafitna'], ['emerald','Smaragdna'], ['purple','Ljubičasta'],
+          ].map(([id, label]) => (
+            <button type="button" key={id} className={`postavke-theme-choice ${theme === id ? 'selected' : ''}`} onClick={() => setTheme(id)} aria-pressed={theme === id}>
+              <span className={`postavke-theme-preview preview-${id}`}><i/><i/><i/></span>
+              <span>{t(label)}</span><span className="postavke-theme-check">{theme === id ? '✓' : ''}</span>
+            </button>
+          ))}
+        </div>
+        <div className="postavke-language-row">
+          <label htmlFor="garage-language">{t('Jezik aplikacije')}</label>
+          <select id="garage-language" value={language} onChange={(event) => setLanguage(event.target.value)}>
+            <option value="hr">🇭🇷 Hrvatski</option><option value="en">🇬🇧 English</option>
+            <option value="de">🇩🇪 Deutsch</option><option value="it">🇮🇹 Italiano</option>
+            <option value="sl">🇸🇮 Slovenščina</option>
+          </select>
+        </div>
+      </section>
       <div className="postavke-grid">
         <section className="postavke-card">
           <div className="postavke-card-icon">↓</div>
-          <h2>Izvoz sigurnosne kopije</h2>
+          <h2>{t('Izvoz sigurnosne kopije')}</h2>
           <p>Preuzmi motocikle, servise, gorivo, troškove, podsjetnike i fotografije u jednoj JSON datoteci.</p>
           <button className="postavke-primary" type="button" disabled={busy} onClick={handleExport}>{busy ? 'Pričekaj...' : 'Preuzmi sigurnosnu kopiju'}</button>
         </section>
         <section className="postavke-card">
           <div className="postavke-card-icon">↑</div>
-          <h2>Vraćanje podataka</h2>
+          <h2>{t('Vraćanje podataka')}</h2>
           <p>Odaberi prethodno spremljenu JSON datoteku. Prije zamjene podataka prikazat će se potvrda.</p>
           <label className={`postavke-file ${busy ? 'postavke-disabled' : ''}`}>
             Odaberi JSON datoteku
@@ -75,10 +99,10 @@ function Postavke({ userId }) {
       </div>
       {pending && (
         <section className="postavke-confirm">
-          <h2>Potvrdi vraćanje sigurnosne kopije</h2>
+          <h2>{t('Potvrdi vraćanje sigurnosne kopije')}</h2>
           <p>Sigurnosna kopija od {pending.exportedAt ? new Date(pending.exportedAt).toLocaleString('hr-HR') : 'nepoznatog datuma'} sadrži {pending.data.vehicles.length} motocikala, {pending.data.services.length} servisa, {pending.data.fuelRecords.length} točenja, {pending.data.expenses.length} troškova i {pending.data.reminders.length} podsjetnika.</p>
           <p className="postavke-warning">Postojeći podaci ovog korisnika bit će zamijenjeni. Prije nastavka preporučujemo izvoz trenutačnih podataka.</p>
-          <div className="postavke-actions"><button type="button" className="postavke-secondary" disabled={busy} onClick={() => setPending(null)}>Odustani</button><button type="button" className="postavke-danger" disabled={busy} onClick={handleRestore}>{busy ? 'Vraćanje...' : 'Potvrdi i zamijeni podatke'}</button></div>
+          <div className="postavke-actions"><button type="button" className="postavke-secondary" disabled={busy} onClick={() => setPending(null)}>{t('Odustani')}</button><button type="button" className="postavke-danger" disabled={busy} onClick={handleRestore}>{busy ? 'Vraćanje...' : 'Potvrdi i zamijeni podatke'}</button></div>
         </section>
       )}
       {message && <p className="postavke-message" role="status">{message}</p>}

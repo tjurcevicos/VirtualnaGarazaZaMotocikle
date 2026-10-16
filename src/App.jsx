@@ -1,3 +1,4 @@
+import { PreferencesProvider, usePreferences } from './i18n/Preferences'
 
 import { useState } from 'react'
 import './App.css'
@@ -30,6 +31,7 @@ import {
 } from './services/vehicleService'
 
 function GarageApp({ user, onLogout }) {
+  const { t } = usePreferences()
   const [activePage, setActivePage] = useState('home')
   const [selectedVehicle, setSelectedVehicle] = useState(null)
 
@@ -312,7 +314,7 @@ function GarageApp({ user, onLogout }) {
               cursor: 'pointer',
             }}
           >
-            Odjava
+            {t('Odjava')}
           </button>
         </div>
 
@@ -322,7 +324,7 @@ function GarageApp({ user, onLogout }) {
   )
 }
 
-function App() {
+function AppContent() {
   const [currentUser, setCurrentUser] = useState(
     () => getCurrentUser(),
   )
@@ -349,6 +351,10 @@ function App() {
       onLogout={handleLogout}
     />
   )
+}
+
+function App() {
+  return <PreferencesProvider><AppContent /></PreferencesProvider>
 }
 
 export default App

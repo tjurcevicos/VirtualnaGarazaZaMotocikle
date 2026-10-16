@@ -1,0 +1,19 @@
+html{--vg-bg:#111315;--vg-surface:#191c1f;--vg-card:#20262b;--vg-card2:#171c20;--vg-text:#f5f5f5;--vg-muted:#a6afb7;--vg-border:#333b42;--vg-accent:#e63946;--vg-soft:#24282c;color-scheme:dark}
+html[data-theme="light"]{--vg-bg:#f3f6fa;--vg-surface:#fff;--vg-card:#fff;--vg-card2:#f1f5f9;--vg-text:#172334;--vg-muted:#566578;--vg-border:#d6dee8;--vg-accent:#2563eb;--vg-soft:#e9eef5;color-scheme:light}
+html[data-theme="blue"]{--vg-bg:#09192b;--vg-surface:#0c2440;--vg-card:#153653;--vg-card2:#102b47;--vg-text:#eaf5ff;--vg-muted:#b0c8dd;--vg-border:#31536f;--vg-accent:#38bdf8;--vg-soft:#183b5a}
+html[data-theme="graphite"]{--vg-bg:#111;--vg-surface:#1b1b1b;--vg-card:#282828;--vg-card2:#202020;--vg-text:#f6f6f6;--vg-muted:#b9b9b9;--vg-border:#484848;--vg-accent:#d4d4d4;--vg-soft:#343434}
+html[data-theme="emerald"]{--vg-bg:#0c1916;--vg-surface:#112620;--vg-card:#1b3830;--vg-card2:#142e27;--vg-text:#effff8;--vg-muted:#b0d1c2;--vg-border:#34594c;--vg-accent:#34d399;--vg-soft:#224339}
+html[data-theme="purple"]{--vg-bg:#171020;--vg-surface:#21162e;--vg-card:#32223f;--vg-card2:#291c37;--vg-text:#faf1ff;--vg-muted:#d0b9db;--vg-border:#584266;--vg-accent:#c084fc;--vg-soft:#40304f}
+html[data-theme]:not([data-theme="dark"]),html[data-theme]:not([data-theme="dark"]) body,html[data-theme]:not([data-theme="dark"]) #root{background:var(--vg-bg);color:var(--vg-text)}
+html[data-theme]:not([data-theme="dark"]) .app,html[data-theme]:not([data-theme="dark"]) .main-content{background:var(--vg-bg)!important;color:var(--vg-text)!important}
+html[data-theme]:not([data-theme="dark"]) .sidebar{background:var(--vg-surface)!important;border-color:var(--vg-border)!important}
+html[data-theme]:not([data-theme="dark"]) .nav-item{color:var(--vg-muted)!important}
+html[data-theme]:not([data-theme="dark"]) .nav-item.active{color:var(--vg-accent)!important;background:var(--vg-soft)!important}
+html[data-theme]:not([data-theme="dark"]) .logo-text strong,html[data-theme]:not([data-theme="dark"]) h1,html[data-theme]:not([data-theme="dark"]) h2,html[data-theme]:not([data-theme="dark"]) h3{color:var(--vg-text)!important}
+html[data-theme]:not([data-theme="dark"]) .postavke-page{color:var(--vg-text)!important}
+html[data-theme]:not([data-theme="dark"]) .postavke-card,html[data-theme]:not([data-theme="dark"]) .postavke-confirm,html[data-theme]:not([data-theme="dark"]) .postavke-personalization{background:linear-gradient(155deg,var(--vg-card),var(--vg-card2))!important;border-color:var(--vg-border)!important;color:var(--vg-text)!important}
+html[data-theme]:not([data-theme="dark"]) .postavke-card p,html[data-theme]:not([data-theme="dark"]) .postavke-confirm p,html[data-theme]:not([data-theme="dark"]) .postavke-heading p{color:var(--vg-muted)!important}
+html[data-theme]:not([data-theme="dark"]) .postavke-primary{background:var(--vg-accent)!important;border-color:var(--vg-accent)!important;color:var(--vg-bg)!important}
+html[data-theme]:not([data-theme="dark"]) .postavke-file,html[data-theme]:not([data-theme="dark"]) .postavke-secondary{background:var(--vg-soft)!important;color:var(--vg-text)!important;border-color:var(--vg-border)!important}
+html[data-theme]:not([data-theme="dark"]) input,html[data-theme]:not([data-theme="dark"]) select,html[data-theme]:not([data-theme="dark"]) textarea{color:var(--vg-text);background-color:var(--vg-soft);border-color:var(--vg-border)}
+html[data-theme]:not([data-theme="dark"]) .main-content [class*="card"],html[data-theme]:not([data-theme="dark"]) .main-content [class*="panel"],html[data-theme]:not([data-theme="dark"]) .main-content [class*="stat"]{border-color:var(--vg-border)}
