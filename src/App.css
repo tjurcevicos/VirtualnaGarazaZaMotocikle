@@ -4909,3 +4909,32 @@
   border-color: #555c62;
   color: #ffffff;
 }
+
+.fuel-summary {
+  margin-top: 24px;
+  margin-bottom: 28px;
+  gap: 16px;
+}
+
+.vehicle-form .form-grid > .form-group:last-child {
+  display: flex;
+  justify-content: center;
+  align-self: stretch;
+}
+
+.vehicle-form .form-grid > .form-group:last-child label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.vehicle-form .form-grid > .form-group:last-child input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  margin: 0;
+  padding: 0;
+  accent-color: #e63946;
+}

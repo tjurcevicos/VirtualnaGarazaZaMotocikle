@@ -1,4 +1,9 @@
 import { useState } from 'react'
+import {
+  calculateFuelStatistics,
+  calculateVehicleFuelStatistics,
+  calculatePricePerLiter,
+} from '../utils/fuelCalculations'
 
 function Gorivo({
   vehicles,
@@ -8,6 +13,7 @@ function Gorivo({
   onUpdateFuelRecord,
 }) {
   const [showForm, setShowForm] = useState(false)
+  const [statisticsVehicleId, setStatisticsVehicleId] = useState('')
   const [editingRecordId, setEditingRecordId] =
     useState(null)
 
@@ -16,17 +22,20 @@ function Gorivo({
     date: '',
     liters: '',
     price: '',
+    unitPrice: '',
+    station: '',
+    fullTank: false,
     mileage: '',
   })
 
   const [error, setError] = useState('')
 
   function handleChange(event) {
-    const { name, value } = event.target
+    const { name, value, type, checked } = event.target
 
     setFormData((current) => ({
       ...current,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : value,
     }))
 
     setError('')
@@ -38,6 +47,9 @@ function Gorivo({
       date: '',
       liters: '',
       price: '',
+      unitPrice: '',
+      station: '',
+      fullTank: false,
       mileage: '',
     })
 
@@ -50,14 +62,15 @@ function Gorivo({
     event.preventDefault()
 
     const liters = Number(formData.liters)
-    const price = Number(formData.price)
+    const unitPrice = Number(formData.unitPrice)
+    const price = Math.round(Number(formData.liters) * unitPrice * 100) / 100
     const mileage = Number(formData.mileage)
 
     if (
       !formData.vehicleId ||
       !formData.date ||
       !formData.liters ||
-      !formData.price ||
+      !formData.unitPrice ||
       formData.mileage === ''
     ) {
       setError('Molimo ispuni sva polja.')
@@ -71,9 +84,9 @@ function Gorivo({
       return
     }
 
-    if (price <= 0) {
+    if (!Number.isFinite(unitPrice) || unitPrice <= 0 || !Number.isFinite(price) || price <= 0) {
       setError(
-        'Cijena goriva mora biti veća od 0.',
+        'Cijena po litri mora biti veća od 0.',
       )
       return
     }
@@ -85,12 +98,20 @@ function Gorivo({
       return
     }
 
+    const existingRecord = editingRecordId
+      ? fuelRecords.find((record) => record.id === editingRecordId)
+      : null
+
     const fuelRecord = {
+      ...(existingRecord || {}),
       id: editingRecordId || Date.now(),
       vehicleId: Number(formData.vehicleId),
       date: formData.date,
       liters,
       price,
+      unitPrice,
+      station: formData.station.trim(),
+      fullTank: formData.fullTank,
       mileage,
     }
 
@@ -109,6 +130,11 @@ function Gorivo({
       date: record.date,
       liters: record.liters,
       price: record.price,
+      unitPrice: record.unitPrice ?? (Number(record.liters) > 0
+        ? (Number(record.price) / Number(record.liters)).toFixed(3)
+        : ''),
+      station: record.station || '',
+      fullTank: record.fullTank === true,
       mileage: record.mileage,
     })
 
@@ -182,6 +208,29 @@ function Gorivo({
 
   const averageConsumption =
     calculateConsumption()
+
+  // Detaljnija statistika, odvojeno za svaki motocikl.
+  const detailedFuelStatistics = statisticsVehicleId
+    ? calculateVehicleFuelStatistics(fuelRecords, statisticsVehicleId)
+    : calculateFuelStatistics(fuelRecords)
+
+  const statisticsRecords = statisticsVehicleId
+    ? fuelRecords.filter(
+        (record) => String(record.vehicleId) === statisticsVehicleId,
+      )
+    : fuelRecords
+
+  function formatFuelNumber(value, digits = 2) {
+    if (value === null || !Number.isFinite(value)) {
+      return 'Nedovoljno podataka'
+    }
+
+    return value.toLocaleString('hr-HR', {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    })
+  }
+
 
   return (
     <section className="page">
@@ -304,6 +353,85 @@ function Gorivo({
             </div>
           )}
 
+          {fuelRecords.length > 0 && (
+            <div className="fuel-statistics">
+              <div className="form-header">
+                <h2>Detaljna statistika goriva</h2>
+                <p>
+                  Pregled cijena goriva i troška po kilometru.
+                  Za točan izračun odaberi pojedini motocikl.
+                </p>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="fuel-statistics-vehicle">
+                  Statistika za motocikl
+                </label>
+                <select
+                  id="fuel-statistics-vehicle"
+                  value={statisticsVehicleId}
+                  onChange={(event) =>
+                    setStatisticsVehicleId(event.target.value)
+                  }
+                >
+                  <option value="">Svi motocikli</option>
+                  {vehicles.map((vehicle) => (
+                    <option key={vehicle.id} value={vehicle.id}>
+                      {vehicle.brand} {vehicle.model}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {statisticsRecords.length > 0 ? (
+                <div className="fuel-summary">
+                  <div className="fuel-summary-card">
+                    <span>Prosječna cijena litre</span>
+                    <strong>
+                      {formatFuelNumber(
+                        detailedFuelStatistics.averagePricePerLiter,
+                        2,
+                      )} €/L
+                    </strong>
+                  </div>
+                  <div className="fuel-summary-card">
+                    <span>Najniža cijena litre</span>
+                    <strong>
+                      {formatFuelNumber(
+                        detailedFuelStatistics.lowestPricePerLiter,
+                        2,
+                      )} €/L
+                    </strong>
+                  </div>
+                  <div className="fuel-summary-card">
+                    <span>Najviša cijena litre</span>
+                    <strong>
+                      {formatFuelNumber(
+                        detailedFuelStatistics.highestPricePerLiter,
+                        2,
+                      )} €/L
+                    </strong>
+                  </div>
+                  <div className="fuel-summary-card">
+                    <span>Trošak goriva po kilometru</span>
+                    <strong>
+                      {statisticsVehicleId
+                        ? detailedFuelStatistics.fuelCostPerKm !== null
+                          ? `${formatFuelNumber(
+                              detailedFuelStatistics.fuelCostPerKm,
+                              3,
+                            )} €/km`
+                          : 'Nedovoljno podataka'
+                        : 'Odaberi motocikl'}
+                    </strong>
+                  </div>
+                </div>
+              ) : (
+                <p>Za ovaj motocikl još nema evidentiranih točenja.</p>
+              )}
+            </div>
+          )}
+
           {showForm && (
             <form
               className="vehicle-form"
@@ -392,18 +520,18 @@ function Gorivo({
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="price">
-                    Cijena
+                  <label htmlFor="unitPrice">
+                    Cijena po litri (€/L)
                   </label>
 
                   <input
-                    id="price"
-                    name="price"
+                    id="unitPrice"
+                    name="unitPrice"
                     type="number"
-                    placeholder="npr. 24.50"
-                    min="0"
-                    step="0.01"
-                    value={formData.price}
+                    placeholder="npr. 1.52"
+                    min="0.001"
+                    step="0.001"
+                    value={formData.unitPrice}
                     onChange={handleChange}
                     required
                   />
@@ -424,6 +552,70 @@ function Gorivo({
                     onChange={handleChange}
                     required
                   />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="fuel-total-price">
+                    Ukupna cijena točenja (€)
+                  </label>
+                  <input
+                    id="fuel-total-price"
+                    type="text"
+                    value={
+                      formData.liters !== '' && formData.unitPrice !== '' &&
+                      Number(formData.liters) > 0 && Number(formData.unitPrice) > 0
+                        ? (Math.round(Number(formData.liters) * Number(formData.unitPrice) * 100) / 100)
+                            .toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'
+                        : ''
+                    }
+                    placeholder="Izračunava se automatski"
+                    readOnly
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="station">
+                    Benzinska postaja (neobavezno)
+                  </label>
+                  <input
+                    id="station"
+                    name="station"
+                    type="text"
+                    placeholder="npr. INA, Petrol, Tifon"
+                    value={formData.station}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label
+                    htmlFor="fullTank"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      width: 'fit-content',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <input
+                      id="fullTank"
+                      name="fullTank"
+                      type="checkbox"
+                      style={{
+                        width: '16px',
+                        height: '16px',
+                        minWidth: '16px',
+                        margin: 0,
+                        padding: 0,
+                        flex: 'none',
+                        accentColor: '#e63946',
+                        cursor: 'pointer',
+                      }}
+                      checked={formData.fullTank}
+                      onChange={handleChange}
+                    />{' '}
+                    Spremnik napunjen do vrha
+                  </label>
                 </div>
               </div>
 
@@ -551,6 +743,35 @@ function Gorivo({
                           €
                         </strong>
                       </div>
+
+                      <div>
+                        <span>
+                          Cijena po litri
+                        </span>
+
+                        <strong>
+                          {calculatePricePerLiter(record) !== null
+                            ? `${formatFuelNumber(
+                                calculatePricePerLiter(record),
+                                2,
+                              )} €/L`
+                            : 'Nedovoljno podataka'}
+                        </strong>
+                      </div>
+
+                      {record.station && (
+                        <div>
+                          <span>Benzinska postaja</span>
+                          <strong>{record.station}</strong>
+                        </div>
+                      )}
+
+                      {record.fullTank === true && (
+                        <div>
+                          <span>Spremnik</span>
+                          <strong>Napunjeno do vrha</strong>
+                        </div>
+                      )}
 
                       <div>
                         <span>
