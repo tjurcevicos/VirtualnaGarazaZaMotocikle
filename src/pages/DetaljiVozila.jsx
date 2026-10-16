@@ -362,7 +362,7 @@ function DetaljiVozila({
   }
 
   return (
-    <section className="page">
+    <section className="page vehicle-detail-page">
       <button
         type="button"
         className="back-button"
@@ -386,6 +386,76 @@ function DetaljiVozila({
           </p>
         </div>
       </div>
+
+      <div className="detail-section vehicle-photo-section">
+        <div className="detail-section-header">
+          <div>
+            <p className="page-label">MOJA GARAŽA</p>
+            <h2>Fotografija motocikla</h2>
+          </div>
+        </div>
+
+        <div className="detail-vehicle-photo">
+          {photoUrl ? (
+            <img
+              src={photoUrl}
+              alt={`${vehicle.brand} ${vehicle.model}`}
+            />
+          ) : (
+            <div className="detail-no-photo">
+              <span>🏍️</span>
+              <p>Još nema fotografije ovog motocikla.</p>
+            </div>
+          )}
+        </div>
+
+        {photoError && (
+          <div className="form-error" role="alert">
+            {photoError}
+          </div>
+        )}
+
+        <div className="vehicle-photo-actions">
+          <label
+            htmlFor="detailVehiclePhoto"
+            className={`primary-button ${
+              isSavingPhoto ? 'photo-button-disabled' : ''
+            }`}
+          >
+            {isSavingPhoto
+              ? 'Spremanje...'
+              : photoUrl
+                ? 'Promijeni fotografiju'
+                : 'Dodaj fotografiju'}
+          </label>
+
+          <input
+            ref={photoInputRef}
+            id="detailVehiclePhoto"
+            type="file"
+            accept="image/*"
+            onChange={handlePhotoChange}
+            disabled={isSavingPhoto}
+            hidden
+          />
+
+          {photoUrl && (
+            <button
+              type="button"
+              className="service-cancel-button"
+              onClick={handleRemovePhoto}
+              disabled={isSavingPhoto}
+            >
+              Ukloni fotografiju
+            </button>
+          )}
+        </div>
+
+        <p className="photo-help">
+          Odaberi sliku do 8 MB. Fotografija se sprema uz ovaj motocikl.
+        </p>
+      </div>
+
 
       <div className="detail-section">
         <div className="detail-section-header">
@@ -555,75 +625,6 @@ function DetaljiVozila({
             </strong>
           </div>
         </div>
-      </div>
-
-      <div className="detail-section vehicle-photo-section">
-        <div className="detail-section-header">
-          <div>
-            <p className="page-label">MOJA GARAŽA</p>
-            <h2>Fotografija motocikla</h2>
-          </div>
-        </div>
-
-        <div className="detail-vehicle-photo">
-          {photoUrl ? (
-            <img
-              src={photoUrl}
-              alt={`${vehicle.brand} ${vehicle.model}`}
-            />
-          ) : (
-            <div className="detail-no-photo">
-              <span>🏍️</span>
-              <p>Još nema fotografije ovog motocikla.</p>
-            </div>
-          )}
-        </div>
-
-        {photoError && (
-          <div className="form-error" role="alert">
-            {photoError}
-          </div>
-        )}
-
-        <div className="vehicle-photo-actions">
-          <label
-            htmlFor="detailVehiclePhoto"
-            className={`primary-button ${
-              isSavingPhoto ? 'photo-button-disabled' : ''
-            }`}
-          >
-            {isSavingPhoto
-              ? 'Spremanje...'
-              : photoUrl
-                ? 'Promijeni fotografiju'
-                : 'Dodaj fotografiju'}
-          </label>
-
-          <input
-            ref={photoInputRef}
-            id="detailVehiclePhoto"
-            type="file"
-            accept="image/*"
-            onChange={handlePhotoChange}
-            disabled={isSavingPhoto}
-            hidden
-          />
-
-          {photoUrl && (
-            <button
-              type="button"
-              className="service-cancel-button"
-              onClick={handleRemovePhoto}
-              disabled={isSavingPhoto}
-            >
-              Ukloni fotografiju
-            </button>
-          )}
-        </div>
-
-        <p className="photo-help">
-          Odaberi sliku do 8 MB. Fotografija se sprema uz ovaj motocikl.
-        </p>
       </div>
 
       <div className="detail-section">
