@@ -1,3 +1,4 @@
+import { exportGaragePdf } from '../utils/pdfExport'
 
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -17,6 +18,8 @@ function DetaljiVozila({
   onUpdateVehicle,
 }) {
   const [showServiceForm, setShowServiceForm] = useState(false)
+  const [pdfBusy, setPdfBusy] = useState(false)
+  const [pdfError, setPdfError] = useState('')
   const [showVehicleForm, setShowVehicleForm] = useState(false)
   const [isSavingVehicle, setIsSavingVehicle] = useState(false)
   const [vehicleError, setVehicleError] = useState('')
@@ -370,6 +373,36 @@ function DetaljiVozila({
     })
 
     resetServiceForm()
+  }
+
+  async function handleVehiclePdf() {
+    setPdfError('')
+    setPdfBusy(true)
+    try {
+      const initial = vehicle.initialMileage === '' || vehicle.initialMileage == null ? null : Number(vehicle.initialMileage)
+      const traveled = initial !== null && Number.isFinite(initial) && Number(vehicle.mileage) > initial ? Number(vehicle.mileage) - initial : null
+      const rows = [
+        ...vehicleExpenses.filter((expense) => !(String(expense.category || '').toLocaleLowerCase('hr-HR').trim() === 'servis' && vehicleServices.length > 0)).map((expense) => ({ ...expense, vehicle: `${vehicle.brand} ${vehicle.model}` })),
+        ...vehicleServices.map((service) => ({ ...service, amount: service.price, category: 'Servis', vehicle: `${vehicle.brand} ${vehicle.model}` })),
+      ]
+      const total = rows.reduce((sum, row) => sum + Number(row.amount || 0), 0)
+      await exportGaragePdf({
+        title: `Izvještaj: ${vehicle.brand} ${vehicle.model}`,
+        subtitle: `Godina: ${vehicle.year} · Gorivo: ${vehicle.fuel}`,
+        summary: [
+          ['Trenutačna kilometraža', `${Number(vehicle.mileage).toLocaleString('hr-HR')} km`],
+          ['Prijeđeno od početka evidencije', traveled === null ? 'Nema podataka' : `${traveled.toLocaleString('hr-HR')} km`],
+          ['Po kilometru', traveled === null ? 'Nema podataka' : `${(total / traveled).toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €/km`],
+        ],
+        rows,
+        filename: `virtualna-garaza-motocikl-${vehicle.id}.pdf`,
+      })
+    } catch (error) {
+      console.error('Izvoz PDF-a nije uspio:', error)
+      setPdfError('Izvještaj nije moguće izvesti. Pokušaj ponovno.')
+    } finally {
+      setPdfBusy(false)
+    }
   }
 
   return (
@@ -836,6 +869,10 @@ function DetaljiVozila({
           <div>
             <p className="page-label">TROŠKOVI</p>
             <h2>Troškovi motocikla</h2>
+            <button type="button" className="primary-button" onClick={handleVehiclePdf} disabled={pdfBusy || (vehicleExpenses.length === 0 && vehicleServices.length === 0)}>
+              {pdfBusy ? 'Izvoz...' : 'PDF izvještaj'}
+            </button>
+            {pdfError && <div className="form-error" role="alert">{pdfError}</div>}
             <p className="page-description">
               Evidencija troškova za ovaj motocikl.
             </p>

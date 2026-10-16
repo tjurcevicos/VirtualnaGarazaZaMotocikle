@@ -400,3 +400,5 @@
 .expense-filter-results{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:20px;padding-top:15px;border-top:1px solid #343a40;color:#adb4bb}
 .expense-filter-results strong{color:#fff;font-variant-numeric:tabular-nums}
 @media(max-width:650px){.expense-filter-panel{padding:16px}.expense-filter-grid{grid-template-columns:1fr}.expense-filter-results{flex-direction:column}}
+
+.pdf-export-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }

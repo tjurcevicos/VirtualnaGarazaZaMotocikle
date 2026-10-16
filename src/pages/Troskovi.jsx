@@ -1,3 +1,4 @@
+import { exportGaragePdf } from '../utils/pdfExport'
 import { StupcastiGraf } from '../components/StatistickiGrafovi'
 import { useState } from 'react'
 
@@ -9,6 +10,8 @@ function Troskovi({
   onUpdateExpense,
 }) {
   const [showForm, setShowForm] = useState(false)
+  const [pdfError, setPdfError] = useState('')
+  const [pdfBusy, setPdfBusy] = useState(false)
   const [filterVehicleId, setFilterVehicleId] = useState('')
   const [filterCategory, setFilterCategory] = useState('')
   const [filterFrom, setFilterFrom] = useState('')
@@ -180,6 +183,33 @@ function Troskovi({
     .slice(-12)
     .map(([key, value]) => ({ key, label: `${key.slice(5)}.${key.slice(2, 4)}.`, value }))
 
+  async function handlePdfExport() {
+    setPdfError('')
+    setPdfBusy(true)
+    try {
+      const selectedVehicle = vehicles.find((vehicle) => String(vehicle.id) === filterVehicleId)
+      await exportGaragePdf({
+        title: 'Izvještaj o troškovima',
+        subtitle: selectedVehicle ? `${selectedVehicle.brand} ${selectedVehicle.model}` : 'Svi motocikli',
+        summary: [
+          ['Kategorija', filterCategory || 'Sve kategorije'],
+          ['Od', filterFrom || 'Bez ograničenja'],
+          ['Do', filterTo || 'Bez ograničenja'],
+        ],
+        rows: filteredExpenses.map((expense) => {
+          const vehicle = vehicles.find((item) => String(item.id) === String(expense.vehicleId))
+          return { ...expense, vehicle: vehicle ? `${vehicle.brand} ${vehicle.model}` : 'Nepoznati motocikl' }
+        }),
+        filename: 'virtualna-garaza-troskovi.pdf',
+      })
+    } catch (error) {
+      console.error('Izvoz PDF-a nije uspio:', error)
+      setPdfError('Izvještaj nije moguće izvesti. Pokušaj ponovno.')
+    } finally {
+      setPdfBusy(false)
+    }
+  }
+
   return (
     <section className="page">
       <div className="page-header vehicle-header">
@@ -198,6 +228,10 @@ function Troskovi({
           </p>
         </div>
 
+        <div className="pdf-export-actions">
+          <button type="button" className="primary-button" onClick={handlePdfExport} disabled={pdfBusy || filteredExpenses.length === 0}>
+            {pdfBusy ? 'Izvoz...' : 'Izvezi PDF'}
+          </button>
         <button
           type="button"
           className="primary-button"
@@ -214,7 +248,9 @@ function Troskovi({
             ? 'Zatvori'
             : '+ Dodaj trošak'}
         </button>
+        </div>
       </div>
+      {pdfError && <div className="form-error" role="alert">{pdfError}</div>}
 
       {vehicles.length === 0 && (
         <div className="empty-state">
