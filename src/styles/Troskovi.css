@@ -386,3 +386,17 @@
 .expense-icon{border-radius:11px}
 .expense-form{border-radius:16px;border-color:#343a40}
 @media(max-width:600px){.expense-summary-card{padding:18px}.expense-card{border-radius:12px}}
+
+.expense-filter-panel{padding:22px;margin:22px 0;border:1px solid #343a40;border-radius:16px;background:linear-gradient(145deg,#22272b,#191d20)}
+.expense-filter-heading{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+.expense-filter-heading h2{font-size:1.2rem;margin:0 0 6px}
+.expense-filter-heading p{color:#adb4bb;margin:0}
+.expense-filter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:15px}
+.expense-filter-grid .form-group{min-width:0}
+.expense-filter-grid input,.expense-filter-grid select{width:100%;min-width:0}
+.expense-filter-reset{padding:10px 16px;border:1px solid #59616a;border-radius:10px;background:transparent;color:inherit;cursor:pointer}
+.expense-filter-reset:hover:not(:disabled){border-color:#e63946}
+.expense-filter-reset:disabled{opacity:.45;cursor:not-allowed}
+.expense-filter-results{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:20px;padding-top:15px;border-top:1px solid #343a40;color:#adb4bb}
+.expense-filter-results strong{color:#fff;font-variant-numeric:tabular-nums}
+@media(max-width:650px){.expense-filter-panel{padding:16px}.expense-filter-grid{grid-template-columns:1fr}.expense-filter-results{flex-direction:column}}

@@ -10,6 +10,10 @@ function Troskovi({
 }) {
   const [showForm, setShowForm] = useState(false)
   const [filterVehicleId, setFilterVehicleId] = useState('')
+  const [filterCategory, setFilterCategory] = useState('')
+  const [filterFrom, setFilterFrom] = useState('')
+  const [filterTo, setFilterTo] = useState('')
+  const [sortOrder, setSortOrder] = useState('newest')
   const [editingExpenseId, setEditingExpenseId] =
     useState(null)
 
@@ -149,9 +153,21 @@ function Troskovi({
       0,
     )
 
-  const filteredExpenses = filterVehicleId
-    ? expenses.filter((expense) => String(expense.vehicleId) === filterVehicleId)
-    : expenses
+  const filteredExpenses = expenses
+    .filter((expense) => !filterVehicleId || String(expense.vehicleId) === filterVehicleId)
+    .filter((expense) => !filterCategory || expense.category === filterCategory)
+    .filter((expense) => !filterFrom || String(expense.date || '') >= filterFrom)
+    .filter((expense) => !filterTo || String(expense.date || '') <= filterTo)
+    .sort((a, b) => {
+      if (sortOrder === 'oldest') return String(a.date || '').localeCompare(String(b.date || ''))
+      if (sortOrder === 'highest') return Number(b.amount || 0) - Number(a.amount || 0)
+      if (sortOrder === 'lowest') return Number(a.amount || 0) - Number(b.amount || 0)
+      return String(b.date || '').localeCompare(String(a.date || ''))
+    })
+
+  const filteredTotal = filteredExpenses.reduce((total, expense) => total + Number(expense.amount || 0), 0)
+  const categories = [...new Set(expenses.map((expense) => expense.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'hr'))
+  const filtersActive = Boolean(filterVehicleId || filterCategory || filterFrom || filterTo || sortOrder !== 'newest')
 
   const monthlyTotals = new Map()
   filteredExpenses.forEach((expense) => {
@@ -474,12 +490,57 @@ function Troskovi({
             </form>
           )}
 
-          <div className="analytics-filter">
-            <label htmlFor="expense-vehicle-filter">Prikaži troškove za motocikl</label>
-            <select id="expense-vehicle-filter" value={filterVehicleId} onChange={(event) => setFilterVehicleId(event.target.value)}>
-              <option value="">Svi motocikli</option>
-              {vehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.brand} {vehicle.model}</option>)}
-            </select>
+          <div className="expense-filter-panel">
+            <div className="expense-filter-heading">
+              <div>
+                <h2>Filtriranje troškova</h2>
+                <p>Pronađi troškove prema motociklu, kategoriji i razdoblju.</p>
+              </div>
+              <button type="button" className="expense-filter-reset" disabled={!filtersActive} onClick={() => {
+                setFilterVehicleId('')
+                setFilterCategory('')
+                setFilterFrom('')
+                setFilterTo('')
+                setSortOrder('newest')
+              }}>Poništi filtre</button>
+            </div>
+            <div className="expense-filter-grid">
+              <div className="form-group">
+                <label htmlFor="expense-vehicle-filter">Motocikl</label>
+                <select id="expense-vehicle-filter" value={filterVehicleId} onChange={(event) => setFilterVehicleId(event.target.value)}>
+                  <option value="">Svi motocikli</option>
+                  {vehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.brand} {vehicle.model}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="expense-category-filter">Kategorija</label>
+                <select id="expense-category-filter" value={filterCategory} onChange={(event) => setFilterCategory(event.target.value)}>
+                  <option value="">Sve kategorije</option>
+                  {categories.map((category) => <option key={category} value={category}>{category}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="expense-from-filter">Datum od</label>
+                <input id="expense-from-filter" type="date" max={filterTo || undefined} value={filterFrom} onChange={(event) => setFilterFrom(event.target.value)} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="expense-to-filter">Datum do</label>
+                <input id="expense-to-filter" type="date" min={filterFrom || undefined} value={filterTo} onChange={(event) => setFilterTo(event.target.value)} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="expense-sort-filter">Poredak</label>
+                <select id="expense-sort-filter" value={sortOrder} onChange={(event) => setSortOrder(event.target.value)}>
+                  <option value="newest">Najnoviji prvo</option>
+                  <option value="oldest">Najstariji prvo</option>
+                  <option value="highest">Najveći iznos prvo</option>
+                  <option value="lowest">Najmanji iznos prvo</option>
+                </select>
+              </div>
+            </div>
+            <div className="expense-filter-results" aria-live="polite">
+              <span>Prikazano <strong>{filteredExpenses.length}</strong> od {expenses.length} troškova</span>
+              <span>Ukupno u odabiru <strong>{filteredTotal.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</strong></span>
+            </div>
           </div>
           <div className="analytics-section">
             <StupcastiGraf title="Mjesečni troškovi" subtitle="Ukupni evidentirani troškovi po mjesecima, do 12 posljednjih mjeseci s unosima." points={monthlyPoints} />
@@ -514,7 +575,11 @@ function Troskovi({
               </div>
             )}
 
-          {expenses.length > 0 && (
+          {expenses.length > 0 && filteredExpenses.length === 0 && (
+            <div className="empty-state"><h2>Nema troškova za odabrane filtre</h2><p>Promijeni razdoblje ili poništi filtre.</p></div>
+          )}
+
+          {expenses.length > 0 && filteredExpenses.length > 0 && (
             <div className="expense-list">
               {filteredExpenses.map((expense) => {
                 const vehicle = getVehicle(
