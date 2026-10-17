@@ -10,6 +10,7 @@
 @import "./styles/Gorivo.css";
 @import "./styles/Troskovi.css";
 @import "./styles/Podsjetnici.css";
+@import './styles/UskladeneTeme.css';
 .app {
   min-height: 100vh;
   display: flex;
