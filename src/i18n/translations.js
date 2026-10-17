@@ -813,7 +813,20 @@ const registrationUiRows = [
 ['Istječe','Expires','Läuft ab','Scade','Poteče']
 ]
 
-export const translations = Object.fromEntries([...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
+const statisticsUiRows = [
+['Statistika','Statistics','Statistik','Statistiche','Statistika'],
+['PREGLED GARAŽE','GARAGE OVERVIEW','GARAGENÜBERSICHT','PANORAMICA GARAGE','PREGLED GARAŽE'],
+['Pregled troškova, održavanja i važnih rokova za tvoje motocikle.','Overview of costs, maintenance and important deadlines for your motorcycles.','Überblick über Kosten, Wartung und wichtige Fristen deiner Motorräder.','Panoramica di costi, manutenzione e scadenze importanti delle tue moto.','Pregled stroškov, vzdrževanja in pomembnih rokov za tvoje motocikle.'],
+['Prikaži motocikl','Select motorcycle','Motorrad auswählen','Seleziona moto','Izberi motocikel'],
+['Ukupni troškovi','Total expenses','Gesamtausgaben','Spese totali','Skupni stroški'],
+['Utočeno gorivo','Fuel filled','Getankter Kraftstoff','Carburante rifornito','Natočeno gorivo'],
+['Aktivni planovi održavanja','Maintenance plans','Wartungspläne','Piani di manutenzione','Načrti vzdrževanja'],
+['Uskoro istječe (30 dana)','Due soon (30 days)','Bald fällig (30 Tage)','In scadenza (30 giorni)','Kmalu poteče (30 dni)'],
+['Istekli rokovi','Overdue deadlines','Abgelaufene Fristen','Scadenze superate','Pretečeni roki'],
+['Statistika se automatski ažurira prema podacima iz Vozila, Servisa, Goriva, Troškova, Podsjetnika te Registracije i osiguranja.','Statistics update automatically using data from Motorcycles, Services, Fuel, Expenses, Reminders, Registration and Insurance.','Statistiken werden automatisch aus Motorrädern, Wartung, Kraftstoff, Ausgaben, Erinnerungen, Zulassung und Versicherung aktualisiert.','Le statistiche si aggiornano automaticamente dai dati di moto, manutenzione, carburante, spese, promemoria, immatricolazione e assicurazione.','Statistika se samodejno posodablja iz podatkov o motociklih, servisih, gorivu, stroških, opomnikih, registraciji in zavarovanju.']
+]
+
+export const translations = Object.fromEntries([...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
 export function translate(text, lang) {
   return translations[text]?.[lang] || text
 }

@@ -1,0 +1,21 @@
+
+.statistics-page{display:flex;flex-direction:column;gap:28px;color:var(--vg-text)}
+.statistics-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.statistics-heading h1{margin:6px 0 8px;color:var(--vg-text)}
+.statistics-filter{display:flex;flex-direction:column;gap:8px;min-width:220px;color:var(--vg-muted);font-size:13px}
+.statistics-filter select{width:100%;min-height:42px;padding:10px 14px;background:var(--vg-card);color:var(--vg-text);border:1px solid var(--vg-border);border-radius:10px}
+.statistics-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.statistics-metric{display:flex;flex-direction:column;justify-content:center;gap:12px;min-height:104px;padding:20px;background:var(--vg-card);border:1px solid var(--vg-border);border-radius:14px}
+.statistics-metric span{font-size:13px;color:var(--vg-muted)}
+.statistics-metric strong{font-size:clamp(18px,2vw,26px);line-height:1.2;color:var(--vg-text);overflow-wrap:anywhere}
+.statistics-section{display:flex;flex-direction:column;gap:20px}
+.statistics-section-heading h2{margin:5px 0 6px;color:var(--vg-text)}
+.statistics-section-heading p{margin-bottom:0}
+.statistics-empty{padding:35px;background:var(--vg-card);border:1px solid var(--vg-border);border-radius:14px;color:var(--vg-muted)}
+.statistics-footnote{color:var(--vg-muted);font-size:12px;margin:0}
+.statistics-page .garage-ownership-card{background:var(--vg-card);border-color:var(--vg-border);color:var(--vg-text)}
+.statistics-page .garage-ownership-card h3,.statistics-page .garage-ownership-card strong{color:var(--vg-text)}
+.statistics-page .garage-ownership-card span,.statistics-page .garage-ownership-note{color:var(--vg-muted)}
+.statistics-page .garage-ownership-breakdown strong{color:var(--vg-text)}
+@media(max-width:1100px){.statistics-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.statistics-metrics{grid-template-columns:1fr}.statistics-heading{align-items:stretch}.statistics-filter{width:100%}}

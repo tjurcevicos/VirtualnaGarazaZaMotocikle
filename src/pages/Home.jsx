@@ -1,8 +1,7 @@
 import { usePreferences } from '../i18n/Preferences'
-import UsporedbaMotocikala from '../components/UsporedbaMotocikala'
 import { useEffect, useState } from 'react'
 import { getPhoto } from '../utils/photoStorage'
-import { reminderInfo, ownershipForVehicle } from '../utils/garageInsights'
+import { reminderInfo } from '../utils/garageInsights'
 
 function Home({
 
@@ -300,16 +299,6 @@ function Home({
     .filter((reminder) => reminder.info.kind !== 'active')
     .sort((a, b) => String(a.date).localeCompare(String(b.date)))
 
-  const ownership = vehicles.map((vehicle) => ({
-    vehicle,
-    ...ownershipForVehicle(vehicle, services, fuelRecords, expenses),
-  }))
-
-  const formatEuro = (value) => `${value.toLocaleString('hr-HR', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })} €`
-
   const latestService = [...services]
 
     .sort(
@@ -421,40 +410,6 @@ function Home({
           </div>
         </section>
       )}
-
-      {ownership.length > 0 && (
-        <section className="garage-ownership" aria-label={t('Trošak vlasništva' )}>
-          <div className="garage-insight-heading">
-            <div>
-              <p className="page-label">{t('ANALIZA TROŠKOVA')}</p>
-              <h2>{t('Trošak vlasništva po motociklu')}</h2>
-              <p className="page-description">{t('Zbroj evidentiranog goriva, servisa i ostalih troškova.')}</p>
-            </div>
-          </div>
-          <div className="garage-ownership-grid">
-            {ownership.map((item) => (
-              <article className="garage-ownership-card" key={item.vehicle.id}>
-                <span className="garage-ownership-label">{item.vehicle.year} {t("· MOTOCIKL")}</span>
-                <h3>{item.vehicle.brand} {item.vehicle.model}</h3>
-                <div className="garage-ownership-total">
-                  <span>{t('Ukupno evidentirano')}</span>
-                  <strong>{formatEuro(item.total)}</strong>
-                </div>
-                <div className="garage-ownership-breakdown">
-                  <span>{t('Gorivo')}<strong>{formatEuro(item.fuelCost)}</strong></span>
-                  <span>{t('Servisi')}<strong>{formatEuro(item.serviceCost)}</strong></span>
-                  <span>{t('Ostalo')}<strong>{formatEuro(item.extraCost)}</strong></span>
-                  <span>{t('Po kilometru')}<strong>{item.perKm === null ? t("Nema podataka") : `${item.perKm.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €/km`}</strong></span>
-                </div>
-                {item.omitted > 0 && <small>{t('Stavke goriva i servisa iz Troškova izostavljene su kada postoje zasebne evidencije tih kategorija.')}</small>}
-              </article>
-            ))}
-          </div>
-          <p className="garage-ownership-note">{t('Trošak po kilometru računa se prema razlici trenutačne i početne kilometraže evidencije. Za postojeće motocikle unesi početnu kilometražu u detaljima. Ne uključuje kupovnu cijenu motocikla.')}</p>
-        </section>
-      )}
-
-      <UsporedbaMotocikala vehicles={vehicles} services={services} fuelRecords={fuelRecords} expenses={expenses} />
 
       <div className="dashboard-summary">
 
