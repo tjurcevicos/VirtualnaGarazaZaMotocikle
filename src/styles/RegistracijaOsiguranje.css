@@ -1,0 +1,25 @@
+.registration-section{color:var(--vg-text)}
+.registration-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.registration-form,.registration-card{background:var(--vg-card);border:1px solid var(--vg-border);border-radius:16px;padding:20px;color:var(--vg-text)}
+.registration-form{margin:18px 0}
+.registration-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.registration-fields label{display:flex;flex-direction:column;gap:7px;color:var(--vg-muted);font-size:14px}
+.registration-fields input,.registration-fields select,.registration-fields textarea{width:100%;min-width:0;padding:11px;border:1px solid var(--vg-border);border-radius:9px;background:var(--vg-soft);color:var(--vg-text)}
+.registration-notes{grid-column:1/-1}
+.registration-list{display:grid;gap:14px;margin-top:18px}
+.registration-card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.registration-card-top strong{font-size:17px;color:var(--vg-text)}
+.registration-status{border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700}
+.registration-valid{background:rgba(22,163,74,.15);color:#22a45d}
+.registration-soon{background:rgba(217,119,6,.15);color:#d18b18}
+.registration-expired{background:rgba(220,38,38,.15);color:#ef4444}
+.registration-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 20px}
+.registration-info span{color:var(--vg-muted);font-size:14px;overflow-wrap:anywhere}
+.registration-info b{color:var(--vg-text);font-weight:600}
+.registration-note{color:var(--vg-muted);margin:14px 0 0}
+.registration-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.registration-actions button:not(.primary-button){border:1px solid var(--vg-border);border-radius:9px;padding:9px 14px;background:var(--vg-soft);color:var(--vg-text);cursor:pointer}
+.registration-actions button:disabled{opacity:.55;cursor:not-allowed}
+.registration-empty{color:var(--vg-muted);padding:18px 0}
+.registration-error{color:#ef4444}
+@media(max-width:760px){.registration-fields{grid-template-columns:1fr}.registration-info{grid-template-columns:1fr}.registration-form,.registration-card{padding:15px}}

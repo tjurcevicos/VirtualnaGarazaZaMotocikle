@@ -11,6 +11,7 @@ function useGarageData(userId = null) {
     expenses: loadData('expenses', userId),
     reminders: loadData('reminders', userId),
     maintenancePlans: loadData('maintenancePlans', userId),
+    registrationRecords: loadData('registrationRecords', userId),
   }))
 
   const currentGarage =
@@ -24,6 +25,7 @@ function useGarageData(userId = null) {
           expenses: loadData('expenses', userId),
           reminders: loadData('reminders', userId),
           maintenancePlans: loadData('maintenancePlans', userId),
+    registrationRecords: loadData('registrationRecords', userId),
         }
 
   useEffect(() => {
@@ -36,6 +38,7 @@ function useGarageData(userId = null) {
         expenses: loadData('expenses', userId),
         reminders: loadData('reminders', userId),
         maintenancePlans: loadData('maintenancePlans', userId),
+    registrationRecords: loadData('registrationRecords', userId),
       })
     }
   }, [userId, garageState.userId])
@@ -106,6 +109,12 @@ function useGarageData(userId = null) {
     catch (error) { console.error('Spremanje planova održavanja nije uspjelo:', error) }
   }, [garageState.maintenancePlans, garageState.userId, userId])
 
+  useEffect(() => {
+    if (garageState.userId !== userId) return
+    try { saveData('registrationRecords', garageState.registrationRecords, userId) }
+    catch (error) { console.error('Spremanje registracije nije uspjelo:', error) }
+  }, [garageState.registrationRecords, garageState.userId, userId])
+
   function updateData(key, value) {
     setGarageState((current) => {
       if (current.userId !== userId) {
@@ -135,6 +144,8 @@ function useGarageData(userId = null) {
     setExpenses: (value) => updateData('expenses', value),
     maintenancePlans: currentGarage.maintenancePlans,
     setMaintenancePlans: (value) => updateData('maintenancePlans', value),
+    registrationRecords: currentGarage.registrationRecords,
+    setRegistrationRecords: (value) => updateData('registrationRecords', value),
     reminders: currentGarage.reminders,
     setReminders: (value) => updateData('reminders', value),
   }

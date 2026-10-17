@@ -48,6 +48,8 @@ function GarageApp({ user, onLogout }) {
     setReminders,
     maintenancePlans,
     setMaintenancePlans,
+    registrationRecords,
+    setRegistrationRecords,
   } = useGarageData(user.id)
 
   function handleNavigate(page) {
@@ -98,6 +100,7 @@ function GarageApp({ user, onLogout }) {
     )
 
     setMaintenancePlans((current) => deleteVehicleRelatedData(current, id))
+    setRegistrationRecords((current) => deleteVehicleRelatedData(current, id))
 
     setSelectedVehicle(null)
 
@@ -194,6 +197,10 @@ function GarageApp({ user, onLogout }) {
       return (
         <DetaljiVozila
           vehicle={selectedVehicle}
+          registrationRecords={registrationRecords}
+          onSetRegistrationRecords={setRegistrationRecords}
+          reminders={reminders}
+          onAddReminder={handleAddReminder}
           services={services}
           expenses={expenses}
           onBack={handleBackToVehicles}

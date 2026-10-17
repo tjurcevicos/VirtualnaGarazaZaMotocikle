@@ -6,6 +6,7 @@ const STORAGE_KEYS = {
   expenses: 'expenses',
   reminders: 'reminders',
   maintenancePlans: 'maintenancePlans',
+  registrationRecords: 'registrationRecords',
 }
 
 function getStorageKey(key, userId = null) {

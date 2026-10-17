@@ -1,6 +1,6 @@
 import { loadData, saveData } from './storageFacade'
 
-const keys = ['vehicles', 'services', 'fuelRecords', 'expenses', 'reminders', 'maintenancePlans']
+const keys = ['vehicles', 'services', 'fuelRecords', 'expenses', 'reminders', 'maintenancePlans', 'registrationRecords']
 const dbName = 'VirtualnaGarazaDB'
 const storeName = 'motorcyclePhotos'
 
@@ -86,7 +86,7 @@ export function validateBackup(backup) {
     throw new Error('Odabrana datoteka nije podržana sigurnosna kopija Virtualne garaže.')
   }
   for (const key of keys) {
-    if (key === 'maintenancePlans' && backup.data[key] === undefined) continue
+    if (['maintenancePlans', 'registrationRecords'].includes(key) && backup.data[key] === undefined) continue
     if (!Array.isArray(backup.data[key]) || backup.data[key].some((item) => !item || typeof item !== 'object' || Array.isArray(item))) {
       throw new Error(`Neispravni podaci u kategoriji: ${key}.`)
     }

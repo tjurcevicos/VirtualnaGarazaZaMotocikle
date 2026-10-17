@@ -784,7 +784,36 @@ const maintenanceUiRows = [
 ['Lanac','Chain','Kette','Catena','Veriga'],
 ['Ostalo','Other','Sonstiges','Altro','Drugo']
 ]
-export const translations = Object.fromEntries([...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
+
+const registrationUiRows = [
+['DOKUMENTI','DOCUMENTS','DOKUMENTE','DOCUMENTI','DOKUMENTI'],
+['Registracija i osiguranje','Registration and insurance','Zulassung und Versicherung','Immatricolazione e assicurazione','Registracija in zavarovanje'],
+['Prati rokove registracije, tehničkog pregleda i osiguranja.','Track registration, inspection and insurance deadlines.','Fristen für Zulassung, Prüfung und Versicherung verfolgen.','Monitora le scadenze di immatricolazione, revisione e assicurazione.','Spremljaj roke registracije, tehničnega pregleda in zavarovanja.'],
+['+ Dodaj zapis','+ Add record','+ Eintrag hinzufügen','+ Aggiungi voce','+ Dodaj zapis'],
+['Vrsta zapisa','Record type','Eintragsart','Tipo di voce','Vrsta zapisa'],
+['Registracija','Registration','Zulassung','Immatricolazione','Registracija'],
+['Tehnički pregled','Technical inspection','Hauptuntersuchung','Revisione','Tehnični pregled'],
+['Osiguranje','Insurance','Versicherung','Assicurazione','Zavarovanje'],
+['Datum početka','Start date','Beginn','Data di inizio','Datum začetka'],
+['Datum isteka','Expiry date','Ablaufdatum','Data di scadenza','Datum poteka'],
+['Osiguravajuća kuća / ustanova','Insurer / institution','Versicherer / Einrichtung','Assicuratore / ente','Zavarovalnica / ustanova'],
+['Broj police / dokumenta','Policy / document number','Policen- / Dokumentnummer','Numero polizza / documento','Številka police / dokumenta'],
+['Trošak (€)','Cost (€)','Kosten (€)','Costo (€)','Strošek (€)'],
+['Napomena','Note','Notiz','Nota','Opomba'],
+['Spremi zapis','Save record','Eintrag speichern','Salva voce','Shrani zapis'],
+['Provjeri datum isteka, početni datum i iznos.','Check the expiry date, start date and amount.','Ablaufdatum, Beginn und Betrag prüfen.','Controlla le date e l’importo.','Preveri datuma in znesek.'],
+['Obrisati ovaj zapis?','Delete this record?','Diesen Eintrag löschen?','Eliminare questa voce?','Izbrisati ta zapis?'],
+['Nema spremljenih podataka o registraciji i osiguranju.','No registration or insurance records yet.','Noch keine Zulassungs- oder Versicherungsdaten.','Nessun dato di immatricolazione o assicurazione.','Ni podatkov o registraciji ali zavarovanju.'],
+['Isteklo','Expired','Abgelaufen','Scaduto','Poteklo'],
+['Uskoro istječe','Expiring soon','Läuft bald ab','In scadenza','Kmalu poteče'],
+['Važeće','Valid','Gültig','Valido','Veljavno'],
+['Preostalo dana','Days remaining','Verbleibende Tage','Giorni rimanenti','Preostali dnevi'],
+['dana nakon isteka','days past expiry','Tage abgelaufen','giorni dalla scadenza','dni po poteku'],
+['dana','days','Tage','giorni','dni'],
+['Istječe','Expires','Läuft ab','Scade','Poteče']
+]
+
+export const translations = Object.fromEntries([...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
 export function translate(text, lang) {
   return translations[text]?.[lang] || text
 }

@@ -1,3 +1,4 @@
+import RegistracijaOsiguranje from '../components/RegistracijaOsiguranje'
 import { usePreferences } from '../i18n/Preferences'
 import { exportGaragePdf } from '../utils/pdfExport'
 
@@ -10,6 +11,10 @@ import {
 
 function DetaljiVozila({
   vehicle,
+  registrationRecords,
+  onSetRegistrationRecords,
+  reminders,
+  onAddReminder,
   services,
   expenses,
   onBack,
@@ -864,6 +869,8 @@ function DetaljiVozila({
           </div>
         )}
       </div>
+
+      <RegistracijaOsiguranje vehicle={vehicle} records={registrationRecords} onChange={onSetRegistrationRecords} reminders={reminders} onAddReminder={onAddReminder} />
 
       <div className="detail-section">
         <div className="detail-section-header">
