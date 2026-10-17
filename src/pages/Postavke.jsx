@@ -92,7 +92,7 @@ function Postavke({ userId }) {
           <h2>{t('Vraćanje podataka')}</h2>
           <p>{t('Odaberi prethodno spremljenu JSON datoteku. Prije zamjene podataka prikazat će se potvrda.')}</p>
           <label className={`postavke-file ${busy ? 'postavke-disabled' : ''}`}>
-            Odaberi JSON datoteku
+            {t("Odaberi JSON datoteku")}
             <input type="file" accept=".json,application/json" disabled={busy} onChange={handleFile} />
           </label>
         </section>
@@ -100,7 +100,7 @@ function Postavke({ userId }) {
       {pending && (
         <section className="postavke-confirm">
           <h2>{t('Potvrdi vraćanje sigurnosne kopije')}</h2>
-          <p>Sigurnosna kopija od {pending.exportedAt ? new Date(pending.exportedAt).toLocaleString('hr-HR') : 'nepoznatog datuma'} sadrži {pending.data.vehicles.length} motocikala, {pending.data.services.length} servisa, {pending.data.fuelRecords.length} točenja, {pending.data.expenses.length} troškova i {pending.data.reminders.length} podsjetnika.</p>
+          <p>{t("Sigurnosna kopija od")} {pending.exportedAt ? new Date(pending.exportedAt).toLocaleString('hr-HR') : t("nepoznatog datuma")} {t("sadrži")} {pending.data.vehicles.length} {t("motocikala,")} {pending.data.services.length} {t("servisa,")} {pending.data.fuelRecords.length} {t("točenja,")} {pending.data.expenses.length} {t("troškova i")} {pending.data.reminders.length} {t("podsjetnika.")}</p>
           <p className="postavke-warning">{t('Postojeći podaci ovog korisnika bit će zamijenjeni. Prije nastavka preporučujemo izvoz trenutačnih podataka.')}</p>
           <div className="postavke-actions"><button type="button" className="postavke-secondary" disabled={busy} onClick={() => setPending(null)}>{t('Odustani')}</button><button type="button" className="postavke-danger" disabled={busy} onClick={handleRestore}>{busy ? t('Vraćanje...') : t('Potvrdi i zamijeni podatke')}</button></div>
         </section>

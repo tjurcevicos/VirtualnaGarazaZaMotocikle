@@ -26,8 +26,8 @@ function Sidebar({ activePage, onNavigate }) {
       <div className="logo">
         <div className="logo-icon"><img src="/ikonamotogaraza.svg" alt="" aria-hidden="true" /></div>
         <div className="logo-text">
-          <strong>Virtualna</strong>
-          <span>Garaža</span>
+          <strong>{t("Virtualna")}</strong>
+          <span>{t("Garaža")}</span>
         </div>
       </div>
 

@@ -360,7 +360,7 @@ function Home({
           <h1>{t('Dobrodošao u svoju garažu')}</h1>
 
           <p className="page-description">
-            Pregled svih važnih podataka o tvojim motociklima na jednom mjestu.
+            {t("Pregled svih važnih podataka o tvojim motociklima na jednom mjestu.")}
           </p>
 
           {currentSlide && (
@@ -434,7 +434,7 @@ function Home({
           <div className="garage-ownership-grid">
             {ownership.map((item) => (
               <article className="garage-ownership-card" key={item.vehicle.id}>
-                <span className="garage-ownership-label">{item.vehicle.year} · MOTOCIKL</span>
+                <span className="garage-ownership-label">{item.vehicle.year} {t("· MOTOCIKL")}</span>
                 <h3>{item.vehicle.brand} {item.vehicle.model}</h3>
                 <div className="garage-ownership-total">
                   <span>{t('Ukupno evidentirano')}</span>
@@ -444,7 +444,7 @@ function Home({
                   <span>{t('Gorivo')}<strong>{formatEuro(item.fuelCost)}</strong></span>
                   <span>{t('Servisi')}<strong>{formatEuro(item.serviceCost)}</strong></span>
                   <span>{t('Ostalo')}<strong>{formatEuro(item.extraCost)}</strong></span>
-                  <span>{t('Po kilometru')}<strong>{item.perKm === null ? 'Nema podataka' : `${item.perKm.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €/km`}</strong></span>
+                  <span>{t('Po kilometru')}<strong>{item.perKm === null ? t("Nema podataka") : `${item.perKm.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €/km`}</strong></span>
                 </div>
                 {item.omitted > 0 && <small>{t('Stavke goriva i servisa iz Troškova izostavljene su kada postoje zasebne evidencije tih kategorija.')}</small>}
               </article>
@@ -462,7 +462,7 @@ function Home({
 
           <span>
 
-            Motocikli
+            {t("Motocikli")}
 
           </span>
 
@@ -478,7 +478,7 @@ function Home({
 
           <small>
 
-            u garaži
+            {t("u garaži")}
 
           </small>
 
@@ -490,7 +490,7 @@ function Home({
 
           <span>
 
-            Servisi
+            {t("Servisi")}
 
           </span>
 
@@ -506,7 +506,7 @@ function Home({
 
           <small>
 
-            evidentirano
+            {t("evidentirano")}
 
           </small>
 
@@ -518,7 +518,7 @@ function Home({
 
           <span>
 
-            Gorivo
+            {t("Gorivo")}
 
           </span>
 
@@ -548,7 +548,7 @@ function Home({
 
           <small>
 
-            ukupno natočeno
+            {t("ukupno natočeno")}
 
           </small>
 
@@ -560,7 +560,7 @@ function Home({
 
           <span>
 
-            Troškovi
+            {t("Troškovi")}
 
           </span>
 
@@ -590,7 +590,7 @@ function Home({
 
           <small>
 
-            evidentirano
+            {t("evidentirano")}
 
           </small>
 
@@ -602,7 +602,7 @@ function Home({
 
           <span>
 
-            Potrošnja
+            {t("Potrošnja")}
 
           </span>
 
@@ -654,7 +654,7 @@ function Home({
 
               <p className="page-label">
 
-                GARAŽA
+                {t("GARAŽA")}
 
               </p>
 
@@ -662,7 +662,7 @@ function Home({
 
               <h2>
 
-                Moji motocikli
+                {t("Moji motocikli")}
 
               </h2>
 
@@ -686,7 +686,7 @@ function Home({
 
               <p>
 
-                Još nemaš dodanih motocikala.
+                {t("Još nemaš dodanih motocikala.")}
 
               </p>
 
@@ -784,7 +784,7 @@ function Home({
 
               <p className="page-label">
 
-                ROKOVI
+                {t("ROKOVI")}
 
               </p>
 
@@ -792,7 +792,7 @@ function Home({
 
               <h2>
 
-                Nadolazeći podsjetnici
+                {t("Nadolazeći podsjetnici")}
 
               </h2>
 
@@ -816,7 +816,7 @@ function Home({
 
               <p>
 
-                Nema nadolazećih podsjetnika.
+                {t("Nema nadolazećih podsjetnika.")}
 
               </p>
 
@@ -872,7 +872,7 @@ function Home({
 
                             ? `${vehicle.brand} ${vehicle.model}`
 
-                            : 'Nepoznati motocikl'}
+                            : t("Nepoznati motocikl")}
 
                         </span>
 
@@ -922,7 +922,7 @@ function Home({
 
               <p className="page-label">
 
-                SERVIS
+                {t("SERVIS")}
 
               </p>
 
@@ -930,7 +930,7 @@ function Home({
 
               <h2>
 
-                Posljednji servis
+                {t("Posljednji servis")}
 
               </h2>
 
@@ -954,7 +954,7 @@ function Home({
 
               <p>
 
-                Još nema evidentiranih servisa.
+                {t("Još nema evidentiranih servisa.")}
 
               </p>
 
@@ -1000,7 +1000,7 @@ function Home({
 
                       ).model}`
 
-                    : 'Nepoznati motocikl'}
+                    : t("Nepoznati motocikl")}
 
                 </span>
 
@@ -1060,7 +1060,7 @@ function Home({
 
               <p className="page-label">
 
-                GORIVO
+                {t("GORIVO")}
 
               </p>
 
@@ -1068,7 +1068,7 @@ function Home({
 
               <h2>
 
-                Posljednje točenje
+                {t("Posljednje točenje")}
 
               </h2>
 
@@ -1092,7 +1092,7 @@ function Home({
 
               <p>
 
-                Još nema evidentiranih točenja.
+                {t("Još nema evidentiranih točenja.")}
 
               </p>
 
@@ -1130,7 +1130,7 @@ function Home({
 
                       ).model}`
 
-                    : 'Nepoznati motocikl'}
+                    : t("Nepoznati motocikl")}
 
                 </strong>
 

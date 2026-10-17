@@ -346,22 +346,22 @@ function DetaljiVozila({
       serviceData.mileage === '' ||
       serviceData.price === ''
     ) {
-      setError('Molimo ispuni sva polja.')
+      setError(t("Molimo ispuni sva polja."))
       return
     }
 
     if (serviceData.date > today) {
-      setError('Datum servisa ne može biti u budućnosti.')
+      setError(t("Datum servisa ne može biti u budućnosti."))
       return
     }
 
     if (!Number.isFinite(mileage) || mileage < 0) {
-      setError('Kilometraža ne može biti negativna.')
+      setError(t("Kilometraža ne može biti negativna."))
       return
     }
 
     if (!Number.isFinite(price) || price <= 0) {
-      setError('Cijena servisa mora biti veća od 0.')
+      setError(t("Cijena servisa mora biti veća od 0."))
       return
     }
 
@@ -389,8 +389,8 @@ function DetaljiVozila({
       ]
       const total = rows.reduce((sum, row) => sum + Number(row.amount || 0), 0)
       await exportGaragePdf({
-        title: `Izvještaj: ${vehicle.brand} ${vehicle.model}`,
-        subtitle: `Godina: ${vehicle.year} · Gorivo: ${vehicle.fuel}`,
+        title: `${t('Izvještaj:')} ${vehicle.brand} ${vehicle.model}`,
+        subtitle: `${t('Godina:')} ${vehicle.year} · ${t('Gorivo:')} ${t(vehicle.fuel)}`,
         summary: [
           ['Trenutačna kilometraža', `${Number(vehicle.mileage).toLocaleString('hr-HR')} km`],
           ['Prijeđeno od početka evidencije', traveled === null ? 'Nema podataka' : `${traveled.toLocaleString('hr-HR')} km`],
@@ -401,7 +401,7 @@ function DetaljiVozila({
       })
     } catch (error) {
       console.error('Izvoz PDF-a nije uspio:', error)
-      setPdfError('Izvještaj nije moguće izvesti. Pokušaj ponovno.')
+      setPdfError(t('Izvještaj nije moguće izvesti. Pokušaj ponovno.'))
     } finally {
       setPdfBusy(false)
     }
@@ -414,7 +414,7 @@ function DetaljiVozila({
         className="back-button"
         onClick={onBack}
       >
-        ← Natrag na motocikle
+        {t("← Natrag na motocikle")}
       </button>
 
       <div className="vehicle-detail-header">
@@ -469,10 +469,10 @@ function DetaljiVozila({
             }`}
           >
             {isSavingPhoto
-              ? 'Spremanje...'
+              ? t("Spremanje...")
               : photoUrl
-                ? 'Promijeni fotografiju'
-                : 'Dodaj fotografiju'}
+                ? t("Promijeni fotografiju")
+                : t("Dodaj fotografiju")}
           </label>
 
           <input
@@ -492,13 +492,13 @@ function DetaljiVozila({
               onClick={handleRemovePhoto}
               disabled={isSavingPhoto}
             >
-              Ukloni fotografiju
+              {t("Ukloni fotografiju")}
             </button>
           )}
         </div>
 
         <p className="photo-help">
-          Odaberi sliku do 8 MB. Fotografija se sprema uz ovaj motocikl.
+          {t("Odaberi sliku do 8 MB. Fotografija se sprema uz ovaj motocikl.")}
         </p>
       </div>
 
@@ -520,7 +520,7 @@ function DetaljiVozila({
             }
             disabled={isSavingVehicle}
           >
-            {showVehicleForm ? 'Odustani' : 'Uredi podatke'}
+            {showVehicleForm ? t("Odustani") : t("Uredi podatke")}
           </button>
         </div>
 
@@ -532,7 +532,7 @@ function DetaljiVozila({
             <div className="form-header">
               <h2>{t('Uredi motocikl')}</h2>
               <p>
-                Izmijeni osnovne podatke svog motocikla.
+                {t("Izmijeni osnovne podatke svog motocikla.")}
               </p>
             </div>
 
@@ -545,7 +545,7 @@ function DetaljiVozila({
             <div className="form-grid">
               <div className="form-group">
                 <label htmlFor="editVehicleBrand">
-                  Marka
+                  {t("Marka")}
                 </label>
                 <input
                   id="editVehicleBrand"
@@ -558,7 +558,7 @@ function DetaljiVozila({
 
               <div className="form-group">
                 <label htmlFor="editVehicleModel">
-                  Model
+                  {t("Model")}
                 </label>
                 <input
                   id="editVehicleModel"
@@ -571,7 +571,7 @@ function DetaljiVozila({
 
               <div className="form-group">
                 <label htmlFor="editVehicleYear">
-                  Godina
+                  {t("Godina")}
                 </label>
                 <input
                   id="editVehicleYear"
@@ -587,7 +587,7 @@ function DetaljiVozila({
 
               <div className="form-group">
                 <label htmlFor="editVehicleFuel">
-                  Gorivo
+                  {t("Gorivo")}
                 </label>
                 <select
                   id="editVehicleFuel"
@@ -605,7 +605,7 @@ function DetaljiVozila({
 
               <div className="form-group">
                 <label htmlFor="editVehicleMileage">
-                  Kilometraža
+                  {t("Kilometraža")}
                 </label>
                 <input
                   id="editVehicleMileage"
@@ -631,7 +631,7 @@ function DetaljiVozila({
                 onClick={resetVehicleForm}
                 disabled={isSavingVehicle}
               >
-                Odustani
+                {t("Odustani")}
               </button>
 
               <button
@@ -640,8 +640,8 @@ function DetaljiVozila({
                 disabled={isSavingVehicle}
               >
                 {isSavingVehicle
-                  ? 'Spremanje...'
-                  : 'Spremi promjene'}
+                  ? t("Spremanje...")
+                  : t("Spremi promjene")}
               </button>
             </div>
           </form>
@@ -676,7 +676,7 @@ function DetaljiVozila({
           </div>
           <div className="detail-card">
             <span>{t('Početna kilometraža evidencije')}</span>
-            <strong>{vehicle.initialMileage === undefined || vehicle.initialMileage === null ? 'Nije unesena' : `${Number(vehicle.initialMileage).toLocaleString('hr-HR')} km`}</strong>
+            <strong>{vehicle.initialMileage === undefined || vehicle.initialMileage === null ? t("Nije unesena") : `${Number(vehicle.initialMileage).toLocaleString('hr-HR')} km`}</strong>
           </div>
         </div>
       </div>
@@ -697,7 +697,7 @@ function DetaljiVozila({
                 : setShowServiceForm(true)
             }
           >
-            {showServiceForm ? 'Zatvori' : '+ Dodaj servis'}
+            {showServiceForm ? t("Zatvori") : t("+ Dodaj servis")}
           </button>
         </div>
 
@@ -733,7 +733,7 @@ function DetaljiVozila({
 
               <div className="form-group">
                 <label htmlFor="detailServiceMileage">
-                  Kilometraža
+                  {t("Kilometraža")}
                 </label>
                 <input
                   id="detailServiceMileage"
@@ -765,7 +765,7 @@ function DetaljiVozila({
 
               <div className="form-group service-description-group">
                 <label htmlFor="detailServiceDescription">
-                  Opis servisa
+                  {t("Opis servisa")}
                 </label>
                 <input
                   id="detailServiceDescription"
@@ -785,14 +785,14 @@ function DetaljiVozila({
                 className="service-cancel-button"
                 onClick={resetServiceForm}
               >
-                Odustani
+                {t("Odustani")}
               </button>
 
               <button
                 type="submit"
                 className="primary-button"
               >
-                Spremi servis
+                {t("Spremi servis")}
               </button>
             </div>
           </form>
@@ -803,15 +803,14 @@ function DetaljiVozila({
             <div className="coming-soon-icon">🔧</div>
             <h3>{t('Nema evidentiranih servisa')}</h3>
             <p>
-              Dodaj prvi servis ovog motocikla kako bi imao pregled
-              održavanja.
+              {t("Dodaj prvi servis ovog motocikla kako bi imao pregled održavanja.")}
             </p>
             <button
               type="button"
               className="primary-button"
               onClick={() => setShowServiceForm(true)}
             >
-              + Dodaj prvi servis
+              {t("+ Dodaj prvi servis")}
             </button>
           </div>
         )}
@@ -857,7 +856,7 @@ function DetaljiVozila({
                     className="service-delete-button"
                     onClick={() => onDeleteService(service.id)}
                   >
-                    Obriši
+                    {t("Obriši")}
                   </button>
                 </div>
               </article>
@@ -872,11 +871,11 @@ function DetaljiVozila({
             <p className="page-label">{t('TROŠKOVI')}</p>
             <h2>{t('Troškovi motocikla')}</h2>
             <button type="button" className="primary-button" onClick={handleVehiclePdf} disabled={pdfBusy || (vehicleExpenses.length === 0 && vehicleServices.length === 0)}>
-              {pdfBusy ? 'Izvoz...' : 'PDF izvještaj'}
+              {pdfBusy ? t("Izvoz...") : 'PDF izvještaj'}
             </button>
             {pdfError && <div className="form-error" role="alert">{pdfError}</div>}
             <p className="page-description">
-              Evidencija troškova za ovaj motocikl.
+              {t("Evidencija troškova za ovaj motocikl.")}
             </p>
           </div>
         </div>
@@ -901,8 +900,7 @@ function DetaljiVozila({
             <div className="coming-soon-icon">€</div>
             <h3>{t('Nema evidentiranih troškova')}</h3>
             <p>
-              Troškove možeš dodati na stranici Troškovi. Kada ih povežeš
-              s ovim motociklom, prikazat će se ovdje.
+              {t("Troškove možeš dodati na stranici Troškovi. Kada ih povežeš s ovim motociklom, prikazat će se ovdje.")}
             </p>
           </div>
         ) : (
@@ -920,7 +918,7 @@ function DetaljiVozila({
                       <p>
                         {expense.date
                           ? new Date(`${expense.date}T00:00:00`).toLocaleDateString('hr-HR')
-                          : 'Datum nije naveden'}
+                          : t("Datum nije naveden")}
                       </p>
                     </div>
                   </div>
@@ -947,7 +945,7 @@ function DetaljiVozila({
           className="danger-button"
           onClick={() => onDelete(vehicle.id)}
         >
-          Obriši motocikl
+          {t("Obriši motocikl")}
         </button>
       </div>
     </section>

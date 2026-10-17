@@ -122,13 +122,13 @@ function Vozila({
     }
 
     if (!file.type.startsWith('image/')) {
-      setError('Odabrana datoteka mora biti fotografija.')
+      setError(t("Odabrana datoteka mora biti fotografija."))
       event.target.value = ''
       return
     }
 
     if (file.size > 8 * 1024 * 1024) {
-      setError('Fotografija ne smije biti veća od 8 MB.')
+      setError(t("Fotografija ne smije biti veća od 8 MB."))
       event.target.value = ''
       return
     }
@@ -194,7 +194,7 @@ function Vozila({
       !formData.fuel ||
       formData.mileage === ''
     ) {
-      setError('Molimo ispuni sva obavezna polja.')
+      setError(t("Molimo ispuni sva obavezna polja."))
       return
     }
 
@@ -210,12 +210,12 @@ function Vozila({
     }
 
     if (!Number.isFinite(mileage) || mileage < 0) {
-      setError('Kilometraža ne može biti negativna.')
+      setError(t("Kilometraža ne može biti negativna."))
       return
     }
 
     if (formData.initialMileage === '' || !Number.isFinite(initialMileage) || initialMileage < 0 || initialMileage > mileage) {
-      setError('Početna kilometraža mora biti između 0 i trenutačne kilometraže.')
+      setError(t("Početna kilometraža mora biti između 0 i trenutačne kilometraže."))
       return
     }
 
@@ -245,9 +245,7 @@ function Vozila({
         saveError,
       )
 
-      setError(
-        'Motocikl nije bilo moguće spremiti. Provjeri podatke i pokušaj ponovno.',
-      )
+      setError(t("Motocikl nije bilo moguće spremiti. Provjeri podatke i pokušaj ponovno."))
     } finally {
       setIsSaving(false)
     }
@@ -269,7 +267,7 @@ function Vozila({
           <h1>{t('Moji motocikli')}</h1>
 
           <p className="page-description">
-            Dodaj i upravljaj svojim motociklima na jednom mjestu.
+            {t("Dodaj i upravljaj svojim motociklima na jednom mjestu.")}
           </p>
         </div>
 
@@ -285,7 +283,7 @@ function Vozila({
           }}
           disabled={isSaving}
         >
-          {showForm ? 'Zatvori' : '+ Dodaj motocikl'}
+          {showForm ? t("Zatvori") : t("+ Dodaj motocikl")}
         </button>
       </div>
 
@@ -295,7 +293,7 @@ function Vozila({
             <h2>{t('Dodaj motocikl')}</h2>
 
             <p>
-              Unesi osnovne podatke i odaberi fotografiju svog motocikla.
+              {t("Unesi osnovne podatke i odaberi fotografiju svog motocikla.")}
             </p>
           </div>
 
@@ -389,7 +387,7 @@ function Vozila({
 
           <div className="form-group vehicle-photo-field">
             <label htmlFor="vehicle-photo">
-              Fotografija motocikla (nije obavezna)
+              {t("Fotografija motocikla (nije obavezna)")}
             </label>
 
             <input
@@ -401,7 +399,7 @@ function Vozila({
             />
 
             <p className="photo-help">
-              Odaberi fotografiju do 8 MB.
+              {t("Odaberi fotografiju do 8 MB.")}
             </p>
 
             {photoPreview && (
@@ -417,7 +415,7 @@ function Vozila({
                   onClick={handleRemovePhoto}
                   disabled={isSaving}
                 >
-                  Ukloni fotografiju
+                  {t("Ukloni fotografiju")}
                 </button>
               </div>
             )}
@@ -429,7 +427,7 @@ function Vozila({
               className="primary-button"
               disabled={isSaving}
             >
-              {isSaving ? 'Spremanje...' : 'Spremi motocikl'}
+              {isSaving ? t("Spremanje...") : t("Spremi motocikl")}
             </button>
           </div>
         </form>

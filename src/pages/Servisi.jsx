@@ -61,20 +61,20 @@ function Servisi({
       formData.mileage === '' ||
       formData.price === ''
     ) {
-      setError('Molimo ispuni sva polja.')
+      setError(t("Molimo ispuni sva polja."))
       return
     }
 
     if (mileage < 0) {
       setError(
-        'Kilometraža ne može biti negativna.',
+        t("Kilometraža ne može biti negativna."),
       )
       return
     }
 
     if (price <= 0) {
       setError(
-        'Cijena servisa mora biti veća od 0.',
+        t("Cijena servisa mora biti veća od 0."),
       )
       return
     }
@@ -86,7 +86,7 @@ function Servisi({
 
     if (!selectedVehicle) {
       setError(
-        'Odabrani motocikl nije pronađen.',
+        t("Odabrani motocikl nije pronađen."),
       )
       return
     }
@@ -140,16 +140,15 @@ function Servisi({
       <div className="page-header vehicle-header">
         <div>
           <p className="page-label">
-            ODRŽAVANJE
+            {t("ODRŽAVANJE")}
           </p>
 
           <h1>
-            Servisi
+            {t("Servisi")}
           </h1>
 
           <p className="page-description">
-            Pregledaj i evidentiraj servise svih
-            svojih motocikala.
+            {t("Pregledaj i evidentiraj servise svih svojih motocikala.")}
           </p>
         </div>
 
@@ -166,8 +165,8 @@ function Servisi({
           disabled={vehicles.length === 0}
         >
           {showForm
-            ? 'Zatvori'
-            : '+ Dodaj servis'}
+            ? t("Zatvori")
+            : t("+ Dodaj servis")}
         </button>
       </div>
 
@@ -178,13 +177,11 @@ function Servisi({
           </div>
 
           <h2>
-            Prvo dodaj motocikl
+            {t("Prvo dodaj motocikl")}
           </h2>
 
           <p>
-            Za evidentiranje servisa potrebno
-            je prvo dodati motocikl u svoju
-            garažu.
+            {t("Za evidentiranje servisa potrebno je prvo dodati motocikl u svoju garažu.")}
           </p>
         </div>
       )}
@@ -195,7 +192,7 @@ function Servisi({
             <div className="service-summary">
               <div className="service-summary-card">
                 <span>
-                  Ukupno servisa
+                  {t("Ukupno servisa")}
                 </span>
 
                 <strong>
@@ -205,7 +202,7 @@ function Servisi({
 
               <div className="service-summary-card">
                 <span>
-                  Ukupno potrošeno
+                  {t("Ukupno potrošeno")}
                 </span>
 
                 <strong>
@@ -230,14 +227,14 @@ function Servisi({
               <div className="form-header">
                 <h2>
                   {editingServiceId
-                    ? 'Uredi servis'
-                    : 'Dodaj servis'}
+                    ? t("Uredi servis")
+                    : t("Dodaj servis")}
                 </h2>
 
                 <p>
                   {editingServiceId
-                    ? 'Promijeni podatke o servisu.'
-                    : 'Unesi podatke o obavljenom servisu.'}
+                    ? t("Promijeni podatke o servisu.")
+                    : t("Unesi podatke o obavljenom servisu.")}
                 </p>
               </div>
 
@@ -250,7 +247,7 @@ function Servisi({
               <div className="form-grid">
                 <div className="form-group">
                   <label htmlFor="serviceVehicleId">
-                    Motocikl
+                    {t("Motocikl")}
                   </label>
 
                   <select
@@ -261,7 +258,7 @@ function Servisi({
                     required
                   >
                     <option value="">
-                      Odaberi motocikl
+                      {t("Odaberi motocikl")}
                     </option>
 
                     {vehicles.map((vehicle) => (
@@ -278,7 +275,7 @@ function Servisi({
 
                 <div className="form-group">
                   <label htmlFor="serviceDate">
-                    Datum
+                    {t("Datum")}
                   </label>
 
                   <input
@@ -293,7 +290,7 @@ function Servisi({
 
                 <div className="form-group">
                   <label htmlFor="serviceMileage">
-                    Kilometraža
+                    {t("Kilometraža")}
                   </label>
 
                   <input
@@ -310,7 +307,7 @@ function Servisi({
 
                 <div className="form-group">
                   <label htmlFor="servicePrice">
-                    Cijena
+                    {t("Cijena")}
                   </label>
 
                   <input
@@ -328,7 +325,7 @@ function Servisi({
 
                 <div className="form-group service-description-group">
                   <label htmlFor="serviceDescription">
-                    Opis servisa
+                    {t("Opis servisa")}
                   </label>
 
                   <input
@@ -350,7 +347,7 @@ function Servisi({
                     className="service-cancel-button"
                     onClick={resetForm}
                   >
-                    Odustani
+                    {t("Odustani")}
                   </button>
                 )}
 
@@ -359,8 +356,8 @@ function Servisi({
                   className="primary-button"
                 >
                   {editingServiceId
-                    ? 'Spremi promjene'
-                    : 'Spremi servis'}
+                    ? t("Spremi promjene")
+                    : t("Spremi servis")}
                 </button>
               </div>
             </form>
@@ -374,13 +371,11 @@ function Servisi({
                 </div>
 
                 <h2>
-                  Nema evidentiranih servisa
+                  {t("Nema evidentiranih servisa")}
                 </h2>
 
                 <p>
-                  Dodaj prvi servis kako bi imao
-                  pregled održavanja svojih
-                  motocikala.
+                  {t("Dodaj prvi servis kako bi imao pregled održavanja svojih motocikala.")}
                 </p>
 
                 <button
@@ -390,7 +385,7 @@ function Servisi({
                     setShowForm(true)
                   }
                 >
-                  + Dodaj prvi servis
+                  {t("+ Dodaj prvi servis")}
                 </button>
               </div>
             )}
@@ -420,7 +415,7 @@ function Servisi({
                         <p>
                           {vehicle
                             ? `${vehicle.brand} ${vehicle.model}`
-                            : 'Nepoznati motocikl'}
+                            : t("Nepoznati motocikl")}
                         </p>
 
                         <small>
@@ -436,7 +431,7 @@ function Servisi({
                     <div className="service-card-details">
                       <div>
                         <span>
-                          Kilometraža
+                          {t("Kilometraža")}
                         </span>
 
                         <strong>
@@ -451,7 +446,7 @@ function Servisi({
 
                       <div>
                         <span>
-                          Cijena
+                          {t("Cijena")}
                         </span>
 
                         <strong>
@@ -478,7 +473,7 @@ function Servisi({
                             )
                           }
                         >
-                          Uredi
+                          {t("Uredi")}
                         </button>
 
                         <button
@@ -490,7 +485,7 @@ function Servisi({
                             )
                           }
                         >
-                          Obriši
+                          {t("Obriši")}
                         </button>
                       </div>
                     </div>

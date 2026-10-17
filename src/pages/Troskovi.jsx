@@ -69,7 +69,7 @@ function Troskovi({
       !formData.description.trim() ||
       formData.amount === ''
     ) {
-      setError('Molimo ispuni sva polja.')
+      setError(t("Molimo ispuni sva polja."))
       return
     }
 
@@ -191,7 +191,7 @@ function Troskovi({
     try {
       const selectedVehicle = vehicles.find((vehicle) => String(vehicle.id) === filterVehicleId)
       await exportGaragePdf({
-        title: 'Izvještaj o troškovima',
+        title: t('Izvještaj o troškovima'),
         subtitle: selectedVehicle ? `${selectedVehicle.brand} ${selectedVehicle.model}` : 'Svi motocikli',
         summary: [
           ['Kategorija', filterCategory || 'Sve kategorije'],
@@ -217,22 +217,21 @@ function Troskovi({
       <div className="page-header vehicle-header">
         <div>
           <p className="page-label">
-            FINANCIJE
+            {t("FINANCIJE")}
           </p>
 
           <h1>
-            Troškovi
+            {t("Troškovi")}
           </h1>
 
           <p className="page-description">
-            Prati sve troškove povezane sa svojim
-            motociklima.
+            {t("Prati sve troškove povezane sa svojim motociklima.")}
           </p>
         </div>
 
         <div className="pdf-export-actions">
           <button type="button" className="primary-button" onClick={handlePdfExport} disabled={pdfBusy || filteredExpenses.length === 0}>
-            {pdfBusy ? 'Izvoz...' : 'Izvezi PDF'}
+            {pdfBusy ? t("Izvoz...") : t("Izvezi PDF")}
           </button>
         <button
           type="button"
@@ -247,8 +246,8 @@ function Troskovi({
           disabled={vehicles.length === 0}
         >
           {showForm
-            ? 'Zatvori'
-            : '+ Dodaj trošak'}
+            ? t("Zatvori")
+            : t("+ Dodaj trošak")}
         </button>
         </div>
       </div>
@@ -261,12 +260,11 @@ function Troskovi({
           </div>
 
           <h2>
-            Prvo dodaj motocikl
+            {t("Prvo dodaj motocikl")}
           </h2>
 
           <p>
-            Za evidenciju troškova potrebno je
-            prvo dodati motocikl u svoju garažu.
+            {t("Za evidenciju troškova potrebno je prvo dodati motocikl u svoju garažu.")}
           </p>
         </div>
       )}
@@ -277,7 +275,7 @@ function Troskovi({
             <div className="expense-summary">
               <div className="expense-summary-card">
                 <span>
-                  Ukupno troškova
+                  {t("Ukupno troškova")}
                 </span>
 
                 <strong>
@@ -287,7 +285,7 @@ function Troskovi({
 
               <div className="expense-summary-card">
                 <span>
-                  Ukupno potrošeno
+                  {t("Ukupno potrošeno")}
                 </span>
 
                 <strong>
@@ -304,7 +302,7 @@ function Troskovi({
 
               <div className="expense-summary-card">
                 <span>
-                  Servisi
+                  {t("Servisi")}
                 </span>
 
                 <strong>
@@ -321,7 +319,7 @@ function Troskovi({
 
               <div className="expense-summary-card">
                 <span>
-                  Registracija
+                  {t("Registracija")}
                 </span>
 
                 <strong>
@@ -338,7 +336,7 @@ function Troskovi({
 
               <div className="expense-summary-card">
                 <span>
-                  Ostalo
+                  {t("Ostalo")}
                 </span>
 
                 <strong>
@@ -363,14 +361,14 @@ function Troskovi({
               <div className="form-header">
                 <h2>
                   {editingExpenseId
-                    ? 'Uredi trošak'
-                    : 'Dodaj trošak'}
+                    ? t("Uredi trošak")
+                    : t("Dodaj trošak")}
                 </h2>
 
                 <p>
                   {editingExpenseId
-                    ? 'Promijeni podatke o trošku.'
-                    : 'Unesi podatke o novom trošku.'}
+                    ? t("Promijeni podatke o trošku.")
+                    : t("Unesi podatke o novom trošku.")}
                 </p>
               </div>
 
@@ -383,7 +381,7 @@ function Troskovi({
               <div className="form-grid">
                 <div className="form-group">
                   <label htmlFor="expenseVehicleId">
-                    Motocikl
+                    {t("Motocikl")}
                   </label>
 
                   <select
@@ -394,7 +392,7 @@ function Troskovi({
                     required
                   >
                     <option value="">
-                      Odaberi motocikl
+                      {t("Odaberi motocikl")}
                     </option>
 
                     {vehicles.map((vehicle) => (
@@ -411,7 +409,7 @@ function Troskovi({
 
                 <div className="form-group">
                   <label htmlFor="category">
-                    Kategorija
+                    {t("Kategorija")}
                   </label>
 
                   <select
@@ -422,11 +420,11 @@ function Troskovi({
                     required
                   >
                     <option value="">
-                      Odaberi kategoriju
+                      {t("Odaberi kategoriju")}
                     </option>
 
                     <option value="Gorivo">
-                      Gorivo
+                      {t("Gorivo")}
                     </option>
 
                     <option value="Servis">
@@ -434,30 +432,30 @@ function Troskovi({
                     </option>
 
                     <option value="Registracija">
-                      Registracija
+                      {t("Registracija")}
                     </option>
 
                     <option value="Osiguranje">
-                      Osiguranje
+                      {t("Osiguranje")}
                     </option>
 
                     <option value="Oprema">
-                      Oprema
+                      {t("Oprema")}
                     </option>
 
                     <option value="Gume">
-                      Gume
+                      {t("Gume")}
                     </option>
 
                     <option value="Ostalo">
-                      Ostalo
+                      {t("Ostalo")}
                     </option>
                   </select>
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="expenseDate">
-                    Datum
+                    {t("Datum")}
                   </label>
 
                   <input
@@ -472,7 +470,7 @@ function Troskovi({
 
                 <div className="form-group">
                   <label htmlFor="amount">
-                    Iznos
+                    {t("Iznos")}
                   </label>
 
                   <input
@@ -490,7 +488,7 @@ function Troskovi({
 
                 <div className="form-group expense-description-group">
                   <label htmlFor="expenseDescription">
-                    Opis
+                    {t("Opis")}
                   </label>
 
                   <input
@@ -512,7 +510,7 @@ function Troskovi({
                     className="expense-cancel-button"
                     onClick={resetForm}
                   >
-                    Odustani
+                    {t("Odustani")}
                   </button>
                 )}
 
@@ -521,8 +519,8 @@ function Troskovi({
                   className="primary-button"
                 >
                   {editingExpenseId
-                    ? 'Spremi promjene'
-                    : 'Spremi trošak'}
+                    ? t("Spremi promjene")
+                    : t("Spremi trošak")}
                 </button>
               </div>
             </form>
@@ -592,13 +590,11 @@ function Troskovi({
                 </div>
 
                 <h2>
-                  Nema evidentiranih troškova
+                  {t("Nema evidentiranih troškova")}
                 </h2>
 
                 <p>
-                  Dodaj prvi trošak kako bi mogao
-                  pratiti koliko ulažeš u svoje
-                  motocikle.
+                  {t("Dodaj prvi trošak kako bi mogao pratiti koliko ulažeš u svoje motocikle.")}
                 </p>
 
                 <button
@@ -608,7 +604,7 @@ function Troskovi({
                     setShowForm(true)
                   }
                 >
-                  + Dodaj prvi trošak
+                  {t("+ Dodaj prvi trošak")}
                 </button>
               </div>
             )}
@@ -642,7 +638,7 @@ function Troskovi({
                         <p>
                           {vehicle
                             ? `${vehicle.brand} ${vehicle.model}`
-                            : 'Nepoznati motocikl'}
+                            : t("Nepoznati motocikl")}
                         </p>
 
                         <small>
@@ -658,17 +654,17 @@ function Troskovi({
                     <div className="expense-card-details">
                       <div>
                         <span>
-                          Kategorija
+                          {t("Kategorija")}
                         </span>
 
                         <strong>
-                          {expense.category}
+                          {t(expense.category)}
                         </strong>
                       </div>
 
                       <div>
                         <span>
-                          Iznos
+                          {t("Iznos")}
                         </span>
 
                         <strong>
@@ -695,7 +691,7 @@ function Troskovi({
                             )
                           }
                         >
-                          Uredi
+                          {t("Uredi")}
                         </button>
 
                         <button
@@ -707,7 +703,7 @@ function Troskovi({
                             )
                           }
                         >
-                          Obriši
+                          {t("Obriši")}
                         </button>
                       </div>
                     </div>

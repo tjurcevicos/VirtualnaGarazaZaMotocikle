@@ -35,8 +35,8 @@ function Auth({ onAuthenticated }) {
     } catch (submitError) {
       setError(
         submitError instanceof Error
-          ? submitError.message
-          : 'Dogodila se pogreška. Pokušaj ponovno.',
+          ? t(submitError.message)
+          : t('Dogodila se pogreška. Pokušaj ponovno.'),
       )
     } finally {
       setIsSubmitting(false)
@@ -62,12 +62,12 @@ function Auth({ onAuthenticated }) {
         <div className="auth-brand">
 
           <h1 className="auth-title">
-            VIRTUALNA GARAŽA
+            {t("VIRTUALNA GARAŽA")}
             <span>{t('ZA MOTOCIKLE')}</span>
           </h1>
 
           <p className="auth-tagline">
-            TVOJI MOTOCIKLI. TVOJA PRIČA.
+            {t("TVOJI MOTOCIKLI. TVOJA PRIČA.")}
           </p>
         </div>
 
@@ -83,7 +83,7 @@ function Auth({ onAuthenticated }) {
             disabled={isSubmitting}
             aria-pressed={!isRegister}
           >
-            Prijava
+            {t("Prijava")}
           </button>
 
           <button
@@ -93,21 +93,21 @@ function Auth({ onAuthenticated }) {
             disabled={isSubmitting}
             aria-pressed={isRegister}
           >
-            Registracija
+            {t("Registracija")}
           </button>
         </div>
 
         <div className="auth-form-heading">
           <h2>
             {isRegister
-              ? 'Izradi korisnički račun'
-              : 'Dobrodošao natrag'}
+              ? t("Izradi korisnički račun")
+              : t("Dobrodošao natrag")}
           </h2>
 
           <p>
             {isRegister
-              ? 'Registriraj se i stvori svoju virtualnu garažu.'
-              : 'Prijavi se i nastavi upravljati svojom garažom.'}
+              ? t("Registriraj se i stvori svoju virtualnu garažu.")
+              : t("Prijavi se i nastavi upravljati svojom garažom.")}
           </p>
         </div>
 
@@ -115,7 +115,7 @@ function Auth({ onAuthenticated }) {
           {isRegister && (
             <div className="auth-field">
               <label htmlFor="auth-name">
-                Ime
+                {t("Ime")}
               </label>
 
               <input
@@ -135,7 +135,7 @@ function Auth({ onAuthenticated }) {
 
           <div className="auth-field">
             <label htmlFor="auth-email">
-              E-mail adresa
+              {t("E-mail adresa")}
             </label>
 
             <input
@@ -153,7 +153,7 @@ function Auth({ onAuthenticated }) {
 
           <div className="auth-field">
             <label htmlFor="auth-password">
-              Lozinka
+              {t("Lozinka")}
             </label>
 
             <div className="auth-password-wrapper">
@@ -163,8 +163,8 @@ function Auth({ onAuthenticated }) {
                 type={showPassword ? 'text' : 'password'}
                 placeholder={
                   isRegister
-                    ? 'Najmanje 8 znakova'
-                    : 'Unesi lozinku'
+                    ? t("Najmanje 8 znakova")
+                    : t("Unesi lozinku")
                 }
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
@@ -185,12 +185,12 @@ function Auth({ onAuthenticated }) {
                 disabled={isSubmitting}
                 aria-label={
                   showPassword
-                    ? 'Sakrij lozinku'
-                    : 'Prikaži lozinku'
+                    ? t("Sakrij lozinku")
+                    : t("Prikaži lozinku")
                 }
                 aria-pressed={showPassword}
               >
-                {showPassword ? 'Sakrij' : 'Prikaži'}
+                {showPassword ? t("Sakrij") : t("Prikaži")}
               </button>
             </div>
           </div>
@@ -207,10 +207,10 @@ function Auth({ onAuthenticated }) {
             disabled={isSubmitting}
           >
             {isSubmitting
-              ? 'Pričekaj...'
+              ? t("Pričekaj...")
               : isRegister
-                ? 'Registriraj se'
-                : 'Prijavi se'}
+                ? t("Registriraj se")
+                : t("Prijavi se")}
           </button>
         </form>
 
@@ -221,8 +221,8 @@ function Auth({ onAuthenticated }) {
         <div className="auth-footer">
           <p>
             {isRegister
-              ? 'Već imaš korisnički račun?'
-              : 'Nemaš korisnički račun?'}
+              ? t("Već imaš korisnički račun?")
+              : t("Nemaš korisnički račun?")}
           </p>
 
           <button
@@ -234,13 +234,13 @@ function Auth({ onAuthenticated }) {
             disabled={isSubmitting}
           >
             {isRegister
-              ? 'Prijavi se'
-              : 'Registriraj se'}
+              ? t("Prijavi se")
+              : t("Registriraj se")}
           </button>
         </div>
 
         <p className="auth-bottom-text">
-          Virtualna garaža za motocikle
+          {t("Virtualna garaža za motocikle")}
         </p>
       </section>
     </main>

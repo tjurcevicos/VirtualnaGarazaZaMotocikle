@@ -77,27 +77,23 @@ function Gorivo({
       !formData.unitPrice ||
       formData.mileage === ''
     ) {
-      setError('Molimo ispuni sva polja.')
+      setError(t("Molimo ispuni sva polja."))
       return
     }
 
     if (liters <= 0) {
-      setError(
-        'Količina goriva mora biti veća od 0.',
-      )
+      setError(t("Količina goriva mora biti veća od 0."))
       return
     }
 
     if (!Number.isFinite(unitPrice) || unitPrice <= 0 || !Number.isFinite(price) || price <= 0) {
-      setError(
-        'Cijena po litri mora biti veća od 0.',
-      )
+      setError(t("Cijena po litri mora biti veća od 0."))
       return
     }
 
     if (mileage < 0) {
       setError(
-        'Kilometraža ne može biti negativna.',
+        t("Kilometraža ne može biti negativna."),
       )
       return
     }
@@ -267,16 +263,15 @@ function Gorivo({
       <div className="page-header vehicle-header">
         <div>
           <p className="page-label">
-            EVIDENCIJA
+            {t("EVIDENCIJA")}
           </p>
 
           <h1>
-            Gorivo
+            {t("Gorivo")}
           </h1>
 
           <p className="page-description">
-            Prati točenja goriva, kilometražu
-            i troškove svojih motocikala.
+            {t("Prati točenja goriva, kilometražu i troškove svojih motocikala.")}
           </p>
         </div>
 
@@ -293,8 +288,8 @@ function Gorivo({
           disabled={vehicles.length === 0}
         >
           {showForm
-            ? 'Zatvori'
-            : '+ Dodaj točenje'}
+            ? t("Zatvori")
+            : t("+ Dodaj točenje")}
         </button>
       </div>
 
@@ -305,12 +300,11 @@ function Gorivo({
           </div>
 
           <h2>
-            Prvo dodaj motocikl
+            {t("Prvo dodaj motocikl")}
           </h2>
 
           <p>
-            Za evidenciju goriva potrebno je
-            prvo dodati motocikl u svoju garažu.
+            {t("Za evidenciju goriva potrebno je prvo dodati motocikl u svoju garažu.")}
           </p>
         </div>
       )}
@@ -321,7 +315,7 @@ function Gorivo({
             <div className="fuel-summary">
               <div className="fuel-summary-card">
                 <span>
-                  Ukupno točenja
+                  {t("Ukupno točenja")}
                 </span>
 
                 <strong>
@@ -331,7 +325,7 @@ function Gorivo({
 
               <div className="fuel-summary-card">
                 <span>
-                  Ukupno goriva
+                  {t("Ukupno goriva")}
                 </span>
 
                 <strong>
@@ -348,7 +342,7 @@ function Gorivo({
 
               <div className="fuel-summary-card">
                 <span>
-                  Ukupno potrošeno
+                  {t("Ukupno potrošeno")}
                 </span>
 
                 <strong>
@@ -365,7 +359,7 @@ function Gorivo({
 
               <div className="fuel-summary-card">
                 <span>
-                  Prosječna potrošnja
+                  {t("Prosječna potrošnja")}
                 </span>
 
                 <strong>
@@ -377,7 +371,7 @@ function Gorivo({
                           maximumFractionDigits: 2,
                         },
                       )} L/100 km`
-                    : 'Nedovoljno podataka'}
+                    : t("Nedovoljno podataka")}
                 </strong>
               </div>
             </div>
@@ -399,14 +393,13 @@ function Gorivo({
               <div className="form-header">
                 <h2>{t('Detaljna statistika goriva')}</h2>
                 <p>
-                  Pregled cijena goriva i troška po kilometru.
-                  Za točan izračun odaberi pojedini motocikl.
+                  {t("Pregled cijena goriva i troška po kilometru. Za točan izračun odaberi pojedini motocikl.")}
                 </p>
               </div>
 
               <div className="form-group">
                 <label htmlFor="fuel-statistics-vehicle">
-                  Statistika za motocikl
+                  {t("Statistika za motocikl")}
                 </label>
                 <select
                   id="fuel-statistics-vehicle"
@@ -462,8 +455,8 @@ function Gorivo({
                               detailedFuelStatistics.fuelCostPerKm,
                               3,
                             )} €/km`
-                          : 'Nedovoljno podataka'
-                        : 'Odaberi motocikl'}
+                          : t("Nedovoljno podataka")
+                        : t("Odaberi motocikl")}
                     </strong>
                   </div>
                 </div>
@@ -481,14 +474,14 @@ function Gorivo({
               <div className="form-header">
                 <h2>
                   {editingRecordId
-                    ? 'Uredi točenje goriva'
-                    : 'Dodaj točenje goriva'}
+                    ? t("Uredi točenje goriva")
+                    : t("Dodaj točenje goriva")}
                 </h2>
 
                 <p>
                   {editingRecordId
-                    ? 'Promijeni podatke o točenju goriva.'
-                    : 'Unesi podatke o točenju goriva.'}
+                    ? t("Promijeni podatke o točenju goriva.")
+                    : t("Unesi podatke o točenju goriva.")}
                 </p>
               </div>
 
@@ -501,7 +494,7 @@ function Gorivo({
               <div className="form-grid">
                 <div className="form-group">
                   <label htmlFor="vehicleId">
-                    Motocikl
+                    {t("Motocikl")}
                   </label>
 
                   <select
@@ -512,7 +505,7 @@ function Gorivo({
                     required
                   >
                     <option value="">
-                      Odaberi motocikl
+                      {t("Odaberi motocikl")}
                     </option>
 
                     {vehicles.map((vehicle) => (
@@ -529,7 +522,7 @@ function Gorivo({
 
                 <div className="form-group">
                   <label htmlFor="date">
-                    Datum
+                    {t("Datum")}
                   </label>
 
                   <input
@@ -544,7 +537,7 @@ function Gorivo({
 
                 <div className="form-group">
                   <label htmlFor="liters">
-                    Količina goriva
+                    {t("Količina goriva")}
                   </label>
 
                   <input
@@ -562,7 +555,7 @@ function Gorivo({
 
                 <div className="form-group">
                   <label htmlFor="unitPrice">
-                    Cijena po litri (€/L)
+                    {t("Cijena po litri (€/L)")}
                   </label>
 
                   <input
@@ -580,7 +573,7 @@ function Gorivo({
 
                 <div className="form-group">
                   <label htmlFor="mileage">
-                    Kilometraža
+                    {t("Kilometraža")}
                   </label>
 
                   <input
@@ -596,7 +589,7 @@ function Gorivo({
                 </div>
                 <div className="form-group">
                   <label htmlFor="fuel-total-price">
-                    Ukupna cijena točenja (€)
+                    {t("Ukupna cijena točenja (€)")}
                   </label>
                   <input
                     id="fuel-total-price"
@@ -615,7 +608,7 @@ function Gorivo({
 
                 <div className="form-group">
                   <label htmlFor="station">
-                    Benzinska postaja (neobavezno)
+                    {t("Benzinska postaja (neobavezno)")}
                   </label>
                   <input
                     id="station"
@@ -655,7 +648,7 @@ function Gorivo({
                       checked={formData.fullTank}
                       onChange={handleChange}
                     />{' '}
-                    Spremnik napunjen do vrha
+                    {t("Spremnik napunjen do vrha")}
                   </label>
                 </div>
               </div>
@@ -667,7 +660,7 @@ function Gorivo({
                     className="fuel-cancel-button"
                     onClick={handleCancelEdit}
                   >
-                    Odustani
+                    {t("Odustani")}
                   </button>
                 )}
 
@@ -676,8 +669,8 @@ function Gorivo({
                   className="primary-button"
                 >
                   {editingRecordId
-                    ? 'Spremi promjene'
-                    : 'Spremi točenje'}
+                    ? t("Spremi promjene")
+                    : t("Spremi točenje")}
                 </button>
               </div>
             </form>
@@ -691,13 +684,11 @@ function Gorivo({
                 </div>
 
                 <h2>
-                  Nema evidentiranih točenja
+                  {t("Nema evidentiranih točenja")}
                 </h2>
 
                 <p>
-                  Dodaj prvo točenje goriva kako
-                  bi mogao pratiti potrošnju i
-                  troškove.
+                  {t("Dodaj prvo točenje goriva kako bi mogao pratiti potrošnju i troškove.")}
                 </p>
 
                 <button
@@ -707,7 +698,7 @@ function Gorivo({
                     setShowForm(true)
                   }
                 >
-                  + Dodaj prvo točenje
+                  {t("+ Dodaj prvo točenje")}
                 </button>
               </div>
             )}
@@ -733,7 +724,7 @@ function Gorivo({
                         <h2>
                           {vehicle
                             ? `${vehicle.brand} ${vehicle.model}`
-                            : 'Nepoznati motocikl'}
+                            : t("Nepoznati motocikl")}
                         </h2>
 
                         <p>
@@ -749,7 +740,7 @@ function Gorivo({
                     <div className="fuel-card-details">
                       <div>
                         <span>
-                          Gorivo
+                          {t("Gorivo")}
                         </span>
 
                         <strong>
@@ -768,7 +759,7 @@ function Gorivo({
 
                       <div>
                         <span>
-                          Cijena
+                          {t("Cijena")}
                         </span>
 
                         <strong>
@@ -787,7 +778,7 @@ function Gorivo({
 
                       <div>
                         <span>
-                          Cijena po litri
+                          {t("Cijena po litri")}
                         </span>
 
                         <strong>
@@ -796,7 +787,7 @@ function Gorivo({
                                 calculatePricePerLiter(record),
                                 2,
                               )} €/L`
-                            : 'Nedovoljno podataka'}
+                            : t("Nedovoljno podataka")}
                         </strong>
                       </div>
 
@@ -816,7 +807,7 @@ function Gorivo({
 
                       <div>
                         <span>
-                          Kilometraža
+                          {t("Kilometraža")}
                         </span>
 
                         <strong>
@@ -839,7 +830,7 @@ function Gorivo({
                             )
                           }
                         >
-                          Uredi
+                          {t("Uredi")}
                         </button>
 
                         <button
@@ -851,7 +842,7 @@ function Gorivo({
                             )
                           }
                         >
-                          Obriši
+                          {t("Obriši")}
                         </button>
                       </div>
                     </div>
