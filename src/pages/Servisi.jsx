@@ -1,3 +1,4 @@
+import PlanOdrzavanja from '../components/PlanOdrzavanja'
 import { usePreferences } from '../i18n/Preferences'
 import { useState } from 'react'
 
@@ -7,6 +8,10 @@ function Servisi({
   onAddService,
   onDeleteService,
   onUpdateService,
+  maintenancePlans = [],
+  onSetMaintenancePlans,
+  reminders = [],
+  onAddReminder,
 }) {
   const { t } = usePreferences()
   const [showForm, setShowForm] = useState(false)
@@ -188,6 +193,8 @@ function Servisi({
 
       {vehicles.length > 0 && (
         <>
+          <PlanOdrzavanja vehicles={vehicles} services={services} plans={maintenancePlans} onChange={onSetMaintenancePlans} reminders={reminders} onAddReminder={onAddReminder} />
+
           {services.length > 0 && (
             <div className="service-summary">
               <div className="service-summary-card">

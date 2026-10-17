@@ -5,6 +5,7 @@ const STORAGE_KEYS = {
   fuelRecords: 'fuelRecords',
   expenses: 'expenses',
   reminders: 'reminders',
+  maintenancePlans: 'maintenancePlans',
 }
 
 function getStorageKey(key, userId = null) {

@@ -1,6 +1,6 @@
 import { loadData, saveData } from './storageFacade'
 
-const keys = ['vehicles', 'services', 'fuelRecords', 'expenses', 'reminders']
+const keys = ['vehicles', 'services', 'fuelRecords', 'expenses', 'reminders', 'maintenancePlans']
 const dbName = 'VirtualnaGarazaDB'
 const storeName = 'motorcyclePhotos'
 
@@ -86,6 +86,7 @@ export function validateBackup(backup) {
     throw new Error('Odabrana datoteka nije podržana sigurnosna kopija Virtualne garaže.')
   }
   for (const key of keys) {
+    if (key === 'maintenancePlans' && backup.data[key] === undefined) continue
     if (!Array.isArray(backup.data[key]) || backup.data[key].some((item) => !item || typeof item !== 'object' || Array.isArray(item))) {
       throw new Error(`Neispravni podaci u kategoriji: ${key}.`)
     }
@@ -102,7 +103,7 @@ export async function restoreBackup(userId, backup) {
   validateBackup(backup)
   const previous = await createBackup(userId)
   try {
-    for (const key of keys) saveData(key, backup.data[key], userId)
+    for (const key of keys) saveData(key, backup.data[key] ?? [], userId)
     await writePhotos(userId, [...previous.data.vehicles, ...backup.data.vehicles], backup.photos)
   } catch (error) {
     for (const key of keys) saveData(key, previous.data[key], userId)

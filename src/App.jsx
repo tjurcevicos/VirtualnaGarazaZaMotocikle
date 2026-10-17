@@ -46,6 +46,8 @@ function GarageApp({ user, onLogout }) {
     setExpenses,
     reminders,
     setReminders,
+    maintenancePlans,
+    setMaintenancePlans,
   } = useGarageData(user.id)
 
   function handleNavigate(page) {
@@ -94,6 +96,8 @@ function GarageApp({ user, onLogout }) {
     setReminders((current) =>
       deleteVehicleRelatedData(current, id),
     )
+
+    setMaintenancePlans((current) => deleteVehicleRelatedData(current, id))
 
     setSelectedVehicle(null)
 
@@ -218,6 +222,10 @@ function GarageApp({ user, onLogout }) {
       case 'servisi':
         return (
           <Servisi
+            maintenancePlans={maintenancePlans}
+            onSetMaintenancePlans={setMaintenancePlans}
+            reminders={reminders}
+            onAddReminder={handleAddReminder}
             vehicles={vehicles}
             services={services}
             onAddService={handleAddService}
