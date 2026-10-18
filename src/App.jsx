@@ -16,6 +16,7 @@ import Podsjetnici from './pages/Podsjetnici'
 import Postavke from './pages/Postavke'
 import Statistika from './pages/Statistika'
 import Kalendar from './pages/Kalendar'
+import Pomoc from './pages/Pomoc'
 
 import { deletePhoto } from './utils/photoStorage'
 import useGarageData from './hooks/useGarageData'
@@ -281,6 +282,9 @@ function GarageApp({ user, onLogout }) {
 
       case 'kalendar':
         return <Kalendar vehicles={vehicles} services={services} reminders={reminders} maintenancePlans={maintenancePlans} registrationRecords={registrationRecords} onNavigate={handleNavigate} />
+
+      case 'pomoc':
+        return <Pomoc onNavigate={handleNavigate} />
 
       case 'postavke':
         return <Postavke userId={user.id} />
