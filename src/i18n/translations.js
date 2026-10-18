@@ -907,7 +907,283 @@ const helpUiRows = [
 ["Na stranicama koje nude PDF izvoz možeš izraditi dokument s podacima za pregled ili ispis.","On pages offering PDF export, you can create a document for review or printing.","Auf Seiten mit PDF-Export kannst du ein Dokument zur Ansicht oder zum Drucken erstellen.","Nelle pagine con esportazione PDF puoi creare un documento da consultare o stampare.","Na straneh z izvozom PDF lahko ustvariš dokument za pregled ali tiskanje."]
 ]
 
-export const translations = Object.fromEntries([...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
+const tripsUiRows = [
+  [
+    "Putovanja",
+    "Trips",
+    "Reisen",
+    "Viaggi",
+    "Potovanja"
+  ],
+  [
+    "DNEVNIK VOŽNJI",
+    "RIDE JOURNAL",
+    "FAHRTENBUCH",
+    "DIARIO DI VIAGGIO",
+    "DNEVNIK VOŽENJ"
+  ],
+  [
+    "Označi posjećena mjesta, zapiši uspomene i sačuvaj svoje vožnje.",
+    "Mark visited places, write memories and save your rides.",
+    "Markiere besuchte Orte, halte Erinnerungen fest und speichere deine Fahrten.",
+    "Segna i luoghi visitati, annota ricordi e salva i tuoi viaggi.",
+    "Označi obiskane kraje, zapiši spomine in shrani vožnje."
+  ],
+  [
+    "Novo putovanje",
+    "New trip",
+    "Neue Reise",
+    "Nuovo viaggio",
+    "Novo potovanje"
+  ],
+  [
+    "Ukupno putovanja",
+    "Total trips",
+    "Reisen insgesamt",
+    "Viaggi totali",
+    "Skupaj potovanj"
+  ],
+  [
+    "Posjećena mjesta",
+    "Visited places",
+    "Besuchte Orte",
+    "Luoghi visitati",
+    "Obiskani kraji"
+  ],
+  [
+    "Evidentirani kilometri",
+    "Recorded kilometres",
+    "Erfasste Kilometer",
+    "Chilometri registrati",
+    "Zabeleženi kilometri"
+  ],
+  [
+    "Moja putovanja",
+    "My trips",
+    "Meine Reisen",
+    "I miei viaggi",
+    "Moja potovanja"
+  ],
+  [
+    "Bez motocikla",
+    "No motorcycle",
+    "Ohne Motorrad",
+    "Senza moto",
+    "Brez motocikla"
+  ],
+  [
+    "Još nema spremljenih putovanja.",
+    "No saved trips yet.",
+    "Noch keine Reisen gespeichert.",
+    "Nessun viaggio salvato.",
+    "Ni še shranjenih potovanj."
+  ],
+  [
+    "lokacija",
+    "locations",
+    "Orte",
+    "luoghi",
+    "lokacij"
+  ],
+  [
+    "Planirano",
+    "Planned",
+    "Geplant",
+    "Pianificato",
+    "Načrtovano"
+  ],
+  [
+    "Završeno",
+    "Completed",
+    "Abgeschlossen",
+    "Completato",
+    "Zaključeno"
+  ],
+  [
+    "Tvoja karta putovanja",
+    "Your trip map",
+    "Deine Reisekarte",
+    "La mappa dei tuoi viaggi",
+    "Tvoj zemljevid potovanj"
+  ],
+  [
+    "Dodaj novo putovanje ili odaberi postojeće za pregled karte i napomena.",
+    "Add a new trip or select an existing one to see the map and notes.",
+    "Erstelle eine Reise oder wähle eine bestehende, um Karte und Notizen zu sehen.",
+    "Crea un viaggio o selezionane uno per vedere mappa e note.",
+    "Dodaj potovanje ali izberi obstoječe za ogled zemljevida in opomb."
+  ],
+  [
+    "Započni planiranje",
+    "Start planning",
+    "Planung starten",
+    "Inizia a pianificare",
+    "Začni načrtovati"
+  ],
+  [
+    "Naziv putovanja",
+    "Trip name",
+    "Reisename",
+    "Nome del viaggio",
+    "Ime potovanja"
+  ],
+  [
+    "Npr. Vikend vožnja",
+    "E.g. Weekend ride",
+    "Z. B. Wochenendtour",
+    "Es. Giro del weekend",
+    "Npr. vikend vožnja"
+  ],
+  [
+    "Status putovanja",
+    "Trip status",
+    "Reisestatus",
+    "Stato del viaggio",
+    "Stanje potovanja"
+  ],
+  [
+    "Prijeđeni kilometri",
+    "Distance travelled",
+    "Gefahrene Kilometer",
+    "Chilometri percorsi",
+    "Prevoženi kilometri"
+  ],
+  [
+    "Napomene o putovanju",
+    "Trip notes",
+    "Reisenotizen",
+    "Note di viaggio",
+    "Opombe o potovanju"
+  ],
+  [
+    "Što želiš zapamtiti s ove vožnje?",
+    "What do you want to remember from this ride?",
+    "Was möchtest du von dieser Fahrt in Erinnerung behalten?",
+    "Cosa vuoi ricordare di questo viaggio?",
+    "Kaj si želiš zapomniti s te vožnje?"
+  ],
+  [
+    "Obrisati ovo putovanje?",
+    "Delete this trip?",
+    "Diese Reise löschen?",
+    "Eliminare questo viaggio?",
+    "Izbrisati to potovanje?"
+  ],
+  [
+    "Karta mjesta",
+    "Places map",
+    "Ortskarte",
+    "Mappa dei luoghi",
+    "Zemljevid krajev"
+  ],
+  [
+    "Klikni na kartu za dodavanje mjesta.",
+    "Click the map to add a place.",
+    "Klicke auf die Karte, um einen Ort hinzuzufügen.",
+    "Clicca sulla mappa per aggiungere un luogo.",
+    "Klikni zemljevid za dodajanje kraja."
+  ],
+  [
+    "Označena mjesta na putovanju",
+    "Places marked on this trip",
+    "Markierte Orte dieser Reise",
+    "Luoghi segnati nel viaggio",
+    "Označeni kraji na potovanju"
+  ],
+  [
+    "Novo mjesto na karti",
+    "New map location",
+    "Neuer Ort auf der Karte",
+    "Nuovo luogo sulla mappa",
+    "Nov kraj na zemljevidu"
+  ],
+  [
+    "Naziv mjesta",
+    "Place name",
+    "Ortsname",
+    "Nome del luogo",
+    "Ime kraja"
+  ],
+  [
+    "Npr. Plitvička jezera",
+    "E.g. Plitvice Lakes",
+    "Z. B. Plitvicer Seen",
+    "Es. Laghi di Plitvice",
+    "Npr. Plitviška jezera"
+  ],
+  [
+    "Napomena o mjestu",
+    "Place note",
+    "Notiz zum Ort",
+    "Nota sul luogo",
+    "Opomba o kraju"
+  ],
+  [
+    "Dodaj mjesto",
+    "Add place",
+    "Ort hinzufügen",
+    "Aggiungi luogo",
+    "Dodaj kraj"
+  ],
+  [
+    "Popis mjesta",
+    "Places list",
+    "Ortsliste",
+    "Elenco dei luoghi",
+    "Seznam krajev"
+  ],
+  [
+    "Klikni na željenu lokaciju na karti.",
+    "Click the desired location on the map.",
+    "Klicke auf den gewünschten Ort auf der Karte.",
+    "Clicca sulla posizione desiderata sulla mappa.",
+    "Klikni želeno lokacijo na zemljevidu."
+  ],
+  [
+    "Nema označenih mjesta.",
+    "No places marked.",
+    "Keine Orte markiert.",
+    "Nessun luogo segnato.",
+    "Ni označenih krajev."
+  ],
+  [
+    "Pomakni gore",
+    "Move up",
+    "Nach oben",
+    "Sposta su",
+    "Premakni gor"
+  ],
+  [
+    "Pomakni dolje",
+    "Move down",
+    "Nach unten",
+    "Sposta giù",
+    "Premakni dol"
+  ],
+  [
+    "Ukloni",
+    "Remove",
+    "Entfernen",
+    "Rimuovi",
+    "Odstrani"
+  ],
+  [
+    "Spremi putovanje",
+    "Save trip",
+    "Reise speichern",
+    "Salva viaggio",
+    "Shrani potovanje"
+  ],
+  [
+    "Linija povezuje označena mjesta redoslijedom, ali nije cestovna ruta. Za učitavanje karte potrebna je internetska veza.",
+    "The line connects marked places in order but is not a road route. An internet connection is needed to load the map.",
+    "Die Linie verbindet markierte Orte der Reihe nach, ist aber keine Straßenroute. Zum Laden der Karte ist Internet erforderlich.",
+    "La linea collega i luoghi segnati in ordine, ma non è un percorso stradale. Per caricare la mappa serve Internet.",
+    "Črta povezuje označene kraje po vrsti, vendar ni cestna pot. Za nalaganje zemljevida potrebuješ internet."
+  ]
+]
+
+export const translations = Object.fromEntries([...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
 export function translate(text, lang) {
   return translations[text]?.[lang] || text
 }

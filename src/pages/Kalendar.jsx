@@ -4,17 +4,17 @@ import { buildCalendarEvents } from '../utils/calendarEvents'
 
 const isoDay = (date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
 const mondayIndex = (date) => (date.getDay() + 6) % 7
-const kinds = ['reminder', 'maintenance', 'registration', 'service']
-const kindLabels = { reminder: 'Podsjetnici', maintenance: 'Plan održavanja', registration: 'Registracija i osiguranje', service: 'Servisi' }
+const kinds = ['reminder', 'maintenance', 'registration', 'service', 'trip']
+const kindLabels = { reminder: 'Podsjetnici', maintenance: 'Plan održavanja', registration: 'Registracija i osiguranje', service: 'Servisi', trip: 'Putovanja' }
 
-export default function Kalendar({ vehicles, services, reminders, maintenancePlans, registrationRecords, onNavigate }) {
+export default function Kalendar({ vehicles, services, reminders, maintenancePlans, registrationRecords, trips, onNavigate }) {
   const { t, language } = usePreferences()
   const today = useMemo(() => new Date(), [])
   const [month, setMonth] = useState(() => new Date(today.getFullYear(), today.getMonth(), 1))
   const [selectedDay, setSelectedDay] = useState(() => isoDay(today))
   const [vehicleId, setVehicleId] = useState('all')
   const [enabledKinds, setEnabledKinds] = useState(kinds)
-  const events = useMemo(() => buildCalendarEvents({ vehicles, services, reminders, maintenancePlans, registrationRecords }), [vehicles, services, reminders, maintenancePlans, registrationRecords])
+  const events = useMemo(() => buildCalendarEvents({ vehicles, services, reminders, maintenancePlans, registrationRecords, trips }), [vehicles, services, reminders, maintenancePlans, registrationRecords, trips])
   const filtered = useMemo(() => events.filter((event) => (vehicleId === 'all' || event.vehicleId === vehicleId) && enabledKinds.includes(event.type)), [events, vehicleId, enabledKinds])
   const byDay = useMemo(() => {
     const result = new Map()

@@ -17,6 +17,7 @@ import Postavke from './pages/Postavke'
 import Statistika from './pages/Statistika'
 import Kalendar from './pages/Kalendar'
 import Pomoc from './pages/Pomoc'
+import Putovanja from './pages/Putovanja'
 
 import { deletePhoto } from './utils/photoStorage'
 import useGarageData from './hooks/useGarageData'
@@ -53,6 +54,8 @@ function GarageApp({ user, onLogout }) {
     setMaintenancePlans,
     registrationRecords,
     setRegistrationRecords,
+    trips,
+    setTrips,
   } = useGarageData(user.id)
 
   function handleNavigate(page) {
@@ -104,6 +107,7 @@ function GarageApp({ user, onLogout }) {
 
     setMaintenancePlans((current) => deleteVehicleRelatedData(current, id))
     setRegistrationRecords((current) => deleteVehicleRelatedData(current, id))
+    setTrips((current) => current.map((trip) => String(trip.vehicleId) === String(id) ? { ...trip, vehicleId: '' } : trip))
 
     setSelectedVehicle(null)
 
@@ -281,7 +285,10 @@ function GarageApp({ user, onLogout }) {
         return <Statistika vehicles={vehicles} services={services} fuelRecords={fuelRecords} expenses={expenses} reminders={reminders} maintenancePlans={maintenancePlans} registrationRecords={registrationRecords} />
 
       case 'kalendar':
-        return <Kalendar vehicles={vehicles} services={services} reminders={reminders} maintenancePlans={maintenancePlans} registrationRecords={registrationRecords} onNavigate={handleNavigate} />
+        return <Kalendar vehicles={vehicles} services={services} reminders={reminders} maintenancePlans={maintenancePlans} registrationRecords={registrationRecords} trips={trips} onNavigate={handleNavigate} />
+
+      case 'putovanja':
+        return <Putovanja vehicles={vehicles} trips={trips} onSetTrips={setTrips} />
 
       case 'pomoc':
         return <Pomoc onNavigate={handleNavigate} />

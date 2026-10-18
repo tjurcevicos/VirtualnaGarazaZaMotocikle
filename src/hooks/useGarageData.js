@@ -12,6 +12,7 @@ function useGarageData(userId = null) {
     reminders: loadData('reminders', userId),
     maintenancePlans: loadData('maintenancePlans', userId),
     registrationRecords: loadData('registrationRecords', userId),
+    trips: loadData('trips', userId),
   }))
 
   const currentGarage =
@@ -26,6 +27,7 @@ function useGarageData(userId = null) {
           reminders: loadData('reminders', userId),
           maintenancePlans: loadData('maintenancePlans', userId),
     registrationRecords: loadData('registrationRecords', userId),
+    trips: loadData('trips', userId),
         }
 
   useEffect(() => {
@@ -39,6 +41,7 @@ function useGarageData(userId = null) {
         reminders: loadData('reminders', userId),
         maintenancePlans: loadData('maintenancePlans', userId),
     registrationRecords: loadData('registrationRecords', userId),
+    trips: loadData('trips', userId),
       })
     }
   }, [userId, garageState.userId])
@@ -115,6 +118,12 @@ function useGarageData(userId = null) {
     catch (error) { console.error('Spremanje registracije nije uspjelo:', error) }
   }, [garageState.registrationRecords, garageState.userId, userId])
 
+  useEffect(() => {
+    if (garageState.userId !== userId) return
+    try { saveData('trips', garageState.trips, userId) }
+    catch (error) { console.error('Spremanje putovanja nije uspjelo:', error) }
+  }, [garageState.trips, garageState.userId, userId])
+
   function updateData(key, value) {
     setGarageState((current) => {
       if (current.userId !== userId) {
@@ -144,6 +153,8 @@ function useGarageData(userId = null) {
     setExpenses: (value) => updateData('expenses', value),
     maintenancePlans: currentGarage.maintenancePlans,
     setMaintenancePlans: (value) => updateData('maintenancePlans', value),
+    trips: currentGarage.trips,
+    setTrips: (value) => updateData('trips', value),
     registrationRecords: currentGarage.registrationRecords,
     setRegistrationRecords: (value) => updateData('registrationRecords', value),
     reminders: currentGarage.reminders,

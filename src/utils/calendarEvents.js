@@ -19,7 +19,7 @@ const validDate = (value) => {
   return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
 }
 
-export function buildCalendarEvents({ vehicles = [], services = [], reminders = [], maintenancePlans = [], registrationRecords = [] }) {
+export function buildCalendarEvents({ vehicles = [], services = [], reminders = [], maintenancePlans = [], registrationRecords = [], trips = [] }) {
   const vehicleNames = new Map(vehicles.map((vehicle) => [String(vehicle.id), [vehicle.brand, vehicle.model].filter(Boolean).join(' ')]))
   const events = []
   const add = (source, record, date, title, type, page, completed = false) => {
@@ -34,5 +34,6 @@ export function buildCalendarEvents({ vehicles = [], services = [], reminders = 
   }
   const registrationTypes = { registration: 'Registracija', inspection: 'Tehnički pregled', insurance: 'Osiguranje' }
   for (const record of registrationRecords) add('registration', record, record.expiryDate, registrationTypes[record.type] || 'Registracija i osiguranje', 'registration', 'vozila')
+  for (const trip of trips) add('trip', trip, trip.date, trip.title || 'Putovanje', 'trip', 'putovanja', trip.status === 'completed')
   return events.sort((a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title))
 }
