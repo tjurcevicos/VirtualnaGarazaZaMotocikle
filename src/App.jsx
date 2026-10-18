@@ -18,6 +18,7 @@ import Statistika from './pages/Statistika'
 import Kalendar from './pages/Kalendar'
 import Pomoc from './pages/Pomoc'
 import Putovanja from './pages/Putovanja'
+import Vrijeme from './pages/Vrijeme'
 
 import { deletePhoto } from './utils/photoStorage'
 import useGarageData from './hooks/useGarageData'
@@ -289,6 +290,9 @@ function GarageApp({ user, onLogout }) {
 
       case 'putovanja':
         return <Putovanja vehicles={vehicles} trips={trips} onSetTrips={setTrips} />
+
+      case 'vrijeme':
+        return <Vrijeme trips={trips} />
 
       case 'pomoc':
         return <Pomoc onNavigate={handleNavigate} />

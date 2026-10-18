@@ -1183,7 +1183,61 @@ const tripsUiRows = [
   ]
 ]
 
-export const translations = Object.fromEntries([...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
+const weatherUiRows = [
+  ["Vrijeme", "Weather", "Wetter", "Meteo", "Vreme"],
+  ["Vrijeme za vožnju", "Riding weather", "Motorradwetter", "Meteo per la moto", "Vreme za vožnjo"],
+  ["Provjeri uvjete prije polaska motociklom", "Check conditions before your ride", "Prüfe das Wetter vor der Fahrt", "Controlla le condizioni prima di partire", "Preveri razmere pred vožnjo"],
+  ["Lokacija", "Location", "Ort", "Località", "Lokacija"],
+  ["Pretraži grad", "Search city", "Stadt suchen", "Cerca città", "Poišči mesto"],
+  ["Traži", "Search", "Suchen", "Cerca", "Poišči"],
+  ["Pronađene lokacije", "Found locations", "Gefundene Orte", "Località trovate", "Najdene lokacije"],
+  ["Prognoza za 7 dana", "7-day forecast", "7-Tage-Vorhersage", "Previsioni a 7 giorni", "7-dnevna napoved"],
+  ["Prognoza po satima", "Hourly forecast", "Stündliche Vorhersage", "Previsioni orarie", "Urna napoved"],
+  ["Odaberi dan za detaljnu prognozu.", "Select a day for details.", "Wähle einen Tag für Details.", "Seleziona un giorno per i dettagli.", "Izberi dan za podrobnosti."],
+  ["Oborine", "Precipitation", "Niederschlag", "Precipitazioni", "Padavine"],
+  ["Vjetar", "Wind", "Wind", "Vento", "Veter"],
+  ["Udari vjetra", "Wind gusts", "Windböen", "Raffiche di vento", "Sunki vetra"],
+  ["Najniža", "Low", "Tiefstwert", "Minima", "Najnižja"],
+  ["Najviša", "High", "Höchstwert", "Massima", "Najvišja"],
+  ["Ocjena uvjeta", "Conditions score", "Wetterbewertung", "Valutazione condizioni", "Ocena razmer"],
+  ["Odlično za vožnju", "Excellent for riding", "Ideal zum Fahren", "Ottimo per guidare", "Odlično za vožnjo"],
+  ["Dobro za vožnju", "Good for riding", "Gut zum Fahren", "Buono per guidare", "Dobro za vožnjo"],
+  ["Potreban oprez", "Ride with caution", "Vorsicht geboten", "Serve prudenza", "Potrebna previdnost"],
+  ["Nepovoljno za vožnju", "Poor riding conditions", "Ungünstige Fahrbedingungen", "Condizioni sfavorevoli", "Neugodno za vožnjo"],
+  ["Savjet za motocikliste", "Rider advice", "Hinweis für Motorradfahrer", "Consiglio per motociclisti", "Nasvet za motoriste"],
+  ["Uvjeti izgledaju povoljno. Provjeri stanje cesta i lokalna upozorenja.", "Conditions look favourable. Check road conditions and local warnings.", "Die Bedingungen wirken günstig. Prüfe Straßenlage und Warnungen.", "Le condizioni sembrano favorevoli. Controlla strade e allerte.", "Razmere so ugodne. Preveri ceste in lokalna opozorila."],
+  ["Moguće su promjene vremena. Pripazi na vjetar i mokar kolnik.", "Weather may change. Watch for wind and wet roads.", "Das Wetter kann sich ändern. Achte auf Wind und nasse Straßen.", "Il meteo può cambiare. Attenzione al vento e alla strada bagnata.", "Vreme se lahko spremeni. Pazi na veter in mokro cesto."],
+  ["Razmisli o odgodi vožnje zbog mogućih nepovoljnih uvjeta.", "Consider postponing due to potentially poor conditions.", "Verschiebe die Fahrt bei ungünstigen Bedingungen.", "Valuta di rinviare il viaggio per condizioni sfavorevoli.", "Razmisli o preložitvi vožnje zaradi slabih razmer."],
+  ["Prognoza je informativna i ne jamči sigurnost vožnje.", "Forecasts are informative and do not guarantee riding safety.", "Die Vorhersage dient zur Information und garantiert keine Fahrsicherheit.", "Le previsioni sono indicative e non garantiscono la sicurezza.", "Napoved je informativna in ne zagotavlja varnosti vožnje."],
+  ["Izvor prognoze: Open-Meteo", "Forecast source: Open-Meteo", "Wetterdaten: Open-Meteo", "Fonte previsioni: Open-Meteo", "Vir napovedi: Open-Meteo"],
+  ["Učitavanje prognoze...", "Loading forecast...", "Vorhersage wird geladen...", "Caricamento previsioni...", "Nalaganje napovedi..."],
+  ["Prognoza trenutačno nije dostupna. Provjeri internetsku vezu.", "Forecast unavailable. Check your internet connection.", "Vorhersage nicht verfügbar. Prüfe die Internetverbindung.", "Previsioni non disponibili. Controlla la connessione.", "Napoved ni na voljo. Preveri internetno povezavo."],
+  ["Grad nije pronađen.", "City not found.", "Stadt nicht gefunden.", "Città non trovata.", "Mesta ni bilo mogoče najti."],
+  ["Unesi barem dva znaka za pretragu.", "Enter at least two characters.", "Gib mindestens zwei Zeichen ein.", "Inserisci almeno due caratteri.", "Vnesi vsaj dva znaka."],
+  ["Odaberi mjesto iz putovanja", "Choose a trip location", "Ort aus einer Reise wählen", "Scegli luogo dal viaggio", "Izberi kraj s potovanja"],
+  ["Odaberi mjesto", "Choose location", "Ort auswählen", "Scegli località", "Izberi kraj"],
+  ["Bez povezanih mjesta putovanja", "No linked trip locations", "Keine Reiseorte vorhanden", "Nessun luogo di viaggio", "Ni povezanih krajev potovanja"],
+  ["Sunčano", "Sunny", "Sonnig", "Soleggiato", "Sončno"],
+  ["Pretežno vedro", "Mostly clear", "Überwiegend klar", "Prevalentemente sereno", "Pretežno jasno"],
+  ["Oblačno", "Cloudy", "Bewölkt", "Nuvoloso", "Oblačno"],
+  ["Magla", "Fog", "Nebel", "Nebbia", "Megla"],
+  ["Kiša", "Rain", "Regen", "Pioggia", "Dež"],
+  ["Snijeg", "Snow", "Schnee", "Neve", "Sneg"],
+  ["Pljuskovi", "Showers", "Schauer", "Rovesci", "Plohe"],
+  ["Grmljavina", "Thunderstorm", "Gewitter", "Temporale", "Nevihta"],
+  ["Promjenjivo", "Variable", "Wechselhaft", "Variabile", "Spremenljivo"],
+  ["Nema prognoze za odabrani dan.", "No forecast for selected day.", "Keine Vorhersage für den gewählten Tag.", "Nessuna previsione per il giorno scelto.", "Ni napovedi za izbrani dan."],
+  ["Odabrani dan", "Selected day", "Ausgewählter Tag", "Giorno selezionato", "Izbrani dan"],
+  ["Pon", "Mon", "Mo", "Lun", "Pon"],
+  ["Uto", "Tue", "Di", "Mar", "Tor"],
+  ["Sri", "Wed", "Mi", "Mer", "Sre"],
+  ["Čet", "Thu", "Do", "Gio", "Čet"],
+  ["Pet", "Fri", "Fr", "Ven", "Pet"],
+  ["Sub", "Sat", "Sa", "Sab", "Sob"],
+  ["Ned", "Sun", "So", "Dom", "Ned"]
+]
+
+export const translations = Object.fromEntries([...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
 export function translate(text, lang) {
   return translations[text]?.[lang] || text
 }
