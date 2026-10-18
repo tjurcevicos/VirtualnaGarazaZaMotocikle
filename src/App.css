@@ -12,6 +12,7 @@
 @import "./styles/Troskovi.css";
 @import "./styles/Podsjetnici.css";
 @import './styles/UskladeneTeme.css';
+@import './styles/PozadinaAplikacije.css';
 .app {
   min-height: 100vh;
   display: flex;

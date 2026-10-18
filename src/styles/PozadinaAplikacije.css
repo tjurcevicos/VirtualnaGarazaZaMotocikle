@@ -1,0 +1,39 @@
+html {
+  --vg-background-glow: rgba(230, 57, 70, 0.035);
+  --vg-background-haze: rgba(255, 255, 255, 0.012);
+}
+
+html[data-theme="light"] {
+  --vg-background-glow: rgba(37, 99, 235, 0.045);
+  --vg-background-haze: rgba(255, 255, 255, 0.36);
+}
+
+html[data-theme="blue"] {
+  --vg-background-glow: rgba(56, 189, 248, 0.045);
+  --vg-background-haze: rgba(255, 255, 255, 0.014);
+}
+
+html[data-theme="graphite"] {
+  --vg-background-glow: rgba(212, 212, 212, 0.028);
+  --vg-background-haze: rgba(255, 255, 255, 0.01);
+}
+
+html[data-theme="emerald"] {
+  --vg-background-glow: rgba(52, 211, 153, 0.043);
+  --vg-background-haze: rgba(255, 255, 255, 0.012);
+}
+
+html[data-theme="purple"] {
+  --vg-background-glow: rgba(192, 132, 252, 0.045);
+  --vg-background-haze: rgba(255, 255, 255, 0.012);
+}
+
+html[data-theme] .main-content,
+html:not([data-theme]) .main-content {
+  background-color: var(--vg-bg);
+  background-image:
+    radial-gradient(ellipse 85% 55% at 55% 0%, var(--vg-background-glow), transparent 80%),
+    linear-gradient(180deg, var(--vg-background-haze), transparent 65%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
