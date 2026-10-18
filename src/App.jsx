@@ -15,6 +15,7 @@ import Troskovi from './pages/Troskovi'
 import Podsjetnici from './pages/Podsjetnici'
 import Postavke from './pages/Postavke'
 import Statistika from './pages/Statistika'
+import Kalendar from './pages/Kalendar'
 
 import { deletePhoto } from './utils/photoStorage'
 import useGarageData from './hooks/useGarageData'
@@ -277,6 +278,9 @@ function GarageApp({ user, onLogout }) {
 
       case 'statistika':
         return <Statistika vehicles={vehicles} services={services} fuelRecords={fuelRecords} expenses={expenses} reminders={reminders} maintenancePlans={maintenancePlans} registrationRecords={registrationRecords} />
+
+      case 'kalendar':
+        return <Kalendar vehicles={vehicles} services={services} reminders={reminders} maintenancePlans={maintenancePlans} registrationRecords={registrationRecords} onNavigate={handleNavigate} />
 
       case 'postavke':
         return <Postavke userId={user.id} />

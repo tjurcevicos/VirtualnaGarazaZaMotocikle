@@ -826,7 +826,21 @@ const statisticsUiRows = [
 ['Statistika se automatski ažurira prema podacima iz Vozila, Servisa, Goriva, Troškova, Podsjetnika te Registracije i osiguranja.','Statistics update automatically using data from Motorcycles, Services, Fuel, Expenses, Reminders, Registration and Insurance.','Statistiken werden automatisch aus Motorrädern, Wartung, Kraftstoff, Ausgaben, Erinnerungen, Zulassung und Versicherung aktualisiert.','Le statistiche si aggiornano automaticamente dai dati di moto, manutenzione, carburante, spese, promemoria, immatricolazione e assicurazione.','Statistika se samodejno posodablja iz podatkov o motociklih, servisih, gorivu, stroških, opomnikih, registraciji in zavarovanju.']
 ]
 
-export const translations = Object.fromEntries([...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
+const calendarUiRows = [
+['Kalendar','Calendar','Kalender','Calendario','Koledar'],
+['Svi važni datumi tvoje garaže na jednom mjestu.','All important garage dates in one place.','Alle wichtigen Termine deiner Garage auf einen Blick.','Tutte le date importanti del garage in un unico posto.','Vsi pomembni datumi garaže na enem mestu.'],
+['Danas','Today','Heute','Oggi','Danes'],
+['Prethodni mjesec','Previous month','Vorheriger Monat','Mese precedente','Prejšnji mesec'],
+['Sljedeći mjesec','Next month','Nächster Monat','Mese successivo','Naslednji mesec'],
+['Vrste događaja','Event types','Ereignisarten','Tipi di eventi','Vrste dogodkov'],
+['događaja','events','Ereignisse','eventi','dogodkov'],
+['Nema događaja za odabrani dan.','No events on the selected day.','Keine Ereignisse am ausgewählten Tag.','Nessun evento nel giorno selezionato.','Ni dogodkov za izbrani dan.'],
+['Otvori povezanu stranicu','Open related page','Zugehörige Seite öffnen','Apri la pagina collegata','Odpri povezano stran'],
+['Kalendar se automatski ažurira iz Podsjetnika, Servisa, Plana održavanja te Registracije i osiguranja. Planovi samo po kilometraži nemaju datum i nisu prikazani.','The calendar updates automatically from Reminders, Services, Maintenance Plans, Registration and Insurance. Mileage-only plans have no date and are not shown.','Der Kalender wird automatisch aus Erinnerungen, Wartungen, Wartungsplänen, Zulassung und Versicherung aktualisiert. Pläne nur nach Kilometerstand haben kein Datum und werden nicht angezeigt.','Il calendario si aggiorna automaticamente da promemoria, manutenzioni, piani di manutenzione, immatricolazione e assicurazione. I piani basati solo sui chilometri non hanno una data e non vengono mostrati.','Koledar se samodejno posodablja iz opomnikov, servisov, načrtov vzdrževanja, registracije in zavarovanja. Načrti samo po kilometrih nimajo datuma in niso prikazani.'],
+['Završeno','Completed','Abgeschlossen','Completato','Zaključeno']
+]
+
+export const translations = Object.fromEntries([...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
 export function translate(text, lang) {
   return translations[text]?.[lang] || text
 }
