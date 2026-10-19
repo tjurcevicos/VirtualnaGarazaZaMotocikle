@@ -41,7 +41,7 @@ function Sidebar({ activePage, onNavigate }) {
         </div>
       </div>
 
-      <nav className="navigation" aria-label="Glavna navigacija">
+      <nav className="navigation" aria-label={t('Glavna navigacija')}>
         {menuItems.map((item) => (
           <button
             key={item.id}

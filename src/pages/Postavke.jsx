@@ -18,7 +18,7 @@ function Postavke({ userId }) {
       downloadBackup(await createBackup(userId))
       setMessage(t('Sigurnosna kopija uspješno je preuzeta.'))
     } catch (cause) {
-      setError(cause.message || t('Izvoz nije uspio.'))
+      setError(t(cause.message || 'Izvoz nije uspio.'))
     } finally {
       setBusy(false)
     }
@@ -32,11 +32,11 @@ function Postavke({ userId }) {
     setMessage('')
     setPending(null)
     try {
-      if (file.size > 100 * 1024 * 1024) throw new Error('Datoteka je prevelika (najviše 100 MB).')
+      if (file.size > 100 * 1024 * 1024) throw new Error(t('Datoteka je prevelika (najviše 100 MB).'))
       const backup = validateBackup(JSON.parse(await file.text()))
       setPending(backup)
     } catch (cause) {
-      setError(cause.message || t('Datoteka nije ispravna.'))
+      setError(t(cause.message || 'Datoteka nije ispravna.'))
     }
   }
 
@@ -48,7 +48,7 @@ function Postavke({ userId }) {
       await restoreBackup(userId, pending)
       window.location.reload()
     } catch (cause) {
-      setError(cause.message || t('Vraćanje podataka nije uspjelo.'))
+      setError(t(cause.message || 'Vraćanje podataka nije uspjelo.'))
       setBusy(false)
     }
   }
@@ -74,9 +74,9 @@ function Postavke({ userId }) {
         <div className="postavke-language-row">
           <label htmlFor="garage-language">{t('Jezik aplikacije')}</label>
           <select id="garage-language" value={language} onChange={(event) => setLanguage(event.target.value)}>
-            <option value="hr">{t('🇭🇷 Hrvatski')}</option><option value="en">{t('🇬🇧 English')}</option>
-            <option value="de">{t('🇩🇪 Deutsch')}</option><option value="it">{t('🇮🇹 Italiano')}</option>
-            <option value="sl">{t('🇸🇮 Slovenščina')}</option>
+            <option value="hr">🇭🇷 Hrvatski</option><option value="en">🇬🇧 English</option>
+            <option value="de">🇩🇪 Deutsch</option><option value="it">🇮🇹 Italiano</option>
+            <option value="sl">🇸🇮 Slovenščina</option>
           </select>
         </div>
       </section>

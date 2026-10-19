@@ -378,7 +378,7 @@ function Home({
                   key={slide.vehicle.id}
                   type="button"
                   className={`garage-hero-dot${index === activeSlide ? ' active' : ''}`}
-                  aria-label={`Prikaži fotografiju motocikla ${slide.vehicle.brand} ${slide.vehicle.model}`}
+                  aria-label={`${t('Prikaži fotografiju motocikla')} ${slide.vehicle.brand} ${slide.vehicle.model}`}
                   aria-current={index === activeSlide ? 'true' : undefined}
                   onClick={() => setActiveSlide(index)}
                 />

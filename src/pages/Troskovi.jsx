@@ -579,7 +579,7 @@ function Troskovi({
             </div>
           </div>
           <div className="analytics-section">
-            <StupcastiGraf title={t('Mjesečni troškovi' )} subtitle="Ukupni evidentirani troškovi po mjesecima, do 12 posljednjih mjeseci s unosima." points={monthlyPoints} />
+            <StupcastiGraf title={t('Mjesečni troškovi' )} subtitle={t('Ukupni evidentirani troškovi po mjesecima, do 12 posljednjih mjeseci s unosima.')} points={monthlyPoints} />
           </div>
 
           {expenses.length === 0 &&

@@ -444,7 +444,7 @@ function Vozila({
             onKeyDown={(event) =>
               handleVehicleKeyDown(event, vehicle)
             }
-            aria-label={`Otvori detalje motocikla ${vehicle.brand} ${vehicle.model}`}
+            aria-label={`${t('Otvori detalje motocikla')} ${vehicle.brand} ${vehicle.model}`}
           >
             <div className="vehicle-card-media">
               {photos[vehicle.id] ? (

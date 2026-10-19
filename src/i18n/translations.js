@@ -1237,7 +1237,59 @@ const weatherUiRows = [
   ["Ned", "Sun", "So", "Dom", "Ned"]
 ]
 
-export const translations = Object.fromEntries([...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
+const finishingUiRows = [
+  [
+    "Nepoznat motocikl",
+    "Unknown motorcycle",
+    "Unbekanntes Motorrad",
+    "Moto sconosciuta",
+    "Neznan motocikel"
+  ],
+  [
+    "Glavna navigacija",
+    "Main navigation",
+    "Hauptnavigation",
+    "Navigazione principale",
+    "Glavna navigacija"
+  ],
+  [
+    "Otvori detalje motocikla",
+    "Open motorcycle details",
+    "Motorraddetails öffnen",
+    "Apri dettagli moto",
+    "Odpri podrobnosti motocikla"
+  ],
+  [
+    "Prikaži fotografiju motocikla",
+    "Show motorcycle photo",
+    "Motorradfoto anzeigen",
+    "Mostra foto della moto",
+    "Prikaži fotografijo motocikla"
+  ],
+  [
+    "Datoteka je prevelika (najviše 100 MB).",
+    "File is too large (maximum 100 MB).",
+    "Datei ist zu groß (maximal 100 MB).",
+    "File troppo grande (massimo 100 MB).",
+    "Datoteka je prevelika (največ 100 MB)."
+  ],
+  [
+    "Procjena L/100 km između uzastopnih unosa kilometraže za isti motocikl. Za usporedbu odaberi jedan motocikl.",
+    "Estimated L/100 km between consecutive mileage entries for the same motorcycle. Select one motorcycle for comparison.",
+    "Geschätzte L/100 km zwischen aufeinanderfolgenden Kilometerständen desselben Motorrads. Wähle zum Vergleich ein Motorrad.",
+    "Stima dei L/100 km tra letture chilometriche consecutive della stessa moto. Seleziona una moto per il confronto.",
+    "Ocena L/100 km med zaporednimi vnosi kilometrine za isti motocikel. Za primerjavo izberi en motocikel."
+  ],
+  [
+    "Ukupni evidentirani troškovi po mjesecima, do 12 posljednjih mjeseci s unosima.",
+    "Total recorded expenses by month, up to the last 12 months with entries.",
+    "Erfasste Gesamtausgaben pro Monat, bis zu den letzten 12 Monaten mit Einträgen.",
+    "Spese totali registrate per mese, fino agli ultimi 12 mesi con dati.",
+    "Skupni evidentirani stroški po mesecih, do zadnjih 12 mesecev z vnosi."
+  ]
+]
+
+export const translations = Object.fromEntries([...finishingUiRows, ...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
 export function translate(text, lang) {
   return translations[text]?.[lang] || text
 }

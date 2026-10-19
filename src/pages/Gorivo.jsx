@@ -385,7 +385,7 @@ function Gorivo({
             </select>
           </div>
           <div className="analytics-section">
-            <LinijskiGraf title={t('Graf potrošnje goriva' )} subtitle="Procjena L/100 km između uzastopnih unosa kilometraže za isti motocikl. Za usporedbu odaberi jedan motocikl." points={consumptionPoints} unit="L/100 km" />
+            <LinijskiGraf title={t('Graf potrošnje goriva' )} subtitle={t('Procjena L/100 km između uzastopnih unosa kilometraže za isti motocikl. Za usporedbu odaberi jedan motocikl.')} points={consumptionPoints} unit="L/100 km" />
           </div>
 
           {fuelRecords.length > 0 && (
