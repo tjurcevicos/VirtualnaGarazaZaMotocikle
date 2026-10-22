@@ -1,6 +1,7 @@
 import { PreferencesProvider, usePreferences } from './i18n/Preferences'
 
 import { useState } from 'react'
+import { BrowserRouter, Navigate, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom'
 import './App.css'
 
 import Sidebar from './components/Sidebar'
@@ -35,10 +36,37 @@ import {
   deleteVehicleRelatedData,
 } from './services/vehicleService'
 
+function VehicleDetailsRoute({ vehicles, registrationRecords, setRegistrationRecords, reminders, handleAddReminder, services, expenses, handleBackToVehicles, handleDeleteVehicle, handleAddService, handleDeleteService, handleUpdateService, handleUpdateVehicle, handleAddExpense, handleDeleteExpense, handleUpdateExpense }) {
+  const { id } = useParams()
+  const vehicle = vehicles.find((item) => String(item.id) === id)
+  if (!vehicle) return <Navigate to="/vozila" replace />
+  return (
+    <DetaljiVozila
+      vehicle={vehicle}
+      registrationRecords={registrationRecords}
+      onSetRegistrationRecords={setRegistrationRecords}
+      reminders={reminders}
+      onAddReminder={handleAddReminder}
+      services={services}
+      expenses={expenses}
+      onBack={handleBackToVehicles}
+      onDelete={handleDeleteVehicle}
+      onAddService={handleAddService}
+      onDeleteService={handleDeleteService}
+      onUpdateService={handleUpdateService}
+      onUpdateVehicle={handleUpdateVehicle}
+      onAddExpense={handleAddExpense}
+      onDeleteExpense={handleDeleteExpense}
+      onUpdateExpense={handleUpdateExpense}
+    />
+  )
+}
+
 function GarageApp({ user, onLogout }) {
   const { t } = usePreferences()
-  const [activePage, setActivePage] = useState('home')
-  const [selectedVehicle, setSelectedVehicle] = useState(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const activePage = location.pathname.split('/')[1] || 'home'
 
   const {
     vehicles,
@@ -60,17 +88,15 @@ function GarageApp({ user, onLogout }) {
   } = useGarageData(user.id)
 
   function handleNavigate(page) {
-    setActivePage(page)
-    setSelectedVehicle(null)
+    navigate(page === 'home' ? '/' : `/${page}`)
   }
 
   function handleSelectVehicle(vehicle) {
-    setSelectedVehicle(vehicle)
+    navigate(`/vozila/${encodeURIComponent(vehicle.id)}`)
   }
 
   function handleBackToVehicles() {
-    setSelectedVehicle(null)
-    setActivePage('vozila')
+    navigate('/vozila')
   }
 
   function handleAddVehicle(vehicle) {
@@ -82,7 +108,7 @@ function GarageApp({ user, onLogout }) {
       updateVehicle(current, updatedVehicle),
     )
 
-    setSelectedVehicle(updatedVehicle)
+
   }
 
   function handleDeleteVehicle(id) {
@@ -110,7 +136,7 @@ function GarageApp({ user, onLogout }) {
     setRegistrationRecords((current) => deleteVehicleRelatedData(current, id))
     setTrips((current) => current.map((trip) => String(trip.vehicleId) === String(id) ? { ...trip, vehicleId: '' } : trip))
 
-    setSelectedVehicle(null)
+    if (location.pathname.startsWith('/vozila/')) navigate('/vozila')
 
     deletePhoto(id).catch((error) => {
       console.error(
@@ -200,31 +226,30 @@ function GarageApp({ user, onLogout }) {
     )
   }
 
-  function renderPage() {
-    if (activePage === 'vozila' && selectedVehicle) {
-      return (
-        <DetaljiVozila
-          vehicle={selectedVehicle}
-          registrationRecords={registrationRecords}
-          onSetRegistrationRecords={setRegistrationRecords}
-          reminders={reminders}
-          onAddReminder={handleAddReminder}
-          services={services}
-          expenses={expenses}
-          onBack={handleBackToVehicles}
-          onDelete={handleDeleteVehicle}
-          onAddService={handleAddService}
-          onDeleteService={handleDeleteService}
-          onUpdateService={handleUpdateService}
-          onUpdateVehicle={handleUpdateVehicle}
-          onAddExpense={handleAddExpense}
-          onDeleteExpense={handleDeleteExpense}
-          onUpdateExpense={handleUpdateExpense}
-        />
-      )
-    }
+  function renderPageFor(page) {
+    switch (page) {
+      case 'detalji-vozila':
+        return (
+          <VehicleDetailsRoute
+            vehicles={vehicles}
+            registrationRecords={registrationRecords}
+            setRegistrationRecords={setRegistrationRecords}
+            reminders={reminders}
+            handleAddReminder={handleAddReminder}
+            services={services}
+            expenses={expenses}
+            handleBackToVehicles={handleBackToVehicles}
+            handleDeleteVehicle={handleDeleteVehicle}
+            handleAddService={handleAddService}
+            handleDeleteService={handleDeleteService}
+            handleUpdateService={handleUpdateService}
+            handleUpdateVehicle={handleUpdateVehicle}
+            handleAddExpense={handleAddExpense}
+            handleDeleteExpense={handleDeleteExpense}
+            handleUpdateExpense={handleUpdateExpense}
+          />
+        )
 
-    switch (activePage) {
       case 'vozila':
         return (
           <Vozila
@@ -317,7 +342,7 @@ function GarageApp({ user, onLogout }) {
   return (
     <div className="app">
       <Sidebar
-        activePage={activePage}
+        activePage={activePage === 'vozila' ? 'vozila' : activePage}
         onNavigate={handleNavigate}
       />
 
@@ -356,7 +381,14 @@ function GarageApp({ user, onLogout }) {
           </button>
         </div>
 
-        {renderPage()}
+        <Routes>
+          <Route path="/" element={renderPageFor('home')} />
+          {['vozila', 'servisi', 'gorivo', 'troskovi', 'podsjetnici', 'statistika', 'kalendar', 'putovanja', 'vrijeme', 'pomoc', 'postavke'].map((page) => (
+            <Route key={page} path={`/${page}`} element={renderPageFor(page)} />
+          ))}
+          <Route path="/vozila/:id" element={renderPageFor('detalji-vozila')} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
     </div>
   )
@@ -392,7 +424,7 @@ function AppContent() {
 }
 
 function App() {
-  return <PreferencesProvider><AppContent /></PreferencesProvider>
+  return <PreferencesProvider><BrowserRouter><AppContent /></BrowserRouter></PreferencesProvider>
 }
 
 export default App
