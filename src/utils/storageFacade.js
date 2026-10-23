@@ -8,6 +8,7 @@ const STORAGE_KEYS = {
   maintenancePlans: 'maintenancePlans',
   registrationRecords: 'registrationRecords',
   trips: 'trips',
+  serviceParts: 'serviceParts',
 }
 
 function getStorageKey(key, userId = null) {

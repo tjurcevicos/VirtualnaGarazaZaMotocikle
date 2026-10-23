@@ -13,6 +13,7 @@ function useGarageData(userId = null) {
     maintenancePlans: loadData('maintenancePlans', userId),
     registrationRecords: loadData('registrationRecords', userId),
     trips: loadData('trips', userId),
+    serviceParts: loadData('serviceParts', userId),
   }))
 
   const currentGarage =
@@ -28,6 +29,7 @@ function useGarageData(userId = null) {
           maintenancePlans: loadData('maintenancePlans', userId),
     registrationRecords: loadData('registrationRecords', userId),
     trips: loadData('trips', userId),
+    serviceParts: loadData('serviceParts', userId),
         }
 
   useEffect(() => {
@@ -42,6 +44,7 @@ function useGarageData(userId = null) {
         maintenancePlans: loadData('maintenancePlans', userId),
     registrationRecords: loadData('registrationRecords', userId),
     trips: loadData('trips', userId),
+    serviceParts: loadData('serviceParts', userId),
       })
     }
   }, [userId, garageState.userId])
@@ -124,6 +127,12 @@ function useGarageData(userId = null) {
     catch (error) { console.error('Spremanje putovanja nije uspjelo:', error) }
   }, [garageState.trips, garageState.userId, userId])
 
+  useEffect(() => {
+    if (garageState.userId !== userId) return
+    try { saveData('serviceParts', garageState.serviceParts, userId) }
+    catch (error) { console.error('Spremanje dijelova nije uspjelo:', error) }
+  }, [garageState.serviceParts, garageState.userId, userId])
+
   function updateData(key, value) {
     setGarageState((current) => {
       if (current.userId !== userId) {
@@ -143,6 +152,8 @@ function useGarageData(userId = null) {
   }
 
   return {
+    serviceParts: currentGarage.serviceParts,
+    setServiceParts: (value) => updateData('serviceParts', value),
     vehicles: currentGarage.vehicles,
     setVehicles: (value) => updateData('vehicles', value),
     services: currentGarage.services,

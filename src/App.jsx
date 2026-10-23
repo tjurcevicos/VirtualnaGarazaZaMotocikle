@@ -73,6 +73,8 @@ function GarageApp({ user, onLogout }) {
     setVehicles,
     services,
     setServices,
+    serviceParts,
+    setServiceParts,
     fuelRecords,
     setFuelRecords,
     expenses,
@@ -262,6 +264,8 @@ function GarageApp({ user, onLogout }) {
       case 'servisi':
         return (
           <Servisi
+            serviceParts={serviceParts}
+            onSetServiceParts={setServiceParts}
             maintenancePlans={maintenancePlans}
             onSetMaintenancePlans={setMaintenancePlans}
             reminders={reminders}

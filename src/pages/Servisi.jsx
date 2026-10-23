@@ -5,6 +5,8 @@ import { useState } from 'react'
 function Servisi({
   vehicles,
   services,
+  serviceParts = [],
+  onSetServiceParts,
   onAddService,
   onDeleteService,
   onUpdateService,
@@ -13,7 +15,34 @@ function Servisi({
   reminders = [],
   onAddReminder,
 }) {
-  const { t } = usePreferences()
+  const { t, language } = usePreferences()
+  const words = {
+    hr: ['Katalog dijelova', 'Naziv dijela', 'Dodaj dio', 'Odaberi ugrađene dijelove', 'Ugrađeni dijelovi', 'Dio već postoji.', 'Unesi naziv dijela.', 'Nema dijelova u katalogu.', 'Dio je povezan sa servisima i ne može se obrisati.', 'Obriši dio'],
+    en: ['Parts catalog', 'Part name', 'Add part', 'Select installed parts', 'Installed parts', 'Part already exists.', 'Enter a part name.', 'No parts in catalog.', 'Part is linked to services and cannot be deleted.', 'Delete part'],
+    de: ['Teilekatalog', 'Teilename', 'Teil hinzufügen', 'Eingebaute Teile auswählen', 'Eingebaute Teile', 'Keine doppelten Teile erlaubt.', 'Teilename eingeben.', 'Keine Teile im Katalog.', 'Teil ist mit Wartungen verknüpft und kann nicht gelöscht werden.', 'Teil löschen'],
+    it: ['Catalogo ricambi', 'Nome del ricambio', 'Aggiungi ricambio', 'Seleziona ricambi installati', 'Ricambi installati', 'Ricambio già presente.', 'Inserisci il nome del ricambio.', 'Nessun ricambio nel catalogo.', 'Il ricambio è collegato a interventi e non può essere eliminato.', 'Elimina ricambio'],
+    sl: ['Katalog delov', 'Ime dela', 'Dodaj del', 'Izberi vgrajene dele', 'Vgrajeni deli', 'Del že obstaja.', 'Vnesi ime dela.', 'V katalogu ni delov.', 'Del je povezan s servisi in ga ni mogoče izbrisati.', 'Izbriši del'],
+  }[language] || []
+  const w = (index) => (words[index] || index)
+  const [partName, setPartName] = useState('')
+  const [partError, setPartError] = useState('')
+  function addPart(event) {
+    event.preventDefault()
+    const name = partName.trim()
+    if (!name) { setPartError(w(6)); return }
+    if (serviceParts.some((part) => part.name.toLocaleLowerCase() === name.toLocaleLowerCase())) { setPartError(w(5)); return }
+    onSetServiceParts((current) => [...current, { id: crypto.randomUUID(), name }])
+    setPartName('')
+    setPartError('')
+  }
+  function removePart(id) {
+    if (services.some((service) => (service.partIds || []).includes(id))) { setPartError(w(8)); return }
+    onSetServiceParts((current) => current.filter((part) => part.id !== id))
+    setPartError('')
+  }
+  function togglePart(id) {
+    setFormData((current) => ({ ...current, partIds: current.partIds.includes(id) ? current.partIds.filter((value) => value !== id) : [...current.partIds, id] }))
+  }
   const [showForm, setShowForm] = useState(false)
   const [editingServiceId, setEditingServiceId] =
     useState(null)
@@ -24,6 +53,7 @@ function Servisi({
     description: '',
     mileage: '',
     price: '',
+    partIds: [],
   })
 
   const [error, setError] = useState('')
@@ -46,6 +76,7 @@ function Servisi({
       description: '',
       mileage: '',
       price: '',
+      partIds: [],
     })
 
     setEditingServiceId(null)
@@ -103,6 +134,7 @@ function Servisi({
       description: formData.description.trim(),
       mileage,
       price,
+      partIds: formData.partIds,
     }
 
     if (editingServiceId) {
@@ -121,6 +153,7 @@ function Servisi({
       description: service.description,
       mileage: service.mileage,
       price: service.price,
+      partIds: service.partIds || [],
     })
 
     setError('')
@@ -193,6 +226,28 @@ function Servisi({
 
       {vehicles.length > 0 && (
         <>
+          <section className="service-parts-catalog" aria-label={w(0)}>
+            <h2>{w(0)}</h2>
+            <form className="service-parts-add" onSubmit={addPart}>
+              <label htmlFor="partName">{w(1)}</label>
+              <div className="service-parts-add-row">
+                <input id="partName" value={partName} onChange={(event) => { setPartName(event.target.value); setPartError('') }} maxLength={80} />
+                <button className="primary-button" type="submit">{w(2)}</button>
+              </div>
+              {partError && <p className="form-error" role="alert">{partError}</p>}
+            </form>
+            {serviceParts.length === 0 ? <p>{w(7)}</p> : (
+              <div className="service-parts-list">
+                {serviceParts.map((part) => (
+                  <div className="service-parts-item" key={part.id}>
+                    <span>{part.name}</span>
+                    <button type="button" className="service-delete-button" aria-label={`${w(9)}: ${part.name}`} onClick={() => removePart(part.id)} disabled={services.some((service) => (service.partIds || []).includes(part.id))}>{t('Obriši')}</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
           <PlanOdrzavanja vehicles={vehicles} services={services} plans={maintenancePlans} onChange={onSetMaintenancePlans} reminders={reminders} onAddReminder={onAddReminder} />
 
           {services.length > 0 && (
@@ -347,6 +402,20 @@ function Servisi({
                 </div>
               </div>
 
+              <fieldset className="service-parts-fieldset">
+                <legend>{w(3)}</legend>
+                {serviceParts.length === 0 ? <p>{w(7)}</p> : (
+                  <div className="service-parts-choices">
+                    {serviceParts.map((part) => (
+                      <label key={part.id} className="service-parts-choice">
+                        <input type="checkbox" checked={formData.partIds.includes(part.id)} onChange={() => togglePart(part.id)} />
+                        <span>{part.name}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </fieldset>
+
               <div className="form-actions">
                 {editingServiceId && (
                   <button
@@ -425,6 +494,9 @@ function Servisi({
                             : t("Nepoznati motocikl")}
                         </p>
 
+                        {(service.partIds || []).length > 0 && (
+                          <p className="service-parts-summary"><strong>{w(4)}:</strong> {(service.partIds || []).map((id) => serviceParts.find((part) => part.id === id)?.name).filter(Boolean).join(', ')}</p>
+                        )}
                         <small>
                           {new Date(
                             service.date,
