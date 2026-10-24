@@ -1,3 +1,5 @@
+import '../styles/Validacija.css'
+import useFieldValidation from '../hooks/useFieldValidation'
 import { usePreferences } from '../i18n/Preferences'
 
 import { useEffect, useRef, useState } from 'react'
@@ -9,6 +11,7 @@ function Vozila({
   onSelectVehicle,
 }) {
   const { t } = usePreferences()
+  const fieldValidation = useFieldValidation(t)
   const [showForm, setShowForm] = useState(false)
 
   const [formData, setFormData] = useState({
@@ -169,6 +172,7 @@ function Vozila({
 
     setPhotoFile(null)
     setError('')
+    fieldValidation.clear()
     setShowForm(false)
 
     if (photoInputRef.current) {
@@ -288,7 +292,7 @@ function Vozila({
       </div>
 
       {showForm && (
-        <form className="vehicle-form" onSubmit={handleSubmit}>
+        <form className="vehicle-form" onSubmit={handleSubmit} onBlurCapture={fieldValidation.onBlur} onChangeCapture={fieldValidation.onChange}>
           <div className="form-header">
             <h2>{t('Dodaj motocikl')}</h2>
 
@@ -303,7 +307,14 @@ function Vozila({
             </div>
           )}
 
-          <div className="form-grid">
+          {Object.entries(fieldValidation.errors).filter(([, message]) => message).length > 0 && (
+                <div className="garage-validation-summary" role="status" aria-live="polite">
+                  {Object.entries(fieldValidation.errors).filter(([, message]) => message).map(([name, message]) => (
+                    <p key={name}>{t(({ vehicleId: 'Motocikl', brand: 'Marka', model: 'Model', fuel: 'Gorivo', date: 'Datum', category: 'Kategorija', description: 'Opis', year: 'Godina', mileage: 'Kilometraža', initialMileage: 'Početna kilometraža', liters: 'Litara', unitPrice: 'Cijena po litri', price: 'Cijena', amount: 'Iznos' })[name] || name)}: {message}</p>
+                  ))}
+                </div>
+              )}
+              <div className="form-grid">
             <div className="form-group">
               <label htmlFor="brand">{t('Marka')}</label>
 

@@ -72,12 +72,19 @@ function Postavke({ userId }) {
             </button>
           ))}
         </div>
-        <label className="postavke-tips-toggle" htmlFor="show-moto-tips">
-          <span><strong>{t('Prikazuj moto savjete na naslovnoj stranici')}</strong><small>{t('Savjeti se automatski izmjenjuju tijekom korištenja aplikacije.')}</small></span>
-          <input id="show-moto-tips" type="checkbox" checked={showMotoTips} onChange={(event) => { const enabled = event.target.checked; setShowMotoTips(enabled); localStorage.setItem('vg-show-moto-tips', String(enabled)); window.dispatchEvent(new Event('garage-tips-visibility')) }} />
-        </label>
-        <div className="postavke-language-row">
-          <label htmlFor="garage-language">{t('Jezik aplikacije')}</label>
+        <div className="postavke-subsection">
+          <div className="postavke-subsection-heading">
+            <h2>{t('Moto savjeti')}</h2>
+            <p>{t('Upravljaj prikazom savjeta na početnoj stranici.')}</p>
+          </div>
+          <label className="postavke-tips-toggle" htmlFor="show-moto-tips">
+            <span><strong>{t('Prikazuj moto savjete na naslovnoj stranici')}</strong><small>{t('Savjeti se automatski izmjenjuju tijekom korištenja aplikacije.')}</small></span>
+            <input id="show-moto-tips" type="checkbox" checked={showMotoTips} onChange={(event) => { const enabled = event.target.checked; setShowMotoTips(enabled); localStorage.setItem('vg-show-moto-tips', String(enabled)); window.dispatchEvent(new Event('garage-tips-visibility')) }} />
+          </label>
+        </div>
+        <div className="postavke-subsection postavke-language-section">
+          <div className="postavke-subsection-heading"><h2>{t('Jezik aplikacije')}</h2><p>{t('Odaberi jezik korisničkog sučelja.')}</p></div>
+          <label className="postavke-language-label" htmlFor="garage-language">{t('Jezik')}</label>
           <select id="garage-language" value={language} onChange={(event) => setLanguage(event.target.value)}>
             <option value="hr">🇭🇷 Hrvatski</option><option value="en">🇬🇧 English</option>
             <option value="de">🇩🇪 Deutsch</option><option value="it">🇮🇹 Italiano</option>

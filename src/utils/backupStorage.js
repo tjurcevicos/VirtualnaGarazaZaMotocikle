@@ -1,3 +1,4 @@
+import { getGallery, replaceGallery } from './galleryStorage'
 import { loadData, saveData } from './storageFacade'
 
 const keys = ['vehicles', 'services', 'fuelRecords', 'expenses', 'reminders', 'maintenancePlans', 'registrationRecords', 'trips', 'serviceParts']
@@ -78,7 +79,8 @@ function writePhotos(userId, vehicles, photos) {
 export async function createBackup(userId) {
   const data = Object.fromEntries(keys.map((key) => [key, loadData(key, userId)]))
   const photos = await collectPhotos(userId, data.vehicles)
-  return { format: 'virtualna-garaza-backup', version: 1, exportedAt: new Date().toISOString(), data, photos }
+  const gallery = await Promise.all((await getGallery(userId)).map(async ({ blob, ...photo }) => ({ ...photo, data: await blobToDataUrl(blob) })))
+  return { format: 'virtualna-garaza-backup', version: 1, exportedAt: new Date().toISOString(), data, photos, gallery }
 }
 
 export function validateBackup(backup) {
@@ -96,6 +98,9 @@ export function validateBackup(backup) {
   for (const [id, value] of Object.entries(backup.photos)) {
     if (!vehicleIds.has(id) || typeof value !== 'string' || !value.startsWith('data:image/')) throw new Error('Sigurnosna kopija sadrži neispravnu fotografiju.')
   }
+  if (backup.gallery !== undefined) {
+    if (!Array.isArray(backup.gallery) || backup.gallery.some((photo) => !photo || typeof photo.id !== 'string' || !vehicleIds.has(String(photo.vehicleId)) || typeof photo.data !== 'string' || !photo.data.startsWith('data:image/'))) throw new Error('Neispravni podaci galerije.')
+  }
   return backup
 }
 
@@ -105,9 +110,11 @@ export async function restoreBackup(userId, backup) {
   try {
     for (const key of keys) saveData(key, backup.data[key] ?? [], userId)
     await writePhotos(userId, [...previous.data.vehicles, ...backup.data.vehicles], backup.photos)
+    await replaceGallery(userId, (backup.gallery || []).map(({ data, ...photo }) => ({ ...photo, blob: dataUrlToBlob(data) })))
   } catch (error) {
     for (const key of keys) saveData(key, previous.data[key], userId)
     await writePhotos(userId, [...previous.data.vehicles, ...backup.data.vehicles], previous.photos)
+    await replaceGallery(userId, (previous.gallery || []).map(({ data, ...photo }) => ({ ...photo, blob: dataUrlToBlob(data) })))
     throw error
   }
 }

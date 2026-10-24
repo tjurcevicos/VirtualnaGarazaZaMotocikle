@@ -9,6 +9,7 @@ const icons = {
   kalendar: <><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18" /></>,
   putovanja: <><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15m6-12v15"/></>,
   vrijeme: <><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6l1.4 1.4m10 10 1.4 1.4M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8"/><path d="M5 18h14"/></>,
+  galerija: <><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m3 17 5-5 4 3 3-4 6 6"/></>,
   pomoc: <><circle cx="12" cy="12" r="10" /><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-2.9 2.2-2.9 4" /><path d="M12 17h.01" /></>,
   postavke: <><circle cx="12" cy="12" r="3" /><path d="M12 2v3m0 14v3M4.93 4.93l2.12 2.12m9.9 9.9 2.12 2.12M2 12h3m14 0h3M4.93 19.07l2.12-2.12m9.9-9.9 2.12-2.12" /></>,
   podsjetnici: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" /><path d="M10 21h4" /></>,
@@ -27,6 +28,7 @@ function Sidebar({ activePage, onNavigate }) {
     { id: 'kalendar', label: 'Kalendar' },
     { id: 'putovanja', label: 'Putovanja' },
     { id: 'vrijeme', label: 'Vrijeme' },
+    { id: 'galerija', label: 'Galerija' },
     { id: 'pomoc', label: 'Pomoć' },
     { id: 'postavke', label: 'Postavke' },
   ]

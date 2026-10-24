@@ -164,3 +164,9 @@ export const helpSections = [
     ]
   }
 ]
+
+helpSections.find((section) => section.title === 'Servisi i održavanje')?.questions.push({ q: 'Kako povezati rezervne dijelove sa servisom?', a: 'U Servisima dodaj rezervni dio u katalog, a zatim ga odaberi prilikom unosa ili uređivanja servisa. Isti dio može biti povezan s više servisnih zapisa.' })
+helpSections.find((section) => section.title === 'Postavke i sigurnosne kopije')?.questions.push({ q: 'Kako uključiti ili isključiti moto savjete?', a: 'U Postavkama otvori odjeljak Moto savjeti i uključi ili isključi prikaz na početnoj stranici. Savjete možeš sakriti i gumbom X na samoj kartici.' })
+helpSections.find((section) => section.title === 'Početak rada')?.questions.push({ q: 'Zašto se pojavljuje poruka pri unosu podataka?', a: 'Obrasci provjeravaju obavezna i brojčana polja nakon izlaska iz polja. Ispravi označeni podatak kako bi poruka nestala.' })
+
+helpSections.push({ title: 'Galerija', page: 'galerija', questions: [{ q: 'Kako dodati fotografije u galeriju?', a: 'U Galeriji odaberi motocikl, po želji upiši opis i dodaj fotografije. Slike se smanjuju i spremaju lokalno u preglednik.' }, { q: 'Gdje su spremljene fotografije iz galerije?', a: 'Fotografije su spremljene u pregledniku na ovom uređaju, a ne na poslužitelju. Uključene su u izvoz sigurnosne kopije u Postavkama.' }] })

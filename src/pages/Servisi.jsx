@@ -1,3 +1,5 @@
+import '../styles/Validacija.css'
+import useFieldValidation from '../hooks/useFieldValidation'
 import PlanOdrzavanja from '../components/PlanOdrzavanja'
 import { usePreferences } from '../i18n/Preferences'
 import { useState } from 'react'
@@ -16,6 +18,7 @@ function Servisi({
   onAddReminder,
 }) {
   const { t, language } = usePreferences()
+  const fieldValidation = useFieldValidation(t)
   const words = {
     hr: ['Katalog dijelova', 'Naziv dijela', 'Dodaj dio', 'Odaberi ugrađene dijelove', 'Ugrađeni dijelovi', 'Dio već postoji.', 'Unesi naziv dijela.', 'Nema dijelova u katalogu.', 'Dio je povezan sa servisima i ne može se obrisati.', 'Obriši dio'],
     en: ['Parts catalog', 'Part name', 'Add part', 'Select installed parts', 'Installed parts', 'Part already exists.', 'Enter a part name.', 'No parts in catalog.', 'Part is linked to services and cannot be deleted.', 'Delete part'],
@@ -81,6 +84,7 @@ function Servisi({
 
     setEditingServiceId(null)
     setError('')
+    fieldValidation.clear()
     setShowForm(false)
   }
 
@@ -285,6 +289,8 @@ function Servisi({
             <form
               className="vehicle-form service-page-form"
               onSubmit={handleSubmit}
+              onBlurCapture={fieldValidation.onBlur}
+              onChangeCapture={fieldValidation.onChange}
             >
               <div className="form-header">
                 <h2>
@@ -306,6 +312,13 @@ function Servisi({
                 </div>
               )}
 
+              {Object.entries(fieldValidation.errors).filter(([, message]) => message).length > 0 && (
+                <div className="garage-validation-summary" role="status" aria-live="polite">
+                  {Object.entries(fieldValidation.errors).filter(([, message]) => message).map(([name, message]) => (
+                    <p key={name}>{t(({ vehicleId: 'Motocikl', brand: 'Marka', model: 'Model', fuel: 'Gorivo', date: 'Datum', category: 'Kategorija', description: 'Opis', year: 'Godina', mileage: 'Kilometraža', initialMileage: 'Početna kilometraža', liters: 'Litara', unitPrice: 'Cijena po litri', price: 'Cijena', amount: 'Iznos' })[name] || name)}: {message}</p>
+                  ))}
+                </div>
+              )}
               <div className="form-grid">
                 <div className="form-group">
                   <label htmlFor="serviceVehicleId">

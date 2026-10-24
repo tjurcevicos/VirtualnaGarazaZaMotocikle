@@ -20,6 +20,8 @@ import Kalendar from './pages/Kalendar'
 import Pomoc from './pages/Pomoc'
 import Putovanja from './pages/Putovanja'
 import Vrijeme from './pages/Vrijeme'
+import Galerija from './pages/Galerija'
+import { deleteVehicleGallery } from './utils/galleryStorage'
 
 import { deletePhoto } from './utils/photoStorage'
 import useGarageData from './hooks/useGarageData'
@@ -140,6 +142,7 @@ function GarageApp({ user, onLogout }) {
 
     if (location.pathname.startsWith('/vozila/')) navigate('/vozila')
 
+    deleteVehicleGallery(user.id, id).catch(console.error)
     deletePhoto(id).catch((error) => {
       console.error(
         'Brisanje fotografije nije uspjelo:',
@@ -320,6 +323,9 @@ function GarageApp({ user, onLogout }) {
       case 'putovanja':
         return <Putovanja vehicles={vehicles} trips={trips} onSetTrips={setTrips} />
 
+      case 'galerija':
+        return <Galerija vehicles={vehicles} userId={user.id} onSelectVehicle={handleSelectVehicle} />
+
       case 'vrijeme':
         return <Vrijeme trips={trips} />
 
@@ -387,7 +393,7 @@ function GarageApp({ user, onLogout }) {
 
         <Routes>
           <Route path="/" element={renderPageFor('home')} />
-          {['vozila', 'servisi', 'gorivo', 'troskovi', 'podsjetnici', 'statistika', 'kalendar', 'putovanja', 'vrijeme', 'pomoc', 'postavke'].map((page) => (
+          {['vozila', 'servisi', 'gorivo', 'troskovi', 'podsjetnici', 'statistika', 'kalendar', 'putovanja', 'vrijeme', 'galerija', 'pomoc', 'postavke'].map((page) => (
             <Route key={page} path={`/${page}`} element={renderPageFor(page)} />
           ))}
           <Route path="/vozila/:id" element={renderPageFor('detalji-vozila')} />

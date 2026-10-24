@@ -1313,7 +1313,308 @@ const motoTipsUiRows = [
   ['Savjeti se automatski izmjenjuju tijekom korištenja aplikacije.','Tips rotate automatically while using the app.','Tipps wechseln automatisch während der Nutzung.','I consigli cambiano automaticamente durante l’uso.','Nasveti se med uporabo samodejno menjajo.']
 ]
 
-export const translations = Object.fromEntries([...motoTipsUiRows, ...mockApiUiRows, ...finishingUiRows, ...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
+const step40Rows = [
+  ['Moto savjeti','Motorcycle tips','Motorradtipps','Consigli moto','Moto nasveti'],
+  ['Upravljaj prikazom savjeta na početnoj stranici.','Manage tips shown on the home page.','Verwalte die Tipps auf der Startseite.','Gestisci i consigli mostrati nella pagina iniziale.','Upravljaj prikazom nasvetov na domači strani.'],
+  ['Obavezno polje.','Required field.','Pflichtfeld.','Campo obbligatorio.','Obvezno polje.'],
+  ['Vrijednost mora biti veća od nule.','Value must be greater than zero.','Der Wert muss größer als null sein.','Il valore deve essere maggiore di zero.','Vrednost mora biti večja od nič.'],
+  ['Vrijednost ne može biti negativna.','Value cannot be negative.','Der Wert darf nicht negativ sein.','Il valore non può essere negativo.','Vrednost ne sme biti negativna.'],
+  ['Unesi valjanu godinu proizvodnje.','Enter a valid model year.','Gib ein gültiges Baujahr ein.','Inserisci un anno di produzione valido.','Vnesi veljavno leto izdelave.'],
+  ['Kako povezati rezervne dijelove sa servisom?','How do I link parts to a service?','Wie verknüpfe ich Teile mit einer Wartung?','Come collego i ricambi a un intervento?','Kako povežem rezervne dele s servisom?'],
+  ['U Servisima dodaj rezervni dio u katalog, a zatim ga odaberi prilikom unosa ili uređivanja servisa. Isti dio može biti povezan s više servisnih zapisa.','Add a part to the catalog in Services, then select it when creating or editing a service. The same part can be linked to several service records.','Füge unter Wartungen ein Teil zum Katalog hinzu und wähle es beim Erstellen oder Bearbeiten einer Wartung aus. Dasselbe Teil kann mehreren Wartungen zugeordnet werden.','Aggiungi un ricambio al catalogo nella sezione Manutenzione e selezionalo quando crei o modifichi un intervento. Lo stesso ricambio può essere associato a più interventi.','V Servisih dodaj del v katalog in ga izberi pri dodajanju ali urejanju servisa. Isti del je lahko povezan z več servisnimi zapisi.'],
+  ['Kako uključiti ili isključiti moto savjete?','How do I enable or disable motorcycle tips?','Wie aktiviere oder deaktiviere ich Motorradtipps?','Come attivo o disattivo i consigli moto?','Kako vklopim ali izklopim moto nasvete?'],
+  ['U Postavkama otvori odjeljak Moto savjeti i uključi ili isključi prikaz na početnoj stranici. Savjete možeš sakriti i gumbom X na samoj kartici.','In Settings, open Motorcycle tips and toggle their display on the home page. You can also hide them using the X on the card.','Öffne in den Einstellungen den Bereich Motorradtipps und schalte die Anzeige auf der Startseite ein oder aus. Du kannst sie auch mit dem X auf der Karte ausblenden.','Nelle Impostazioni apri Consigli moto e attiva o disattiva la visualizzazione nella pagina iniziale. Puoi anche nasconderli con la X sulla scheda.','V Nastavitvah odpri Moto nasvete in vklopi ali izklopi prikaz na domači strani. Skriješ jih lahko tudi z gumbom X na kartici.'],
+  ['Zašto se pojavljuje poruka pri unosu podataka?','Why does a message appear when entering data?','Warum erscheint bei der Eingabe eine Meldung?','Perché appare un messaggio durante l’inserimento?','Zakaj se pri vnosu podatkov prikaže sporočilo?'],
+  ['Obrasci provjeravaju obavezna i brojčana polja nakon izlaska iz polja. Ispravi označeni podatak kako bi poruka nestala.','Forms check required and numeric fields after you leave a field. Correct the value to clear the message.','Formulare prüfen Pflicht- und Zahlenfelder beim Verlassen des Feldes. Korrigiere den Wert, damit die Meldung verschwindet.','I moduli verificano i campi obbligatori e numerici quando esci dal campo. Correggi il valore per eliminare il messaggio.','Obrazci preverijo obvezna in številčna polja, ko zapustiš polje. Popravi vrednost, da sporočilo izgine.']
+]
+
+const galleryUiRows = [
+  ['Postavi kao naslovnu fotografiju','Set as cover photo','Als Titelbild festlegen','Imposta come foto di copertina','Nastavi kot naslovno fotografijo'],
+  ['Naslovna fotografija je postavljena.','Cover photo updated.','Titelbild aktualisiert.','Foto di copertina aggiornata.','Naslovna fotografija je nastavljena.'],
+  ['Postavljanje naslovne fotografije nije uspjelo.','Could not update cover photo.','Titelbild konnte nicht aktualisiert werden.','Impossibile aggiornare la foto di copertina.','Naslovne fotografije ni bilo mogoče nastaviti.'],
+  [
+    "Galerija",
+    "Gallery",
+    "Galerie",
+    "Galleria",
+    "Galerija"
+  ],
+  [
+    "Galerija motocikala",
+    "Motorcycle gallery",
+    "Motorradgalerie",
+    "Galleria moto",
+    "Galerija motociklov"
+  ],
+  [
+    "TVOJA MOTO GALERIJA",
+    "YOUR MOTORCYCLE GALLERY",
+    "DEINE MOTORRADGALERIE",
+    "LA TUA GALLERIA MOTO",
+    "TVOJA MOTO GALERIJA"
+  ],
+  [
+    "Fotografije tvojih motocikala, putovanja i uspomena na dva kotača.",
+    "Photos of your motorcycles, rides and memories on two wheels.",
+    "Fotos deiner Motorräder, Touren und Erinnerungen auf zwei Rädern.",
+    "Foto delle tue moto, dei viaggi e dei ricordi su due ruote.",
+    "Fotografije tvojih motociklov, voženj in spominov na dveh kolesih."
+  ],
+  [
+    "fotografija",
+    "photos",
+    "Fotos",
+    "foto",
+    "fotografij"
+  ],
+  [
+    "Dodaj fotografije",
+    "Add photos",
+    "Fotos hinzufügen",
+    "Aggiungi foto",
+    "Dodaj fotografije"
+  ],
+  [
+    "Fotografije se optimiziraju i spremaju u tvoj preglednik.",
+    "Photos are optimized and saved in your browser.",
+    "Fotos werden optimiert und im Browser gespeichert.",
+    "Le foto vengono ottimizzate e salvate nel browser.",
+    "Fotografije se optimizirajo in shranijo v brskalnik."
+  ],
+  [
+    "Opis fotografije",
+    "Photo caption",
+    "Bildbeschreibung",
+    "Descrizione foto",
+    "Opis fotografije"
+  ],
+  [
+    "Primjerice, izlet na Papuk",
+    "For example, a ride to Papuk",
+    "Zum Beispiel eine Tour zum Papuk",
+    "Ad esempio, un giro sul Papuk",
+    "Na primer izlet na Papuk"
+  ],
+  [
+    "Odaberi fotografije",
+    "Choose photos",
+    "Fotos auswählen",
+    "Seleziona foto",
+    "Izberi fotografije"
+  ],
+  [
+    "Pretraži fotografije...",
+    "Search photos...",
+    "Fotos suchen...",
+    "Cerca foto...",
+    "Išči fotografije..."
+  ],
+  [
+    "Pretraži fotografije",
+    "Search photos",
+    "Fotos suchen",
+    "Cerca foto",
+    "Išči fotografije"
+  ],
+  [
+    "Filtriraj po motociklu",
+    "Filter by motorcycle",
+    "Nach Motorrad filtern",
+    "Filtra per moto",
+    "Filtriraj po motociklu"
+  ],
+  [
+    "Još nema fotografija za prikaz",
+    "No photos to display yet",
+    "Noch keine Fotos vorhanden",
+    "Nessuna foto da mostrare",
+    "Ni še fotografij za prikaz"
+  ],
+  [
+    "Odaberi motocikl i dodaj prve fotografije u svoju galeriju.",
+    "Select a motorcycle and add the first photos to your gallery.",
+    "Wähle ein Motorrad und füge die ersten Fotos hinzu.",
+    "Seleziona una moto e aggiungi le prime foto alla galleria.",
+    "Izberi motocikel in dodaj prve fotografije v galerijo."
+  ],
+  [
+    "Otvori fotografiju",
+    "Open photo",
+    "Foto öffnen",
+    "Apri foto",
+    "Odpri fotografijo"
+  ],
+  [
+    "Pregled fotografije",
+    "Photo viewer",
+    "Fotoansicht",
+    "Visualizzatore foto",
+    "Ogled fotografije"
+  ],
+  [
+    "Prethodna fotografija",
+    "Previous photo",
+    "Vorheriges Foto",
+    "Foto precedente",
+    "Prejšnja fotografija"
+  ],
+  [
+    "Sljedeća fotografija",
+    "Next photo",
+    "Nächstes Foto",
+    "Foto successiva",
+    "Naslednja fotografija"
+  ],
+  [
+    "Zatvori",
+    "Close",
+    "Schließen",
+    "Chiudi",
+    "Zapri"
+  ],
+  [
+    "Detalji motocikla",
+    "Motorcycle details",
+    "Motorraddetails",
+    "Dettagli moto",
+    "Podrobnosti motocikla"
+  ],
+  [
+    "Obriši fotografiju",
+    "Delete photo",
+    "Foto löschen",
+    "Elimina foto",
+    "Izbriši fotografijo"
+  ],
+  [
+    "Želiš li obrisati ovu fotografiju?",
+    "Delete this photo?",
+    "Dieses Foto löschen?",
+    "Eliminare questa foto?",
+    "Želiš izbrisati to fotografijo?"
+  ],
+  [
+    "Fotografija je obrisana.",
+    "Photo deleted.",
+    "Foto gelöscht.",
+    "Foto eliminata.",
+    "Fotografija je izbrisana."
+  ],
+  [
+    "Brisanje fotografije nije uspjelo.",
+    "Could not delete photo.",
+    "Foto konnte nicht gelöscht werden.",
+    "Impossibile eliminare la foto.",
+    "Fotografije ni bilo mogoče izbrisati."
+  ],
+  [
+    "Fotografije su spremljene.",
+    "Photos saved.",
+    "Fotos gespeichert.",
+    "Foto salvate.",
+    "Fotografije so shranjene."
+  ],
+  [
+    "Spremanje fotografija nije uspjelo.",
+    "Could not save photos.",
+    "Fotos konnten nicht gespeichert werden.",
+    "Impossibile salvare le foto.",
+    "Fotografij ni bilo mogoče shraniti."
+  ],
+  [
+    "Odaberi motocikl i fotografije.",
+    "Select a motorcycle and photos.",
+    "Wähle ein Motorrad und Fotos.",
+    "Seleziona una moto e le foto.",
+    "Izberi motocikel in fotografije."
+  ],
+  [
+    "Odjednom možeš dodati najviše 10 fotografija.",
+    "You can add up to 10 photos at once.",
+    "Du kannst höchstens 10 Fotos gleichzeitig hinzufügen.",
+    "Puoi aggiungere fino a 10 foto alla volta.",
+    "Naenkrat lahko dodaš največ 10 fotografij."
+  ],
+  [
+    "Najviše 40 fotografija po motociklu.",
+    "Maximum 40 photos per motorcycle.",
+    "Maximal 40 Fotos pro Motorrad.",
+    "Massimo 40 foto per moto.",
+    "Največ 40 fotografij na motocikel."
+  ],
+  [
+    "Fotografija mora biti slika manja od 12 MB.",
+    "Each photo must be an image under 12 MB.",
+    "Jedes Foto muss eine Bilddatei unter 12 MB sein.",
+    "Ogni foto deve essere un’immagine sotto i 12 MB.",
+    "Vsaka fotografija mora biti slika manjša od 12 MB."
+  ],
+  [
+    "Galerija se ne može učitati.",
+    "Could not load gallery.",
+    "Galerie konnte nicht geladen werden.",
+    "Impossibile caricare la galleria.",
+    "Galerije ni bilo mogoče naložiti."
+  ],
+  [
+    "Učitavanje fotografija...",
+    "Loading photos...",
+    "Fotos werden geladen...",
+    "Caricamento foto...",
+    "Nalaganje fotografij..."
+  ],
+  [
+    "Spremanje...",
+    "Saving...",
+    "Speichern...",
+    "Salvataggio...",
+    "Shranjevanje..."
+  ],
+  [
+    "Jezik",
+    "Language",
+    "Sprache",
+    "Lingua",
+    "Jezik"
+  ],
+  [
+    "Odaberi jezik korisničkog sučelja.",
+    "Choose the interface language.",
+    "Wähle die Sprache der Benutzeroberfläche.",
+    "Scegli la lingua dell’interfaccia.",
+    "Izberi jezik uporabniškega vmesnika."
+  ],
+  [
+    "Kako dodati fotografije u galeriju?",
+    "How do I add photos to the gallery?",
+    "Wie füge ich Fotos zur Galerie hinzu?",
+    "Come aggiungo foto alla galleria?",
+    "Kako dodam fotografije v galerijo?"
+  ],
+  [
+    "U Galeriji odaberi motocikl, po želji upiši opis i dodaj fotografije. Slike se smanjuju i spremaju lokalno u preglednik.",
+    "In Gallery, select a motorcycle, optionally add a caption and upload photos. Images are optimized and saved locally in your browser.",
+    "Wähle in der Galerie ein Motorrad, füge optional eine Beschreibung hinzu und lade Fotos hoch. Die Bilder werden optimiert und lokal im Browser gespeichert.",
+    "Nella Galleria seleziona una moto, aggiungi una descrizione facoltativa e carica le foto. Le immagini vengono ottimizzate e salvate nel browser.",
+    "V Galeriji izberi motocikel, po želji dodaj opis in naloži fotografije. Slike se optimizirajo in lokalno shranijo v brskalnik."
+  ],
+  [
+    "Gdje su spremljene fotografije iz galerije?",
+    "Where are gallery photos stored?",
+    "Wo werden Galeriefotos gespeichert?",
+    "Dove vengono salvate le foto della galleria?",
+    "Kje so shranjene fotografije galerije?"
+  ],
+  [
+    "Fotografije su spremljene u pregledniku na ovom uređaju, a ne na poslužitelju. Uključene su u izvoz sigurnosne kopije u Postavkama.",
+    "Photos are stored in the browser on this device, not on the server. They are included in the backup exported from Settings.",
+    "Fotos werden im Browser dieses Geräts gespeichert, nicht auf dem Server. Sie sind im Backup aus den Einstellungen enthalten.",
+    "Le foto sono salvate nel browser di questo dispositivo, non sul server. Sono incluse nel backup esportato dalle Impostazioni.",
+    "Fotografije so shranjene v brskalniku te naprave, ne na strežniku. Vključene so v varnostno kopijo iz Nastavitev."
+  ]
+]
+
+export const translations = Object.fromEntries([...galleryUiRows, ...step40Rows, ...motoTipsUiRows, ...mockApiUiRows, ...finishingUiRows, ...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
 export function translate(text, lang) {
   return translations[text]?.[lang] || text
 }
