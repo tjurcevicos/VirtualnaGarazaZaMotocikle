@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { usePreferences } from '../i18n/Preferences'
 import { fetchGarageTips } from '../services/garageMockApi'
-import '../styles/GarageApiTips.css'
+import '../styles/GarageApiTips.scss'
 
 export default function GarageApiTips() {
   const { t } = usePreferences()
@@ -33,7 +33,6 @@ export default function GarageApiTips() {
       <div className="garage-api-tips-heading">
         <div>
           <h2 id="garage-api-tips-title">{t('Savjeti za održavanje')}</h2>
-          <p>{t('Demonstracijski podaci dohvaćeni putem mock API-ja.')}</p>
         </div>
         {status === 'success' && <span className="garage-api-tips-status" role="status">{t('Podaci uspješno učitani')}</span>}
       </div>

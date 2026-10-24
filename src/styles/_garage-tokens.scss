@@ -1,0 +1,29 @@
+$space-xs: 6px;
+$space-sm: 12px;
+$space-md: 16px;
+$space-lg: 22px;
+$radius-sm: 10px;
+$radius-lg: 14px;
+$breakpoint-mobile: 760px;
+
+@mixin theme-surface($radius: $radius-lg) {
+  border: 1px solid var(--vg-border);
+  border-radius: $radius;
+  background: var(--vg-surface);
+  color: var(--vg-text);
+}
+
+@mixin responsive-grid($columns: 3) {
+  display: grid;
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
+  gap: $space-sm;
+  @media (max-width: $breakpoint-mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+@mixin secondary-text {
+  color: var(--vg-muted);
+  margin: 0;
+  line-height: 1.5;
+}

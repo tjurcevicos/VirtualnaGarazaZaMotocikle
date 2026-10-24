@@ -1,0 +1,61 @@
+@use 'garage-tokens' as *;
+
+.garage-api-tips {
+  @include theme-surface;
+  margin: 20px 0 24px;
+  padding: $space-lg;
+
+  &-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: $space-md;
+    flex-wrap: wrap;
+
+    h2 {
+      margin: 0 0 $space-xs;
+      font-size: 19px;
+    }
+  }
+
+  &-heading p,
+  &-list p,
+  &-message {
+    @include secondary-text;
+  }
+
+  &-status {
+    font-size: 12px;
+    color: var(--vg-text);
+    border: 1px solid var(--vg-border);
+    padding: $space-xs 10px;
+    border-radius: 999px;
+  }
+
+  &-list {
+    list-style: none;
+    @include responsive-grid;
+    padding: 0;
+    margin: 18px 0 0;
+
+    li {
+      padding: 15px;
+      border: 1px solid var(--vg-border);
+      border-radius: $radius-sm;
+      min-width: 0;
+    }
+
+    strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+
+  &-message {
+    margin-top: $space-md;
+
+    button {
+      margin-top: $space-sm;
+    }
+  }
+}
