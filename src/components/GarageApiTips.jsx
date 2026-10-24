@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { usePreferences } from '../i18n/Preferences'
 import { fetchGarageTips } from '../services/garageMockApi'
+import tipTranslations from '../data/motoTipsTranslations.json'
 import '../styles/GarageApiTips.scss'
 
 const settingKey = 'vg-show-moto-tips'
@@ -70,6 +71,7 @@ export default function GarageApiTips() {
 
   if (!visible) return null
   const current = tips[index]
+  const localized = current && tipTranslations[current.id]?.[language]
   return (
     <section className="garage-api-tips" aria-labelledby="garage-api-tips-title" aria-busy={status === 'loading'}>
       <div className="garage-api-tips-heading">
@@ -83,8 +85,8 @@ export default function GarageApiTips() {
       {status === 'error' && <div role="alert" className="garage-api-tips-message"><p>{t('Dohvat podataka nije uspio.')}</p><button type="button" className="primary-button" onClick={() => { setStatus('loading'); setRequestId((n) => n + 1) }}>{t('Pokušaj ponovno')}</button></div>}
       {status === 'success' && current && (
         <div className={`garage-api-tips-content ${fading ? 'is-changing' : ''}`} lang={language}>
-          <strong>{t(current.title)}</strong>
-          <p>{t(current.description)}</p>
+          <strong>{localized?.title || current.title}</strong>
+          <p>{localized?.description || current.description}</p>
         </div>
       )}
       {status === 'success' && <div className="garage-api-tips-footer"><span>{t('Novi savjet svakih 30 sekundi')}</span><span>{index + 1} / {tips.length}</span></div>}

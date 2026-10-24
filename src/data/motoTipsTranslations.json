@@ -1,0 +1,1118 @@
+{
+  "moto-01": {
+    "en": {
+      "title": "Check tyre pressure when cold",
+      "description": "Measure pressure before riding, following the manufacturer's instructions. With a passenger or luggage, use the recommended settings for a loaded bike."
+    },
+    "de": {
+      "title": "Reifendruck bei kalten Reifen prüfen",
+      "description": "Miss den Druck vor der Fahrt nach Herstellervorgabe. Mit Sozius oder Gepäck gelten gegebenenfalls andere Werte."
+    },
+    "it": {
+      "title": "Controlla la pressione a gomme fredde",
+      "description": "Misurala prima di partire seguendo il manuale. Con passeggero o bagagli usa i valori previsti per la moto carica."
+    },
+    "sl": {
+      "title": "Tlak preveri pri hladnih pnevmatikah",
+      "description": "Izmeri ga pred vožnjo po navodilih proizvajalca. S sopotnikom ali prtljago uporabi predpisane vrednosti za obremenjen motocikel."
+    }
+  },
+  "moto-02": {
+    "en": {
+      "title": "Tread alone doesn't make an old tyre safe",
+      "description": "Check the manufacturing date, cracks and hardened rubber. A tyre that sits for years can lose grip even with little mileage."
+    },
+    "de": {
+      "title": "Profil allein macht alte Reifen nicht sicher",
+      "description": "Prüfe Herstellungsdatum, Risse und verhärtetes Gummi. Auch Reifen mit wenig Laufleistung können Grip verlieren."
+    },
+    "it": {
+      "title": "Il battistrada non basta a rendere sicura una gomma vecchia",
+      "description": "Controlla data di produzione, crepe e gomma indurita. Anche con pochi chilometri può perdere aderenza."
+    },
+    "sl": {
+      "title": "Dober profil še ne pomeni dobre stare pnevmatike",
+      "description": "Preveri datum izdelave, razpoke in otrdelo gumo. Tudi pnevmatika z malo kilometri lahko izgubi oprijem."
+    }
+  },
+  "moto-03": {
+    "en": {
+      "title": "Check the tyre shoulders too",
+      "description": "The centre isn't the only part that wears. Uneven edges and unusual wear may point to pressure or suspension problems."
+    },
+    "de": {
+      "title": "Auch die Reifenschultern ansehen",
+      "description": "Nicht nur die Mitte nutzt sich ab. Ungleichmäßiger Verschleiß kann auf Luftdruck oder Fahrwerk hinweisen."
+    },
+    "it": {
+      "title": "Controlla anche le spalle degli pneumatici",
+      "description": "Non si consuma solo il centro. Usura irregolare e bordi insoliti possono indicare problemi di pressione o sospensioni."
+    },
+    "sl": {
+      "title": "Poglej tudi ramena pnevmatik",
+      "description": "Ne obrablja se le sredina. Neenakomerna obraba lahko kaže na tlak ali težave z vzmetenjem."
+    }
+  },
+  "moto-04": {
+    "en": {
+      "title": "Harder to turn into corners?",
+      "description": "If the steering suddenly feels different, check tyre pressure and condition first. Don't simply get used to a problem."
+    },
+    "de": {
+      "title": "Lenkt das Motorrad schwerer ein?",
+      "description": "Fühlt sich die Lenkung plötzlich anders an, prüfe zuerst Druck und Zustand der Reifen. Gewöhne dich nicht einfach daran."
+    },
+    "it": {
+      "title": "La moto entra in curva con più fatica?",
+      "description": "Se lo sterzo cambia all'improvviso, controlla prima pressione e condizioni delle gomme. Non abituarti al difetto."
+    },
+    "sl": {
+      "title": "Motocikel težje zavija?",
+      "description": "Če se vodljivost nenadoma spremeni, najprej preveri tlak in stanje pnevmatik. Ne privajaj se na težavo."
+    }
+  },
+  "moto-05": {
+    "en": {
+      "title": "Take it easy on new tyres",
+      "description": "Get familiar with the new profile and handling over the first miles. Avoid abrupt inputs and extreme lean angles."
+    },
+    "de": {
+      "title": "Mit neuen Reifen zunächst ruhig fahren",
+      "description": "Gewöhne dich an das neue Profil und Fahrverhalten. Vermeide anfangs abrupte Manöver und starke Schräglagen."
+    },
+    "it": {
+      "title": "Con gomme nuove parti con calma",
+      "description": "Prendi confidenza con il nuovo profilo e le reazioni della moto. Evita manovre brusche e pieghe estreme all'inizio."
+    },
+    "sl": {
+      "title": "Z novimi pnevmatikami začni umirjeno",
+      "description": "Spoznaj nov profil in odzive motocikla. Sprva se izogibaj sunkovitim gibom in velikim nagibom."
+    }
+  },
+  "moto-06": {
+    "en": {
+      "title": "Adjust suspension for the load",
+      "description": "A passenger and full panniers change how the bike handles. Set preload and tyre pressure according to your model's instructions."
+    },
+    "de": {
+      "title": "Fahrwerk an die Beladung anpassen",
+      "description": "Sozius und volle Koffer verändern das Fahrverhalten. Stelle Vorspannung und Reifendruck nach Handbuch ein."
+    },
+    "it": {
+      "title": "Regola le sospensioni in base al carico",
+      "description": "Passeggero e borse piene cambiano la guida. Regola precarico e pressione secondo il manuale del modello."
+    },
+    "sl": {
+      "title": "Vzmetenje prilagodi obremenitvi",
+      "description": "Sopotnik in polni kovčki spremenijo vodljivost. Prednapetost in tlak nastavi po navodilih za svoj model."
+    }
+  },
+  "moto-07": {
+    "en": {
+      "title": "Oil on the fork is not minor",
+      "description": "Oil on a front fork tube may mean a leaking seal. Have it checked before oil reaches the brakes."
+    },
+    "de": {
+      "title": "Öl an der Gabel ist keine Kleinigkeit",
+      "description": "Öl am Gabelrohr kann auf einen undichten Dichtring hinweisen. Prüfen lassen, bevor Öl an die Bremse gelangt."
+    },
+    "it": {
+      "title": "Olio sulla forcella non è un dettaglio",
+      "description": "Una traccia d'olio sullo stelo può indicare un paraolio che perde. Controllalo prima che l'olio raggiunga i freni."
+    },
+    "sl": {
+      "title": "Olje na vilicah ni malenkost",
+      "description": "Oljna sled na cevi vilic lahko pomeni puščanje tesnila. Preveri, preden olje pride do zavor."
+    }
+  },
+  "moto-08": {
+    "en": {
+      "title": "Don't ignore the tyre valve",
+      "description": "A damaged valve can leak air slowly. Inspect it and replace the cap after checking pressure."
+    },
+    "de": {
+      "title": "Reifenventil nicht vergessen",
+      "description": "Ein beschädigtes Ventil kann langsam Luft verlieren. Prüfe es und setze nach dem Messen die Kappe auf."
+    },
+    "it": {
+      "title": "Non trascurare la valvola della gomma",
+      "description": "Una valvola danneggiata può perdere aria lentamente. Controllala e rimetti il tappino dopo la misurazione."
+    },
+    "sl": {
+      "title": "Ne zanemari ventila pnevmatike",
+      "description": "Poškodovan ventil lahko počasi spušča zrak. Preglej ga in po merjenju vrni pokrovček."
+    }
+  },
+  "moto-09": {
+    "en": {
+      "title": "Don't adjust chain slack by eye",
+      "description": "Too little slack strains the drivetrain; too much can cause the chain to slap. Measure it as the manufacturer specifies."
+    },
+    "de": {
+      "title": "Kettenspannung nicht nach Gefühl einstellen",
+      "description": "Zu wenig Spiel belastet den Antrieb, zu viel lässt die Kette schlagen. Miss nach Herstellervorgabe."
+    },
+    "it": {
+      "title": "La catena non si regola a occhio",
+      "description": "Poco gioco affatica la trasmissione; troppo può farla sbattere. Misura come indica il costruttore."
+    },
+    "sl": {
+      "title": "Verige ne napenjaj na oko",
+      "description": "Premalo prostega hoda obremenjuje prenos, preveč pa povzroča udarjanje. Izmeri ga po navodilih proizvajalca."
+    }
+  },
+  "moto-10": {
+    "en": {
+      "title": "Check chain slack in several places",
+      "description": "With the engine off, turn the rear wheel by hand and compare slack. Uneven tension may indicate a worn chain."
+    },
+    "de": {
+      "title": "Kette an mehreren Stellen prüfen",
+      "description": "Drehe das Hinterrad bei ausgeschaltetem Motor von Hand und vergleiche das Spiel. Unterschiede können Verschleiß anzeigen."
+    },
+    "it": {
+      "title": "Controlla la catena in più punti",
+      "description": "A motore spento gira la ruota posteriore a mano e confronta il gioco. Differenze possono indicare usura."
+    },
+    "sl": {
+      "title": "Verigo preveri na več mestih",
+      "description": "Pri ugasnjenem motorju ročno zavrti zadnje kolo in primerjaj prosti hod. Razlike lahko kažejo na obrabo."
+    }
+  },
+  "moto-11": {
+    "en": {
+      "title": "Lubricate the chain after riding",
+      "description": "A warm chain takes suitable lubricant well. Give it time to settle before the next ride."
+    },
+    "de": {
+      "title": "Kette nach der Fahrt schmieren",
+      "description": "Eine warme Kette nimmt geeignetes Schmiermittel gut auf. Lass es vor der nächsten Fahrt einwirken."
+    },
+    "it": {
+      "title": "Lubrifica la catena dopo il giro",
+      "description": "La catena calda accoglie bene un lubrificante adatto. Lascialo aderire prima del giro successivo."
+    },
+    "sl": {
+      "title": "Verigo namaži po vožnji",
+      "description": "Topla veriga dobro sprejme primerno mazivo. Pred naslednjo vožnjo pusti, da se oprime."
+    }
+  },
+  "moto-12": {
+    "en": {
+      "title": "Never clean the chain with the engine running",
+      "description": "Fingers or a cloth can get caught between chain and sprocket. Turn the wheel only by hand with the engine off."
+    },
+    "de": {
+      "title": "Kette nie bei laufendem Motor reinigen",
+      "description": "Finger oder Lappen können zwischen Kette und Ritzel geraten. Rad nur von Hand bei ausgeschaltetem Motor drehen."
+    },
+    "it": {
+      "title": "Mai pulire la catena a motore acceso",
+      "description": "Dita e stracci possono finire tra catena e pignone. Gira la ruota solo a mano e a motore spento."
+    },
+    "sl": {
+      "title": "Verige nikoli ne čisti pri prižganem motorju",
+      "description": "Prsti ali krpa se lahko ujamejo med verigo in zobnik. Kolo vrti le ročno ob ugasnjenem motorju."
+    }
+  },
+  "moto-13": {
+    "en": {
+      "title": "Look at the sprocket teeth",
+      "description": "Hooked or pointed teeth indicate wear. It often makes sense to replace the chain and sprockets as a set."
+    },
+    "de": {
+      "title": "Zähne der Kettenräder ansehen",
+      "description": "Hakenförmige oder spitze Zähne zeigen Verschleiß. Kette und Ritzel werden oft gemeinsam ersetzt."
+    },
+    "it": {
+      "title": "Guarda i denti della corona e del pignone",
+      "description": "Denti appuntiti o a uncino indicano usura. Spesso conviene sostituire insieme catena e ingranaggi."
+    },
+    "sl": {
+      "title": "Preglej zobe zobnikov",
+      "description": "Kavljasti ali koničasti zobje kažejo obrabo. Verigo in zobnike je pogosto smiselno zamenjati skupaj."
+    }
+  },
+  "moto-14": {
+    "en": {
+      "title": "Shaft drive still needs maintenance",
+      "description": "Check the final-drive oil-change interval and look for leaks."
+    },
+    "de": {
+      "title": "Auch Kardanantrieb braucht Pflege",
+      "description": "Prüfe das Wechselintervall des Endantriebsöls und achte auf Undichtigkeiten."
+    },
+    "it": {
+      "title": "Anche il cardano richiede manutenzione",
+      "description": "Controlla l'intervallo di cambio dell'olio della trasmissione finale e cerca eventuali perdite."
+    },
+    "sl": {
+      "title": "Tudi kardan potrebuje vzdrževanje",
+      "description": "Preveri interval menjave olja v končnem prenosu in morebitno puščanje."
+    }
+  },
+  "moto-15": {
+    "en": {
+      "title": "Inspect the inside of the belt too",
+      "description": "Cracks, damaged edges and trapped stones can shorten belt-drive life."
+    },
+    "de": {
+      "title": "Riemen auch innen kontrollieren",
+      "description": "Risse, beschädigte Kanten und Steinchen können die Lebensdauer des Riemenantriebs verkürzen."
+    },
+    "it": {
+      "title": "Controlla anche l'interno della cinghia",
+      "description": "Crepe, bordi rovinati e sassolini possono ridurre la durata della trasmissione a cinghia."
+    },
+    "sl": {
+      "title": "Jermen preveri tudi na notranji strani",
+      "description": "Razpoke, poškodovani robovi in kamenčki lahko skrajšajo življenjsko dobo jermenskega prenosa."
+    }
+  },
+  "moto-16": {
+    "en": {
+      "title": "New vibrations have a cause",
+      "description": "If the bike starts vibrating differently, check tyres, wheels, fasteners and drivetrain."
+    },
+    "de": {
+      "title": "Neue Vibrationen haben eine Ursache",
+      "description": "Vibriert das Motorrad plötzlich anders, prüfe Reifen, Räder, Verschraubungen und Antrieb."
+    },
+    "it": {
+      "title": "Una vibrazione nuova ha una causa",
+      "description": "Se la moto vibra diversamente, controlla gomme, ruote, fissaggi e trasmissione."
+    },
+    "sl": {
+      "title": "Nove vibracije imajo vzrok",
+      "description": "Če motocikel začne vibrirati drugače, preveri pnevmatike, kolesa, pritrdilne elemente in pogon."
+    }
+  },
+  "moto-17": {
+    "en": {
+      "title": "The brake lever should feel consistent",
+      "description": "A soft lever or changed travel can signal trouble. Have the brakes checked before riding on."
+    },
+    "de": {
+      "title": "Bremshebel muss sich gleich anfühlen",
+      "description": "Ein weicher Hebel oder veränderter Weg kann ein Warnzeichen sein. Bremsen vor der Weiterfahrt prüfen lassen."
+    },
+    "it": {
+      "title": "La leva del freno deve essere prevedibile",
+      "description": "Una leva morbida o con corsa diversa può segnalare un problema. Controlla i freni prima di ripartire."
+    },
+    "sl": {
+      "title": "Zavorna ročica mora imeti enak občutek",
+      "description": "Mehka ročica ali spremenjen hod lahko opozarjata na težavo. Pred nadaljevanjem preveri zavore."
+    }
+  },
+  "moto-18": {
+    "en": {
+      "title": "Brake fluid doesn't last forever",
+      "description": "It absorbs moisture and degrades over time. Replace it on schedule and use the specified grade."
+    },
+    "de": {
+      "title": "Bremsflüssigkeit altert",
+      "description": "Sie nimmt Feuchtigkeit auf und verliert Eigenschaften. Wechsle sie fristgerecht in der vorgeschriebenen Spezifikation."
+    },
+    "it": {
+      "title": "Il liquido freni invecchia",
+      "description": "Assorbe umidità e perde proprietà. Sostituiscilo agli intervalli previsti e usa la specifica corretta."
+    },
+    "sl": {
+      "title": "Zavorna tekočina se stara",
+      "description": "Vpija vlago in izgublja lastnosti. Menjaj jo v predpisanem roku in uporabi pravo specifikacijo."
+    }
+  },
+  "moto-19": {
+    "en": {
+      "title": "Don't wait for brake pads to scrape",
+      "description": "Check pad thickness occasionally. A metallic sound may mean the pads are already badly worn."
+    },
+    "de": {
+      "title": "Nicht warten, bis Bremsbeläge schleifen",
+      "description": "Prüfe gelegentlich die Belagstärke. Metallische Geräusche können starken Verschleiß bedeuten."
+    },
+    "it": {
+      "title": "Non aspettare che le pastiglie stridano",
+      "description": "Controlla ogni tanto lo spessore del materiale d'attrito. Un rumore metallico può indicare forte usura."
+    },
+    "sl": {
+      "title": "Ne čakaj, da ploščice začnejo drgniti",
+      "description": "Občasno preveri debelino oblog. Kovinski zvok lahko pomeni močno obrabo."
+    }
+  },
+  "moto-20": {
+    "en": {
+      "title": "ABS cannot create grip",
+      "description": "On gravel, wet paint or oily tarmac, stopping distances can still be long even with ABS."
+    },
+    "de": {
+      "title": "ABS ersetzt keine Haftung",
+      "description": "Auf Schotter, nassen Markierungen oder öligem Asphalt kann der Bremsweg trotz ABS lang sein."
+    },
+    "it": {
+      "title": "L'ABS non crea aderenza",
+      "description": "Su ghiaia, vernice bagnata o asfalto unto, lo spazio di arresto può essere lungo anche con ABS."
+    },
+    "sl": {
+      "title": "ABS ne more ustvariti oprijema",
+      "description": "Na pesku, mokrih oznakah ali mastnem asfaltu je zavorna pot lahko dolga tudi z ABS."
+    }
+  },
+  "moto-21": {
+    "en": {
+      "title": "Test the brakes after washing",
+      "description": "After washing or riding through water, gently check brake response at low speed."
+    },
+    "de": {
+      "title": "Bremsen nach dem Waschen testen",
+      "description": "Prüfe nach dem Waschen oder Wasserdurchfahrten bei geringer Geschwindigkeit vorsichtig die Bremswirkung."
+    },
+    "it": {
+      "title": "Prova i freni dopo il lavaggio",
+      "description": "Dopo il lavaggio o un passaggio nell'acqua, verifica delicatamente la risposta dei freni a bassa velocità."
+    },
+    "sl": {
+      "title": "Po pranju preveri zavore",
+      "description": "Po pranju ali vožnji skozi vodo pri nizki hitrosti nežno preveri odziv zavor."
+    }
+  },
+  "moto-22": {
+    "en": {
+      "title": "The rear brake helps at low speed",
+      "description": "In slow manoeuvres, careful rear-brake control can help keep the motorcycle stable."
+    },
+    "de": {
+      "title": "Hinterradbremse hilft bei Langsamfahrt",
+      "description": "Bei langsamen Manövern kann dosiertes Bremsen hinten das Motorrad stabilisieren."
+    },
+    "it": {
+      "title": "Il freno posteriore aiuta nelle manovre lente",
+      "description": "Usato con misura, può aiutare a stabilizzare la moto a bassa velocità."
+    },
+    "sl": {
+      "title": "Zadnja zavora pomaga pri počasni vožnji",
+      "description": "Pri počasnih manevrih lahko pravilno odmerjena zadnja zavora izboljša stabilnost."
+    }
+  },
+  "moto-23": {
+    "en": {
+      "title": "Brake hoses deserve a look",
+      "description": "Cracks, damp connections or swelling hoses call for professional inspection."
+    },
+    "de": {
+      "title": "Bremsschläuche kontrollieren",
+      "description": "Risse, feuchte Anschlüsse oder aufgequollene Schläuche gehören fachgerecht geprüft."
+    },
+    "it": {
+      "title": "Dai un'occhiata ai tubi dei freni",
+      "description": "Crepe, raccordi umidi o tubi gonfi richiedono un controllo professionale."
+    },
+    "sl": {
+      "title": "Preglej zavorne cevi",
+      "description": "Razpoke, vlažni spoji ali napihnjene cevi zahtevajo strokovni pregled."
+    }
+  },
+  "moto-24": {
+    "en": {
+      "title": "Practise braking before an emergency",
+      "description": "In a safe, empty area, learn how your bike responds to firm braking."
+    },
+    "de": {
+      "title": "Bremsen üben, bevor es ernst wird",
+      "description": "Lerne auf sicherem, freiem Gelände, wie dein Motorrad bei kräftigem Bremsen reagiert."
+    },
+    "it": {
+      "title": "Allenati a frenare prima dell'emergenza",
+      "description": "In uno spazio libero e sicuro, impara come reagisce la tua moto a una frenata decisa."
+    },
+    "sl": {
+      "title": "Zaviranje vadi pred nevarnostjo",
+      "description": "Na varnem praznem prostoru spoznaj odziv motocikla pri močnejšem zaviranju."
+    }
+  },
+  "moto-25": {
+    "en": {
+      "title": "Check oil the way your engine requires",
+      "description": "Some bikes need a warm engine, others a period of rest. The bike's position matters too."
+    },
+    "de": {
+      "title": "Öl nach Motorvorgabe prüfen",
+      "description": "Manche Motorräder brauchen einen warmen Motor, andere eine Ruhezeit. Auch die Fahrzeugposition zählt."
+    },
+    "it": {
+      "title": "Controlla l'olio come richiede il motore",
+      "description": "Alcune moto richiedono il motore caldo, altre una pausa. Conta anche la posizione della moto."
+    },
+    "sl": {
+      "title": "Olje preverjaj po navodilih motorja",
+      "description": "Nekateri motocikli zahtevajo ogret motor, drugi čas mirovanja. Pomemben je tudi položaj motocikla."
+    }
+  },
+  "moto-26": {
+    "en": {
+      "title": "Too much oil can also cause damage",
+      "description": "Don't top up blindly. Add small amounts and use the manufacturer's specified oil."
+    },
+    "de": {
+      "title": "Zu viel Öl schadet ebenfalls",
+      "description": "Nicht blind nachfüllen. Gib kleine Mengen hinzu und nutze die vorgeschriebene Ölspezifikation."
+    },
+    "it": {
+      "title": "Anche troppo olio fa danni",
+      "description": "Non rabboccare alla cieca. Aggiungine poco per volta e usa la specifica indicata dal costruttore."
+    },
+    "sl": {
+      "title": "Tudi preveč olja škoduje",
+      "description": "Ne dolivaj na pamet. Dodajaj postopoma in uporabi specifikacijo proizvajalca."
+    }
+  },
+  "moto-27": {
+    "en": {
+      "title": "Don't push a cold engine",
+      "description": "Ride gently after starting. Coolant temperature doesn't always show how warm the oil is."
+    },
+    "de": {
+      "title": "Kalten Motor nicht hochdrehen",
+      "description": "Fahre nach dem Start behutsam. Die Kühlmitteltemperatur zeigt nicht immer die Öltemperatur."
+    },
+    "it": {
+      "title": "Non forzare il motore freddo",
+      "description": "Parti con dolcezza. La temperatura del liquido refrigerante non indica sempre quella dell'olio."
+    },
+    "sl": {
+      "title": "Hladnega motorja ne priganjaj",
+      "description": "Po zagonu vozi umirjeno. Temperatura hladilne tekočine ne kaže vedno temperature olja."
+    }
+  },
+  "moto-28": {
+    "en": {
+      "title": "A fan running in traffic isn't automatically a fault",
+      "description": "Occasional fan operation is normal. Overheating or coolant loss is not."
+    },
+    "de": {
+      "title": "Lüfter im Stau ist nicht gleich ein Defekt",
+      "description": "Gelegentliches Anspringen ist normal. Überhitzung oder Kühlmittelverlust nicht."
+    },
+    "it": {
+      "title": "La ventola nel traffico non indica sempre un guasto",
+      "description": "L'avvio occasionale è normale. Surriscaldamento e perdita di refrigerante no."
+    },
+    "sl": {
+      "title": "Ventilator v zastoju še ni okvara",
+      "description": "Občasno delovanje ventilatorja je normalno. Pregrevanje ali izguba hladilne tekočine pa ne."
+    }
+  },
+  "moto-29": {
+    "en": {
+      "title": "Never open a hot radiator",
+      "description": "The cooling system may be pressurised. Let it cool and follow the manufacturer's instructions."
+    },
+    "de": {
+      "title": "Heißen Kühler niemals öffnen",
+      "description": "Das Kühlsystem kann unter Druck stehen. Lass es abkühlen und beachte das Handbuch."
+    },
+    "it": {
+      "title": "Non aprire mai il radiatore caldo",
+      "description": "Il circuito può essere sotto pressione. Aspetta che si raffreddi e segui il manuale."
+    },
+    "sl": {
+      "title": "Ne odpiraj vročega hladilnika",
+      "description": "Hladilni sistem je lahko pod tlakom. Počakaj, da se ohladi, in upoštevaj navodila."
+    }
+  },
+  "moto-30": {
+    "en": {
+      "title": "Service intervals aren't just mileage",
+      "description": "Oil and other fluids often have time limits too. Low mileage doesn't mean you can skip servicing for years."
+    },
+    "de": {
+      "title": "Serviceintervalle hängen nicht nur von Kilometern ab",
+      "description": "Öl und andere Flüssigkeiten haben oft auch Zeitintervalle. Wenig Fahren ersetzt keine Wartung."
+    },
+    "it": {
+      "title": "Il tagliando non dipende solo dai chilometri",
+      "description": "Olio e altri liquidi hanno spesso anche scadenze temporali. Pochi chilometri non eliminano la manutenzione."
+    },
+    "sl": {
+      "title": "Servisni interval ni le kilometrina",
+      "description": "Olje in druge tekočine imajo pogosto tudi časovne roke. Malo vožnje ne pomeni, da servis lahko čaka leta."
+    }
+  },
+  "moto-31": {
+    "en": {
+      "title": "Write down what the service included",
+      "description": "Date, mileage, parts, oil specification and cost are more useful later than simply 'serviced'."
+    },
+    "de": {
+      "title": "Genau notieren, was gemacht wurde",
+      "description": "Datum, Kilometerstand, Teile, Ölspezifikation und Preis sind später hilfreicher als nur „Service gemacht“."
+    },
+    "it": {
+      "title": "Annota cosa è stato fatto al tagliando",
+      "description": "Data, chilometri, ricambi, specifica dell'olio e costo valgono più di un semplice «tagliando fatto»."
+    },
+    "sl": {
+      "title": "Zapiši, kaj je bilo opravljeno na servisu",
+      "description": "Datum, kilometri, deli, specifikacija olja in cena povedo več kot zapis »servis opravljen«."
+    }
+  },
+  "moto-32": {
+    "en": {
+      "title": "Slow cranking? Check the battery",
+      "description": "Hard starting after storage can mean a weak battery or a charging problem."
+    },
+    "de": {
+      "title": "Anlasser dreht langsam? Batterie prüfen",
+      "description": "Startprobleme nach Standzeit können auf eine schwache Batterie oder Ladeprobleme hinweisen."
+    },
+    "it": {
+      "title": "Il motorino gira piano? Controlla la batteria",
+      "description": "Difficoltà di avviamento dopo una sosta possono indicare batteria debole o problemi di ricarica."
+    },
+    "sl": {
+      "title": "Zaganjač vrti počasi? Preveri akumulator",
+      "description": "Težaven zagon po mirovanju lahko pomeni slab akumulator ali težavo s polnjenjem."
+    }
+  },
+  "moto-33": {
+    "en": {
+      "title": "Dusty roads clog air filters",
+      "description": "If you often ride in dust, the air filter may need checking before its normal interval."
+    },
+    "de": {
+      "title": "Staubige Straßen setzen Luftfiltern zu",
+      "description": "Bei häufigen Fahrten im Staub kann eine frühere Kontrolle nötig sein."
+    },
+    "it": {
+      "title": "Le strade polverose intasano il filtro aria",
+      "description": "Se viaggi spesso nella polvere, controlla il filtro prima dell'intervallo previsto."
+    },
+    "sl": {
+      "title": "Prašne ceste mašijo zračni filter",
+      "description": "Če pogosto voziš po prahu, bo pregled filtra morda potreben pred rednim intervalom."
+    }
+  },
+  "moto-34": {
+    "en": {
+      "title": "A fluid drip under the engine isn't decoration",
+      "description": "Find the source of the leak and check oil or coolant levels before riding again."
+    },
+    "de": {
+      "title": "Ein Tropfen unter dem Motor ist ein Warnsignal",
+      "description": "Suche die Leckstelle und prüfe Öl- oder Kühlmittelstand vor der nächsten Fahrt."
+    },
+    "it": {
+      "title": "Una goccia sotto il motore non è normale",
+      "description": "Trova l'origine della perdita e verifica olio o refrigerante prima del prossimo giro."
+    },
+    "sl": {
+      "title": "Kapljica pod motorjem ni okras",
+      "description": "Poišči vir puščanja in pred naslednjo vožnjo preveri nivo olja ali hladilne tekočine."
+    }
+  },
+  "moto-35": {
+    "en": {
+      "title": "The first rain can be the slipperiest",
+      "description": "Dust, oil and fuel haven't yet washed off the road. Take extra care at junctions and roundabouts."
+    },
+    "de": {
+      "title": "Erster Regen kann besonders rutschig sein",
+      "description": "Staub, Öl und Kraftstoff sind noch nicht abgespült. Vorsicht an Kreuzungen und Kreisverkehren."
+    },
+    "it": {
+      "title": "La prima pioggia può essere la più scivolosa",
+      "description": "Polvere, olio e carburante non sono ancora stati lavati via. Attenzione a incroci e rotonde."
+    },
+    "sl": {
+      "title": "Prvi dež je lahko najbolj spolzek",
+      "description": "Prah, olje in gorivo se še niso sprali. Posebej pazi na križiščih in krožiščih."
+    }
+  },
+  "moto-36": {
+    "en": {
+      "title": "White lines aren't ordinary tarmac",
+      "description": "Wet road markings can be slippery. Cross them smoothly, without hard braking or sudden steering."
+    },
+    "de": {
+      "title": "Weiße Linien sind kein normaler Asphalt",
+      "description": "Nasse Markierungen können rutschig sein. Fahre ohne hartes Bremsen oder abruptes Lenken darüber."
+    },
+    "it": {
+      "title": "Le strisce bianche non sono asfalto normale",
+      "description": "La segnaletica bagnata può scivolare. Attraversala senza frenate o sterzate brusche."
+    },
+    "sl": {
+      "title": "Bele črte niso običajen asfalt",
+      "description": "Mokre talne oznake so lahko spolzke. Prečkaj jih mirno, brez sunkovitega zaviranja ali zavijanja."
+    }
+  },
+  "moto-37": {
+    "en": {
+      "title": "Metal covers need respect",
+      "description": "Manhole covers and tram tracks are tricky in rain. Cross calmly and at a favourable angle where possible."
+    },
+    "de": {
+      "title": "Metallabdeckungen verlangen Vorsicht",
+      "description": "Kanaldeckel und Straßenbahnschienen sind bei Regen heikel. Möglichst ruhig und in günstigem Winkel überqueren."
+    },
+    "it": {
+      "title": "Attenzione ai tombini metallici",
+      "description": "Tombini e binari del tram sono insidiosi sul bagnato. Attraversali con calma e con un angolo favorevole."
+    },
+    "sl": {
+      "title": "Kovinski pokrovi zahtevajo previdnost",
+      "description": "Jaški in tramvajske tirnice so v dežju nevarni. Prečkaj jih mirno in pod ugodnim kotom."
+    }
+  },
+  "moto-38": {
+    "en": {
+      "title": "Gravel can hide beyond a bend",
+      "description": "Sand often collects at the edge or centre of back roads. Leave yourself room to react."
+    },
+    "de": {
+      "title": "Schotter lauert hinter Kurven",
+      "description": "Auf Nebenstraßen liegt Sand oft am Rand oder in der Fahrbahnmitte. Halte Reaktionsraum frei."
+    },
+    "it": {
+      "title": "La ghiaia si nasconde dopo le curve",
+      "description": "Sulle strade secondarie la sabbia si accumula ai bordi o al centro. Lasciati spazio per reagire."
+    },
+    "sl": {
+      "title": "Pesek se skriva za ovinkom",
+      "description": "Na stranskih cestah se nabira ob robu ali na sredini pasu. Pusti si prostor za odziv."
+    }
+  },
+  "moto-39": {
+    "en": {
+      "title": "Shadows can hide wet patches",
+      "description": "Forest roads and areas beneath bridges may stay damp long after the rain stops."
+    },
+    "de": {
+      "title": "Schatten verdeckt nasse Stellen",
+      "description": "Waldstrecken und Bereiche unter Brücken können lange nach dem Regen feucht bleiben."
+    },
+    "it": {
+      "title": "L'ombra può nascondere asfalto bagnato",
+      "description": "Tratti boscosi e sottopassi possono restare umidi a lungo dopo la pioggia."
+    },
+    "sl": {
+      "title": "Senca skriva mokre dele ceste",
+      "description": "Gozdne ceste in podvozi lahko ostanejo vlažni še dolgo po dežju."
+    }
+  },
+  "moto-40": {
+    "en": {
+      "title": "Crosswinds strike without warning",
+      "description": "Expect gusts on bridges, at forest exits and beside trucks. Leave room to correct your line."
+    },
+    "de": {
+      "title": "Seitenwind kommt oft plötzlich",
+      "description": "Rechne auf Brücken, an Waldausgängen und neben Lkw mit Böen. Halte Platz zum Korrigieren."
+    },
+    "it": {
+      "title": "Il vento laterale arriva senza preavviso",
+      "description": "Aspettati raffiche sui ponti, all'uscita dai boschi e vicino ai camion. Lascia spazio per correggere la traiettoria."
+    },
+    "sl": {
+      "title": "Bočni veter udari brez opozorila",
+      "description": "Na mostovih, izhodih iz gozda in ob tovornjakih pričakuj sunke. Pusti prostor za popravek smeri."
+    }
+  },
+  "moto-41": {
+    "en": {
+      "title": "Cold mornings change grip",
+      "description": "Cold tyres and tarmac behave differently from summer conditions. Take it easy for the first miles."
+    },
+    "de": {
+      "title": "Kalte Morgen verändern den Grip",
+      "description": "Kalte Reifen und Straßen verhalten sich anders als im Sommer. Fahre die ersten Kilometer zurückhaltend."
+    },
+    "it": {
+      "title": "Il freddo del mattino cambia l'aderenza",
+      "description": "Gomme e asfalto freddi reagiscono diversamente dall'estate. Guida con misura nei primi chilometri."
+    },
+    "sl": {
+      "title": "Hladno jutro spremeni oprijem",
+      "description": "Hladne pnevmatike in asfalt se obnašajo drugače kot poleti. Prve kilometre vozi umirjeno."
+    }
+  },
+  "moto-42": {
+    "en": {
+      "title": "Don't follow a car blindly",
+      "description": "A car can straddle a pothole or object that is dangerous for a bike. Look well ahead."
+    },
+    "de": {
+      "title": "Autos nicht blind hinterherfahren",
+      "description": "Ein Auto kann ein Schlagloch überfahren, das für Motorräder gefährlich ist. Schau weit voraus."
+    },
+    "it": {
+      "title": "Non seguire un'auto alla cieca",
+      "description": "Un'auto può passare sopra una buca o un oggetto pericoloso per la moto. Guarda lontano."
+    },
+    "sl": {
+      "title": "Ne sledi avtomobilu slepo",
+      "description": "Avto lahko prevozi luknjo ali predmet, ki je za motocikel nevaren. Glej dovolj daleč naprej."
+    }
+  },
+  "moto-43": {
+    "en": {
+      "title": "Oily patches in roundabouts",
+      "description": "Spilled diesel can be extremely slippery, especially at roundabout entrances and exits."
+    },
+    "de": {
+      "title": "Ölige Spuren im Kreisverkehr",
+      "description": "Ausgelaufener Diesel kann besonders an Ein- und Ausfahrten extrem rutschig sein."
+    },
+    "it": {
+      "title": "Macchie oleose nelle rotonde",
+      "description": "Il gasolio versato può essere molto scivoloso, soprattutto agli ingressi e alle uscite."
+    },
+    "sl": {
+      "title": "Mastni madeži v krožiščih",
+      "description": "Razlito dizelsko gorivo je lahko zelo spolzko, zlasti pri vhodih in izhodih."
+    }
+  },
+  "moto-44": {
+    "en": {
+      "title": "After a storm, watch the road surface",
+      "description": "Branches, leaves, mud and gravel can remain after the weather clears."
+    },
+    "de": {
+      "title": "Nach einem Sturm auf die Fahrbahn achten",
+      "description": "Äste, Laub, Schlamm und Kies bleiben auch bei besserem Wetter liegen."
+    },
+    "it": {
+      "title": "Dopo un temporale osserva la strada",
+      "description": "Rami, foglie, fango e ghiaia restano sull'asfalto anche quando torna il bel tempo."
+    },
+    "sl": {
+      "title": "Po nevihti opazuj cesto",
+      "description": "Veje, listje, blato in pesek ostanejo na cesti tudi, ko se vreme izboljša."
+    }
+  },
+  "moto-45": {
+    "en": {
+      "title": "At junctions, assume you haven't been seen",
+      "description": "A car's front wheels or slight movement may reveal an impending turn before it happens."
+    },
+    "de": {
+      "title": "An Kreuzungen mit Übersehenwerden rechnen",
+      "description": "Vorderräder oder leichtes Rollen eines Autos können ein bevorstehendes Abbiegen verraten."
+    },
+    "it": {
+      "title": "Agli incroci pensa di non essere stato visto",
+      "description": "Le ruote anteriori e un piccolo movimento dell'auto possono anticipare una svolta."
+    },
+    "sl": {
+      "title": "Na križišču predpostavi, da te niso videli",
+      "description": "Položaj sprednjih koles in rahel premik avtomobila lahko napovesta zavijanje."
+    }
+  },
+  "moto-46": {
+    "en": {
+      "title": "Don't linger in blind spots",
+      "description": "Avoid riding for long beside a car or truck where the driver may not see you."
+    },
+    "de": {
+      "title": "Nicht im toten Winkel bleiben",
+      "description": "Fahre nicht längere Zeit neben Pkw oder Lkw, wo dich Fahrer schlecht sehen."
+    },
+    "it": {
+      "title": "Non restare nell'angolo cieco",
+      "description": "Evita di viaggiare a lungo accanto a un'auto o un camion dove il conducente fatica a vederti."
+    },
+    "sl": {
+      "title": "Ne ostajaj v mrtvem kotu",
+      "description": "Izogibaj se dolgi vožnji ob avtomobilu ali tovornjaku, kjer te voznik težko opazi."
+    }
+  },
+  "moto-47": {
+    "en": {
+      "title": "Look where you want to go",
+      "description": "During slow manoeuvres, look toward the clear space you want to ride through, not at the obstacle."
+    },
+    "de": {
+      "title": "Blickführung lenkt das Motorrad",
+      "description": "Schau bei langsamen Manövern in den freien Bereich, in den du fahren willst, nicht auf das Hindernis."
+    },
+    "it": {
+      "title": "Lo sguardo guida la moto",
+      "description": "Nelle manovre lente guarda lo spazio libero verso cui vuoi andare, non l'ostacolo."
+    },
+    "sl": {
+      "title": "Pogled vodi motocikel",
+      "description": "Pri počasnih manevrih glej proti prostemu prostoru, kamor želiš zapeljati, ne v oviro."
+    }
+  },
+  "moto-48": {
+    "en": {
+      "title": "Pack heavy luggage low",
+      "description": "Place heavy items low and near the bike's centre. Check rack limits and suspension settings."
+    },
+    "de": {
+      "title": "Schweres Gepäck gehört nach unten",
+      "description": "Verstaue schwere Dinge tief und nahe der Fahrzeugmitte. Prüfe Trägerlast und Fahrwerkseinstellung."
+    },
+    "it": {
+      "title": "I bagagli pesanti vanno in basso",
+      "description": "Metti i pesi in basso e vicino al centro della moto. Controlla i limiti dei supporti e le sospensioni."
+    },
+    "sl": {
+      "title": "Težka prtljaga sodi nižje",
+      "description": "Težje stvari namesti nizko in blizu sredine motocikla. Preveri nosilnost in nastavitev vzmetenja."
+    }
+  },
+  "moto-49": {
+    "en": {
+      "title": "An elastic net isn't for heavy loads",
+      "description": "Use suitable straps or racks for heavy, solid luggage. Check everything is secure before leaving."
+    },
+    "de": {
+      "title": "Gepäcknetz ist nichts für schwere Lasten",
+      "description": "Nutze geeignete Gurte oder Träger für schwere Gegenstände. Prüfe die Befestigung vor der Abfahrt."
+    },
+    "it": {
+      "title": "La rete elastica non è per carichi pesanti",
+      "description": "Per oggetti pesanti e rigidi usa cinghie o supporti adeguati. Verifica il fissaggio prima di partire."
+    },
+    "sl": {
+      "title": "Elastična mreža ni za težek tovor",
+      "description": "Za težko in trdo prtljago uporabi primerne trakove ali nosilce. Pred odhodom preveri pritrditev."
+    }
+  },
+  "moto-50": {
+    "en": {
+      "title": "Stop before fatigue takes over",
+      "description": "Slower reactions and missed details can be early signs of tiredness. Regular breaks beat pushing on."
+    },
+    "de": {
+      "title": "Pause machen, bevor Müdigkeit einsetzt",
+      "description": "Spätes Bremsen und übersehene Details können erste Anzeichen sein. Regelmäßige Pausen helfen."
+    },
+    "it": {
+      "title": "Fermati prima che arrivi la stanchezza",
+      "description": "Frenate tardive e dettagli persi possono essere i primi segnali. Meglio pause regolari che forzare."
+    },
+    "sl": {
+      "title": "Ustavi se, preden te premaga utrujenost",
+      "description": "Pozno zaviranje in slabše opažanje sta lahko prva znaka. Redni odmori so boljši od vztrajanja."
+    }
+  },
+  "moto-51": {
+    "en": {
+      "title": "A clean visor helps at night",
+      "description": "Dried insects and grease increase glare from headlights. Clean the visor before an evening ride."
+    },
+    "de": {
+      "title": "Sauberes Visier verbessert die Nachtsicht",
+      "description": "Insektenreste und Fett verstärken Blendung. Reinige das Visier vor der Abendfahrt."
+    },
+    "it": {
+      "title": "Visiera pulita, vista migliore di notte",
+      "description": "Insetti secchi e grasso aumentano i riflessi dei fari. Pulisci la visiera prima di uscire la sera."
+    },
+    "sl": {
+      "title": "Čist vizir pomeni boljši pogled ponoči",
+      "description": "Posušene žuželke in maščoba povečajo bleščanje žarometov. Pred večerno vožnjo očisti vizir."
+    }
+  },
+  "moto-52": {
+    "en": {
+      "title": "Drink before you feel thirsty",
+      "description": "You can lose plenty of fluid inside riding gear. Plan water and breaks on long summer rides."
+    },
+    "de": {
+      "title": "Trinken, bevor der Durst kommt",
+      "description": "Unter Schutzkleidung verlierst du viel Flüssigkeit. Plane Wasser und Pausen bei Sommerfahrten ein."
+    },
+    "it": {
+      "title": "Bevi prima di avere sete",
+      "description": "Sotto l'abbigliamento tecnico perdi molti liquidi. Prevedi acqua e soste nei lunghi viaggi estivi."
+    },
+    "sl": {
+      "title": "Pij, še preden postaneš žejen",
+      "description": "Pod opremo hitro izgubljaš tekočino. Na dolgih poletnih vožnjah načrtuj vodo in odmore."
+    }
+  },
+  "moto-53": {
+    "en": {
+      "title": "Inspect the bike after transport",
+      "description": "After using a trailer or van, check the bars, brakes, fasteners and possible damage."
+    },
+    "de": {
+      "title": "Motorrad nach Transport kontrollieren",
+      "description": "Prüfe nach Anhänger oder Transporter Lenker, Bremsen, Befestigungen und mögliche Schäden."
+    },
+    "it": {
+      "title": "Controlla la moto dopo il trasporto",
+      "description": "Dopo furgone o rimorchio verifica manubrio, freni, fissaggi ed eventuali danni."
+    },
+    "sl": {
+      "title": "Po prevozu preglej motocikel",
+      "description": "Po prikolici ali kombiju preveri krmilo, zavore, pritrdilne elemente in morebitne poškodbe."
+    }
+  },
+  "moto-54": {
+    "en": {
+      "title": "A sidestand can sink into tarmac",
+      "description": "On hot or soft ground, use a suitable pad beneath the sidestand."
+    },
+    "de": {
+      "title": "Seitenständer kann in Asphalt einsinken",
+      "description": "Nutze auf heißem oder weichem Untergrund eine geeignete Unterlage."
+    },
+    "it": {
+      "title": "Il cavalletto può affondare nell'asfalto",
+      "description": "Su superfici calde o morbide usa una piastrina adatta sotto il cavalletto laterale."
+    },
+    "sl": {
+      "title": "Stransko stojalo se lahko pogrezne v asfalt",
+      "description": "Na vroči ali mehki podlagi uporabi primerno podložko pod stojalom."
+    }
+  },
+  "moto-55": {
+    "en": {
+      "title": "Batteries dislike long periods unused",
+      "description": "For extended storage, use a suitable smart charger for your battery type or follow storage instructions."
+    },
+    "de": {
+      "title": "Batterien mögen lange Standzeiten nicht",
+      "description": "Verwende bei längerer Pause ein passendes Erhaltungsladegerät oder beachte die Lagerhinweise."
+    },
+    "it": {
+      "title": "La batteria soffre le soste lunghe",
+      "description": "Per periodi prolungati usa un mantenitore adatto al tipo di batteria o segui le istruzioni di rimessaggio."
+    },
+    "sl": {
+      "title": "Akumulator ne mara dolgega mirovanja",
+      "description": "Za daljši premor uporabi ustrezen pametni polnilnik ali upoštevaj navodila za shranjevanje."
+    }
+  },
+  "moto-56": {
+    "en": {
+      "title": "Starting a bike briefly in the garage isn't a service",
+      "description": "A few minutes idling may not warm the engine properly. Exhaust fumes in an enclosed garage can be deadly."
+    },
+    "de": {
+      "title": "Kurzes Laufenlassen in der Garage ist keine Wartung",
+      "description": "Wenige Minuten Leerlauf wärmen den Motor oft nicht richtig auf. Abgase in geschlossenen Garagen sind lebensgefährlich."
+    },
+    "it": {
+      "title": "Accendere la moto per poco in garage non è manutenzione",
+      "description": "Pochi minuti al minimo spesso non scaldano bene il motore. I gas di scarico in garage chiuso possono uccidere."
+    },
+    "sl": {
+      "title": "Kratek zagon v garaži ni servis",
+      "description": "Nekaj minut prostega teka motorja pogosto ne ogreje dovolj. Izpušni plini v zaprti garaži so lahko smrtonosni."
+    }
+  },
+  "moto-57": {
+    "en": {
+      "title": "Check everything before the first spring ride",
+      "description": "Inspect tyres, brakes, lights, fluids and drivetrain. A bike can look ready when it isn't."
+    },
+    "de": {
+      "title": "Vor der ersten Frühlingsfahrt alles prüfen",
+      "description": "Kontrolliere Reifen, Bremsen, Licht, Flüssigkeiten und Antrieb. Auch ein gut aussehendes Motorrad kann Mängel haben."
+    },
+    "it": {
+      "title": "Controlla tutto prima del primo giro primaverile",
+      "description": "Verifica gomme, freni, luci, liquidi e trasmissione. Una moto può sembrare pronta senza esserlo."
+    },
+    "sl": {
+      "title": "Pred prvo pomladno vožnjo preveri vse",
+      "description": "Preglej pnevmatike, zavore, luči, tekočine in pogon. Motocikel je lahko videti pripravljen, pa ni."
+    }
+  },
+  "moto-58": {
+    "en": {
+      "title": "Protective gear wears out too",
+      "description": "Inspect seams, zips and protectors on jackets, gloves and boots. Check your helmet after any impact."
+    },
+    "de": {
+      "title": "Auch Schutzkleidung verschleißt",
+      "description": "Prüfe Nähte, Reißverschlüsse und Protektoren. Den Helm nach jedem Aufprall kontrollieren."
+    },
+    "it": {
+      "title": "Anche l'abbigliamento protettivo si usura",
+      "description": "Controlla cuciture, cerniere e protezioni di giacca, guanti e stivali. Verifica il casco dopo ogni urto."
+    },
+    "sl": {
+      "title": "Tudi zaščitna oprema se obrablja",
+      "description": "Preveri šive, zadrge in ščitnike na jakni, rokavicah in škornjih. Čelado preveri po vsakem udarcu."
+    }
+  },
+  "moto-59": {
+    "en": {
+      "title": "Don't guess about a helmet after impact",
+      "description": "Damage to the protective liner may be invisible. Follow the maker's inspection or replacement guidance."
+    },
+    "de": {
+      "title": "Helm nach einem Schlag nicht auf Verdacht weiterfahren",
+      "description": "Schäden am Schutzmaterial sind nicht immer sichtbar. Befolge die Prüf- und Austauschhinweise des Herstellers."
+    },
+    "it": {
+      "title": "Dopo un urto non tirare a indovinare sul casco",
+      "description": "Il danno interno può essere invisibile. Segui le indicazioni del produttore per controllo o sostituzione."
+    },
+    "sl": {
+      "title": "Po udarcu o čeladi ne ugibaj",
+      "description": "Poškodba zaščitne plasti morda ni vidna. Upoštevaj navodila proizvajalca za pregled ali zamenjavo."
+    }
+  },
+  "moto-60": {
+    "en": {
+      "title": "Don't pressure-wash bearings",
+      "description": "A close-range jet can force water into seals, bearings and electrical connectors."
+    },
+    "de": {
+      "title": "Lager nicht mit Hochdruck reinigen",
+      "description": "Ein naher Wasserstrahl kann Wasser in Dichtungen, Lager und elektrische Anschlüsse drücken."
+    },
+    "it": {
+      "title": "Non lavare i cuscinetti ad alta pressione",
+      "description": "Un getto ravvicinato può spingere acqua in guarnizioni, cuscinetti e collegamenti elettrici."
+    },
+    "sl": {
+      "title": "Ležajev ne peri z visokim tlakom",
+      "description": "Curek od blizu lahko potisne vodo v tesnila, ležaje in električne spoje."
+    }
+  },
+  "moto-61": {
+    "en": {
+      "title": "Don't cover a wet motorcycle immediately",
+      "description": "Moisture can collect under a non-breathable cover. Let the bike dry first."
+    },
+    "de": {
+      "title": "Nasses Motorrad nicht sofort abdecken",
+      "description": "Unter einer undurchlässigen Plane staut sich Feuchtigkeit. Erst trocknen lassen."
+    },
+    "it": {
+      "title": "Non coprire subito la moto bagnata",
+      "description": "Sotto un telo non traspirante l'umidità resta intrappolata. Lasciala asciugare."
+    },
+    "sl": {
+      "title": "Mokrega motocikla ne pokrij takoj",
+      "description": "Pod neprepustno ponjavo se zadržuje vlaga. Pred pokrivanjem naj se motocikel posuši."
+    }
+  },
+  "moto-62": {
+    "en": {
+      "title": "Check the brake light in daylight too",
+      "description": "A failed brake light or indicator is easy to miss. Test switches and lights regularly."
+    },
+    "de": {
+      "title": "Bremslicht auch tagsüber prüfen",
+      "description": "Defekte Bremslichter oder Blinker fallen leicht nicht auf. Teste Schalter und Beleuchtung regelmäßig."
+    },
+    "it": {
+      "title": "Controlla lo stop anche di giorno",
+      "description": "Uno stop o una freccia guasti passano facilmente inosservati. Prova regolarmente luci e interruttori."
+    },
+    "sl": {
+      "title": "Zavorno luč preveri tudi podnevi",
+      "description": "Okvarjena zavorna luč ali smernik hitro ostaneta neopažena. Redno preverjaj stikala in luči."
+    }
+  }
+}
