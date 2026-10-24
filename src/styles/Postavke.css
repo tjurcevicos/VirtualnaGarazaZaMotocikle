@@ -39,3 +39,5 @@
 .postavke-language-row label{font-weight:650}.postavke-language-row select{min-width:230px;padding:11px 14px;border-radius:9px;background:var(--vg-soft,var(--vg-soft));color:var(--vg-text,var(--vg-text));border:1px solid var(--vg-border,#333b42)}
 @media(max-width:760px){.postavke-theme-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.postavke-language-row{align-items:stretch;flex-direction:column}.postavke-language-row select{width:100%}}
 @media(max-width:470px){.postavke-theme-grid{grid-template-columns:1fr}}
+
+.postavke-tips-toggle{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 0;border-top:1px solid var(--vg-border);color:var(--vg-text);cursor:pointer}.postavke-tips-toggle span{display:flex;flex-direction:column;gap:5px}.postavke-tips-toggle strong{font-size:14px}.postavke-tips-toggle small{color:var(--vg-muted);font-size:12px;line-height:1.5}.postavke-tips-toggle input{width:19px;height:19px;flex-shrink:0;accent-color:var(--vg-accent);cursor:pointer}

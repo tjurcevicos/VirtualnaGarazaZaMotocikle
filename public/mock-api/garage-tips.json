@@ -1,19 +1,314 @@
 {
   "tips": [
     {
-      "id": "tires",
-      "title": "Provjera tlaka u gumama",
-      "description": "Provjeri tlak u hladnim gumama prema preporuci proizvođača motocikla."
+      "id": "moto-01",
+      "title": "Tlak na hladnim gumama",
+      "description": "Tlak izmjeri prije vožnje, prema uputama proizvođača. Ako voziš sa suputnikom ili prtljagom, provjeri propisane vrijednosti za opterećen motocikl."
     },
     {
-      "id": "chain",
-      "title": "Održavanje lanca",
-      "description": "Redovito pregledaj zategnutost i podmazivanje pogonskog lanca."
+      "id": "moto-02",
+      "title": "Stara guma nije dobra samo zato što ima šaru",
+      "description": "Provjeri datum proizvodnje, pukotine i tvrdoću površine. Guma koja dugo stoji može izgubiti prianjanje i bez velike kilometraže."
     },
     {
-      "id": "brakes",
-      "title": "Pregled kočnica",
-      "description": "Prije vožnje provjeri stanje kočnica i razinu kočione tekućine."
+      "id": "moto-03",
+      "title": "Pogledaj i ramena guma",
+      "description": "Ne troši se samo sredina gazne površine. Neobični rubovi i neravnomjerno trošenje mogu otkriti problem s tlakom ili ovjesom."
+    },
+    {
+      "id": "moto-04",
+      "title": "Motocikl teže ulazi u zavoj?",
+      "description": "Ako se upravljanje odjednom promijenilo, prvo provjeri tlak i stanje guma. Nemoj se samo navikavati na loš osjećaj."
+    },
+    {
+      "id": "moto-05",
+      "title": "Nove gume traže mirniji početak",
+      "description": "Prvih kilometara upoznaj drukčiji profil i reakcije motocikla. Izbjegavaj nagle pokrete i velika naginjanja."
+    },
+    {
+      "id": "moto-06",
+      "title": "Ovjes prilagodi teretu",
+      "description": "Suputnik i pune torbe mijenjaju ponašanje motocikla. Prednaprezanje i tlak prilagodi prema uputama za svoj model."
+    },
+    {
+      "id": "moto-07",
+      "title": "Masna vilica nije sitnica",
+      "description": "Trag ulja na cijevi prednje vilice može značiti propuštanje semeringa. Pregledaj je prije nego ulje dođe do kočnica."
+    },
+    {
+      "id": "moto-08",
+      "title": "Ne zanemaruj ventil gume",
+      "description": "Oštećen ventil može polako puštati zrak. Pregledaj ga i vrati kapicu nakon mjerenja tlaka."
+    },
+    {
+      "id": "moto-09",
+      "title": "Lanac se ne zateže od oka",
+      "description": "Premalo slobodnog hoda opterećuje prijenos, a previše može uzrokovati udaranje. Mjeri prema postupku proizvođača."
+    },
+    {
+      "id": "moto-10",
+      "title": "Pregledaj lanac na više mjesta",
+      "description": "Polako okreni stražnji kotač s ugašenim motorom i usporedi slobodni hod. Nejednaka zategnutost može otkriti istrošen lanac."
+    },
+    {
+      "id": "moto-11",
+      "title": "Podmaži lanac nakon vožnje",
+      "description": "Topao lanac lakše prihvaća odgovarajuće mazivo. Ostavi vremena da se sredstvo primi prije sljedeće vožnje."
+    },
+    {
+      "id": "moto-12",
+      "title": "Nikad ne čisti lanac uz upaljen motor",
+      "description": "Prsti i krpa mogu završiti između lanca i lančanika. Kotač okreći samo ručno, s ugašenim motorom."
+    },
+    {
+      "id": "moto-13",
+      "title": "Pogledaj zube lančanika",
+      "description": "Kukasti ili šiljasti zubi znak su trošenja. Lanac i lančanike često ima smisla zamijeniti kao komplet."
+    },
+    {
+      "id": "moto-14",
+      "title": "Kardan nije bez održavanja",
+      "description": "Provjeri interval zamjene ulja u završnom prijenosu i potraži tragove curenja."
+    },
+    {
+      "id": "moto-15",
+      "title": "Remen pregledaj i s unutarnje strane",
+      "description": "Pukotine, oštećeni rubovi i kamenčići mogu skratiti vijek remenskog pogona."
+    },
+    {
+      "id": "moto-16",
+      "title": "Nova vibracija ima razlog",
+      "description": "Ako motocikl počne vibrirati drukčije nego prije, pregledaj gume, kotače, pričvršćenja i pogon."
+    },
+    {
+      "id": "moto-17",
+      "title": "Poluga kočnice mora biti predvidljiva",
+      "description": "Mekana poluga ili promijenjen hod mogu upozoravati na problem. Kočnice pregledaj prije nastavka vožnje."
+    },
+    {
+      "id": "moto-18",
+      "title": "Kočiona tekućina ima rok",
+      "description": "Upija vlagu i s vremenom gubi svojstva. Mijenjaj je u propisanom intervalu i koristi odgovarajuću specifikaciju."
+    },
+    {
+      "id": "moto-19",
+      "title": "Ne čekaj da pločice počnu strugati",
+      "description": "Povremeno provjeri debljinu kočionih obloga. Metalni zvuk može značiti da su pločice već ozbiljno istrošene."
+    },
+    {
+      "id": "moto-20",
+      "title": "ABS nije zamjena za prianjanje",
+      "description": "Na šljunku, mokroj boji i masnom asfaltu zaustavni put može biti velik čak i uz ABS."
+    },
+    {
+      "id": "moto-21",
+      "title": "Kočnice provjeri nakon pranja",
+      "description": "Nakon pranja ili prolaska kroz vodu, pri maloj brzini nježno provjeri reagiraju li očekivano."
+    },
+    {
+      "id": "moto-22",
+      "title": "Stražnja kočnica pomaže pri sporoj vožnji",
+      "description": "U sporim manevrima pravilno dozirana stražnja kočnica može pomoći stabilnosti motocikla."
+    },
+    {
+      "id": "moto-23",
+      "title": "Kočiona crijeva zaslužuju pogled",
+      "description": "Pukotine, vlažni spojevi ili napuhivanje crijeva razlog su za stručan pregled."
+    },
+    {
+      "id": "moto-24",
+      "title": "Vježbaj kočenje dok nema opasnosti",
+      "description": "Na sigurnom, praznom prostoru upoznaj reakciju svojeg motocikla pri odlučnijem kočenju."
+    },
+    {
+      "id": "moto-25",
+      "title": "Ulje mjeri po pravilima svog motora",
+      "description": "Neki motocikli traže zagrijan motor, drugi određeno vrijeme mirovanja. Položaj motocikla također je važan."
+    },
+    {
+      "id": "moto-26",
+      "title": "Višak ulja također šteti",
+      "description": "Ne dolijevaj naslijepo. Dodaj malo po malo i koristi specifikaciju koju traži proizvođač."
+    },
+    {
+      "id": "moto-27",
+      "title": "Hladan motor ne voli forsiranje",
+      "description": "Nakon pokretanja kreni mirno. Temperatura rashladne tekućine ne govori uvijek koliko se zagrijalo ulje."
+    },
+    {
+      "id": "moto-28",
+      "title": "Ventilator u gužvi nije odmah kvar",
+      "description": "Povremeno uključivanje ventilatora normalno je. Pregrijavanje ili gubitak rashladne tekućine nisu."
+    },
+    {
+      "id": "moto-29",
+      "title": "Ne otvaraj vruć hladnjak",
+      "description": "Rashladni sustav može biti pod tlakom. Pričekaj da se ohladi i slijedi upute proizvođača."
+    },
+    {
+      "id": "moto-30",
+      "title": "Servisni interval nije samo kilometraža",
+      "description": "Ulje i druge tekućine često imaju i vremenski rok zamjene. Malo vožnje ne znači da servis može čekati godinama."
+    },
+    {
+      "id": "moto-31",
+      "title": "Zapiši što je napravljeno na servisu",
+      "description": "Datum, kilometraža, dijelovi, specifikacija ulja i cijena kasnije vrijede više od zapisa „servis obavljen”."
+    },
+    {
+      "id": "moto-32",
+      "title": "Sporo vergla? Provjeri akumulator",
+      "description": "Teško pokretanje nakon stajanja može upućivati na slab akumulator ili problem s punjenjem."
+    },
+    {
+      "id": "moto-33",
+      "title": "Prašnjava cesta troši filter zraka",
+      "description": "Ako često voziš po prašini, pregled filtera može biti potreban i prije redovnog intervala."
+    },
+    {
+      "id": "moto-34",
+      "title": "Kap tekućine ispod motora nije ukras",
+      "description": "Potraži izvor curenja i provjeri razinu ulja ili rashladne tekućine prije sljedeće vožnje."
+    },
+    {
+      "id": "moto-35",
+      "title": "Prva kiša zna biti najskliskija",
+      "description": "Prašina, ulje i gorivo još se nisu isprali s asfalta. Posebno pazi na raskrižja i kružne tokove."
+    },
+    {
+      "id": "moto-36",
+      "title": "Bijele crte nisu običan asfalt",
+      "description": "Mokre oznake na kolniku mogu biti skliske. Preko njih prolazi mirno, bez naglog kočenja i promjene smjera."
+    },
+    {
+      "id": "moto-37",
+      "title": "Metalni poklopci traže oprez",
+      "description": "Šahtovi i tramvajske tračnice posebno su nezgodni na kiši. Prijeđi ih mirno i pod povoljnim kutom kad možeš."
+    },
+    {
+      "id": "moto-38",
+      "title": "Šljunak se skriva iza zavoja",
+      "description": "Na sporednim cestama pijesak često završi uz rub ili na sredini trake. Ostavi si prostor za reakciju."
+    },
+    {
+      "id": "moto-39",
+      "title": "Sjena skriva mokre dijelove ceste",
+      "description": "Šumske dionice i mjesta ispod nadvožnjaka mogu ostati vlažni dugo nakon prestanka kiše."
+    },
+    {
+      "id": "moto-40",
+      "title": "Bočni vjetar ne najavljuje udar",
+      "description": "Na mostovima, izlazima iz šume i uz kamione očekuj nagle udare. Ostavi prostor za korekciju putanje."
+    },
+    {
+      "id": "moto-41",
+      "title": "Hladno jutro mijenja prianjanje",
+      "description": "Gume i asfalt na niskoj temperaturi ne ponašaju se kao usred ljeta. Prvih kilometara vozi odmjereno."
+    },
+    {
+      "id": "moto-42",
+      "title": "Ne prati auto naslijepo",
+      "description": "Automobil može prijeći preko rupe ili predmeta koji motociklu stvara velik problem. Gledaj dovoljno daleko naprijed."
+    },
+    {
+      "id": "moto-43",
+      "title": "Masni tragovi u kružnom toku",
+      "description": "Proliveno dizelsko gorivo može biti vrlo sklisko, osobito na ulazima i izlazima iz kružnih tokova."
+    },
+    {
+      "id": "moto-44",
+      "title": "Nakon oluje gledaj i na cestu",
+      "description": "Grane, lišće, blato i šljunak ostaju na kolniku i kad se vrijeme već smirilo."
+    },
+    {
+      "id": "moto-45",
+      "title": "Na raskrižju pretpostavi da te nisu vidjeli",
+      "description": "Položaj kotača automobila i lagano pomicanje mogu otkriti namjeru skretanja prije samog manevra."
+    },
+    {
+      "id": "moto-46",
+      "title": "Ne ostaj u mrtvom kutu",
+      "description": "Izbjegavaj dugo voziti uz automobil ili kamion na mjestu gdje te vozač teško može vidjeti."
+    },
+    {
+      "id": "moto-47",
+      "title": "Pogled vodi motocikl",
+      "description": "U sporim manevrima gledaj prema slobodnom prostoru kojim želiš proći, ne u prepreku."
+    },
+    {
+      "id": "moto-48",
+      "title": "Teška prtljaga ide niže",
+      "description": "Teže stvari smjesti što niže i bliže sredini motocikla. Provjeri nosivost nosača i podešenje ovjesa."
+    },
+    {
+      "id": "moto-49",
+      "title": "Elastična mreža nije za težak teret",
+      "description": "Za tvrdu i tešku prtljagu koristi prikladne nosače ili trake. Prije polaska provjeri pričvršćenje."
+    },
+    {
+      "id": "moto-50",
+      "title": "Stani prije nego što se umoriš",
+      "description": "Pad koncentracije često se prvo vidi u kasnom kočenju i slabijem opažanju. Redovita pauza vrijedi više od forsiranja."
+    },
+    {
+      "id": "moto-51",
+      "title": "Čist vizir znači bolji pogled noću",
+      "description": "Osušeni kukci i masnoća pojačavaju odsjaj farova. Očisti vizir prije večernje vožnje."
+    },
+    {
+      "id": "moto-52",
+      "title": "Vodu pij prije nego ožedniš",
+      "description": "Ispod opreme lako gubiš tekućinu. Na dugim ljetnim vožnjama planiraj stanke i vodu."
+    },
+    {
+      "id": "moto-53",
+      "title": "Poslije prijevoza pregledaj motocikl",
+      "description": "Nakon prikolice ili kombija provjeri upravljač, kočnice, pričvršćenja i eventualna oštećenja."
+    },
+    {
+      "id": "moto-54",
+      "title": "Nogar može propasti u asfalt",
+      "description": "Na vrućoj ili mekanoj podlozi koristi prikladan podložak ispod bočnog nogara."
+    },
+    {
+      "id": "moto-55",
+      "title": "Akumulator ne voli dugo stajanje",
+      "description": "Za dulju pauzu koristi odgovarajući pametni punjač prema vrsti akumulatora ili slijedi upute za skladištenje."
+    },
+    {
+      "id": "moto-56",
+      "title": "Kratko paljenje u garaži nije servis",
+      "description": "Nekoliko minuta rada u mjestu često ne zagrije motor kako treba. U zatvorenoj garaži ispušni plinovi mogu biti smrtonosni."
+    },
+    {
+      "id": "moto-57",
+      "title": "Prije prve proljetne vožnje pogledaj sve",
+      "description": "Provjeri gume, kočnice, svjetla, tekućine i pogon. Motocikl može izgledati spremno, a da nije."
+    },
+    {
+      "id": "moto-58",
+      "title": "Zaštitna oprema također se troši",
+      "description": "Pregledaj šavove, zatvarače i štitnike na jakni, rukavicama i čizmama. Kacigu provjeri nakon svakog udarca."
+    },
+    {
+      "id": "moto-59",
+      "title": "Kaciga nakon udarca nije za nagađanje",
+      "description": "Oštećenje zaštitnog sloja ne mora biti vidljivo. Slijedi upute proizvođača o pregledu ili zamjeni."
+    },
+    {
+      "id": "moto-60",
+      "title": "Ne peri ležajeve visokim tlakom",
+      "description": "Mlaz iz neposredne blizine može utisnuti vodu u brtve, ležajeve i električne spojeve."
+    },
+    {
+      "id": "moto-61",
+      "title": "Mokar motocikl ne pokrivaj odmah",
+      "description": "Pod neprozračnom navlakom zadržava se vlaga. Pusti da se motocikl osuši prije pokrivanja."
+    },
+    {
+      "id": "moto-62",
+      "title": "Stop-svjetlo provjeri i po danu",
+      "description": "Neispravno stop-svjetlo ili žmigavac lako ostanu neprimijećeni. Povremeno provjeri sve prekidače i svjetla."
     }
   ]
 }

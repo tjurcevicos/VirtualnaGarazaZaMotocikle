@@ -5,6 +5,7 @@ import '../styles/Postavke.css'
 
 function Postavke({ userId }) {
   const { theme, setTheme, language, setLanguage, t } = usePreferences()
+  const [showMotoTips, setShowMotoTips] = useState(() => localStorage.getItem('vg-show-moto-tips') !== 'false')
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
@@ -71,6 +72,10 @@ function Postavke({ userId }) {
             </button>
           ))}
         </div>
+        <label className="postavke-tips-toggle" htmlFor="show-moto-tips">
+          <span><strong>{t('Prikazuj moto savjete na naslovnoj stranici')}</strong><small>{t('Savjeti se automatski izmjenjuju tijekom korištenja aplikacije.')}</small></span>
+          <input id="show-moto-tips" type="checkbox" checked={showMotoTips} onChange={(event) => { const enabled = event.target.checked; setShowMotoTips(enabled); localStorage.setItem('vg-show-moto-tips', String(enabled)); window.dispatchEvent(new Event('garage-tips-visibility')) }} />
+        </label>
         <div className="postavke-language-row">
           <label htmlFor="garage-language">{t('Jezik aplikacije')}</label>
           <select id="garage-language" value={language} onChange={(event) => setLanguage(event.target.value)}>

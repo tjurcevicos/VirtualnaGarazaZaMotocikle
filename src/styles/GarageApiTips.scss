@@ -2,60 +2,28 @@
 
 .garage-api-tips {
   @include theme-surface;
-  margin: 20px 0 24px;
-  padding: $space-lg;
+  margin: 16px 0 20px;
+  padding: 17px 20px;
+  min-height: 0;
 
-  &-heading {
+  &-heading, &-actions, &-footer {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: $space-md;
-    flex-wrap: wrap;
-
-    h2 {
-      margin: 0 0 $space-xs;
-      font-size: 19px;
-    }
+    gap: 12px;
   }
 
-  &-heading p,
-  &-list p,
-  &-message {
-    @include secondary-text;
-  }
-
-  &-status {
-    font-size: 12px;
-    color: var(--vg-text);
-    border: 1px solid var(--vg-border);
-    padding: $space-xs 10px;
-    border-radius: 999px;
-  }
-
-  &-list {
-    list-style: none;
-    @include responsive-grid;
-    padding: 0;
-    margin: 18px 0 0;
-
-    li {
-      padding: 15px;
-      border: 1px solid var(--vg-border);
-      border-radius: $radius-sm;
-      min-width: 0;
-    }
-
-    strong {
-      display: block;
-      margin-bottom: 8px;
-    }
-  }
-
-  &-message {
-    margin-top: $space-md;
-
-    button {
-      margin-top: $space-sm;
-    }
-  }
+  &-heading h2 { margin: 0; font-size: 17px; line-height: 1.35; }
+  &-tag { font-size: 11px; color: var(--vg-muted); border: 1px solid var(--vg-border); padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
+  &-close { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid var(--vg-border); background: transparent; color: var(--vg-text); border-radius: 8px; font-size: 22px; line-height: 1; cursor: pointer; }
+  &-close:hover, &-close:focus-visible { border-color: var(--vg-accent); color: var(--vg-accent); }
+  &-content { margin-top: 12px; transition: opacity .18s ease; opacity: 1; }
+  &-content.is-changing { opacity: 0; }
+  &-content strong { display: block; font-size: 15px; line-height: 1.4; }
+  &-content p { @include secondary-text; font-size: 13px; margin-top: 5px; }
+  &-footer { margin-top: 12px; padding-top: 9px; border-top: 1px solid var(--vg-border); color: var(--vg-muted); font-size: 11px; }
+  &-message { @include secondary-text; margin-top: 12px; font-size: 13px; }
+  &-message button { margin-top: 9px; }
+  @media (max-width: $breakpoint-mobile) { padding: 14px 15px; &-heading h2 { font-size: 16px; } &-tag { font-size: 10px; } }
+  @media (prefers-reduced-motion: reduce) { &-content { transition: none; } }
 }

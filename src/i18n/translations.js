@@ -1304,7 +1304,16 @@ const mockApiUiRows = [
   ['Prije vožnje provjeri stanje kočnica i razinu kočione tekućine.', 'Before riding, check the brakes and brake fluid level.', 'Vor der Fahrt Bremsen und Bremsflüssigkeitsstand prüfen.', 'Prima di partire, controlla freni e livello del liquido freni.', 'Pred vožnjo preveri zavore in nivo zavorne tekočine.']
 ]
 
-export const translations = Object.fromEntries([...mockApiUiRows, ...finishingUiRows, ...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
+const motoTipsUiRows = [
+  ['Iz garaže','From the garage','Aus der Garage','Dal garage','Iz garaže'],
+  ['Moto savjet','Riding tip','Motorrad-Tipp','Consiglio moto','Moto nasvet'],
+  ['Sakrij moto savjete','Hide motorcycle tips','Motorradtipps ausblenden','Nascondi consigli moto','Skrij moto nasvete'],
+  ['Novi savjet svakih 30 sekundi','New tip every 30 seconds','Neuer Tipp alle 30 Sekunden','Nuovo consiglio ogni 30 secondi','Nov nasvet vsakih 30 sekund'],
+  ['Prikazuj moto savjete na naslovnoj stranici','Show motorcycle tips on the home page','Motorradtipps auf der Startseite anzeigen','Mostra consigli moto nella pagina iniziale','Prikaži moto nasvete na domači strani'],
+  ['Savjeti se automatski izmjenjuju tijekom korištenja aplikacije.','Tips rotate automatically while using the app.','Tipps wechseln automatisch während der Nutzung.','I consigli cambiano automaticamente durante l’uso.','Nasveti se med uporabo samodejno menjajo.']
+]
+
+export const translations = Object.fromEntries([...motoTipsUiRows, ...mockApiUiRows, ...finishingUiRows, ...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
 export function translate(text, lang) {
   return translations[text]?.[lang] || text
 }
