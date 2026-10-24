@@ -1,0 +1,72 @@
+.garage-api-tips {
+  margin: 20px 0 24px;
+  padding: 22px;
+  border: 1px solid var(--vg-border);
+  border-radius: 14px;
+  background: var(--vg-surface);
+  color: var(--vg-text);
+}
+
+.garage-api-tips-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.garage-api-tips-heading h2 {
+  margin: 0 0 6px;
+  font-size: 19px;
+}
+
+.garage-api-tips-heading p,
+.garage-api-tips-list p,
+.garage-api-tips-message {
+  color: var(--vg-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.garage-api-tips-status {
+  font-size: 12px;
+  color: var(--vg-text);
+  border: 1px solid var(--vg-border);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.garage-api-tips-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0;
+  margin: 18px 0 0;
+}
+
+.garage-api-tips-list li {
+  padding: 15px;
+  border: 1px solid var(--vg-border);
+  border-radius: 10px;
+  min-width: 0;
+}
+
+.garage-api-tips-list strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.garage-api-tips-message {
+  margin-top: 16px;
+}
+
+.garage-api-tips-message button {
+  margin-top: 12px;
+}
+
+@media (max-width: 760px) {
+  .garage-api-tips-list {
+    grid-template-columns: 1fr;
+  }
+}

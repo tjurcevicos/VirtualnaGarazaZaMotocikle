@@ -1,0 +1,19 @@
+{
+  "tips": [
+    {
+      "id": "tires",
+      "title": "Provjera tlaka u gumama",
+      "description": "Provjeri tlak u hladnim gumama prema preporuci proizvođača motocikla."
+    },
+    {
+      "id": "chain",
+      "title": "Održavanje lanca",
+      "description": "Redovito pregledaj zategnutost i podmazivanje pogonskog lanca."
+    },
+    {
+      "id": "brakes",
+      "title": "Pregled kočnica",
+      "description": "Prije vožnje provjeri stanje kočnica i razinu kočione tekućine."
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import { usePreferences } from '../i18n/Preferences'
 import { useEffect, useState } from 'react'
 import { getPhoto } from '../utils/photoStorage'
 import { reminderInfo } from '../utils/garageInsights'
+import GarageApiTips from '../components/GarageApiTips'
 
 function Home({
 
@@ -330,6 +331,8 @@ function Home({
   return (
 
     <section className="page">
+
+      <GarageApiTips />
 
       <section className={`garage-hero${currentSlide ? ' garage-hero-has-photo' : ''}`}>
         {currentSlide && (

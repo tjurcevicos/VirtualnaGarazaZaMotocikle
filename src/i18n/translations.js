@@ -1289,7 +1289,22 @@ const finishingUiRows = [
   ]
 ]
 
-export const translations = Object.fromEntries([...finishingUiRows, ...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
+const mockApiUiRows = [
+  ['Savjeti za održavanje', 'Maintenance tips', 'Wartungstipps', 'Consigli di manutenzione', 'Nasveti za vzdrževanje'],
+  ['Demonstracijski podaci dohvaćeni putem mock API-ja.', 'Demo data fetched from a mock API.', 'Demodaten über eine Mock-API abgerufen.', 'Dati dimostrativi recuperati tramite API simulata.', 'Predstavitveni podatki, pridobljeni prek simuliranega API-ja.'],
+  ['Podaci uspješno učitani', 'Data loaded successfully', 'Daten erfolgreich geladen', 'Dati caricati correttamente', 'Podatki uspešno naloženi'],
+  ['Dohvaćanje podataka...', 'Loading data...', 'Daten werden geladen...', 'Caricamento dati...', 'Pridobivanje podatkov...'],
+  ['Dohvat podataka nije uspio.', 'Failed to load data.', 'Daten konnten nicht geladen werden.', 'Impossibile caricare i dati.', 'Pridobivanje podatkov ni uspelo.'],
+  ['Pokušaj ponovno', 'Try again', 'Erneut versuchen', 'Riprova', 'Poskusi znova'],
+  ['Provjera tlaka u gumama', 'Check tire pressure', 'Reifendruck prüfen', 'Controllo pressione pneumatici', 'Preverjanje tlaka v pnevmatikah'],
+  ['Provjeri tlak u hladnim gumama prema preporuci proizvođača motocikla.', 'Check cold tire pressure according to the motorcycle manufacturer’s recommendations.', 'Den Reifendruck bei kalten Reifen gemäß Herstellerangaben prüfen.', 'Controlla la pressione a freddo secondo le indicazioni del produttore.', 'Preveri tlak v hladnih pnevmatikah po priporočilih proizvajalca.'],
+  ['Održavanje lanca', 'Chain maintenance', 'Kettenpflege', 'Manutenzione catena', 'Vzdrževanje verige'],
+  ['Redovito pregledaj zategnutost i podmazivanje pogonskog lanca.', 'Regularly check drive chain tension and lubrication.', 'Kettenspannung und Schmierung regelmäßig prüfen.', 'Controlla regolarmente tensione e lubrificazione della catena.', 'Redno preverjaj napetost in mazanje pogonske verige.'],
+  ['Pregled kočnica', 'Brake inspection', 'Bremsenprüfung', 'Controllo freni', 'Pregled zavor'],
+  ['Prije vožnje provjeri stanje kočnica i razinu kočione tekućine.', 'Before riding, check the brakes and brake fluid level.', 'Vor der Fahrt Bremsen und Bremsflüssigkeitsstand prüfen.', 'Prima di partire, controlla freni e livello del liquido freni.', 'Pred vožnjo preveri zavore in nivo zavorne tekočine.']
+]
+
+export const translations = Object.fromEntries([...mockApiUiRows, ...finishingUiRows, ...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
 export function translate(text, lang) {
   return translations[text]?.[lang] || text
 }
