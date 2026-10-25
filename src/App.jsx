@@ -351,12 +351,13 @@ function GarageApp({ user, onLogout }) {
 
   return (
     <div className="app">
+      <a className="skip-to-content" href="#main-content">{t('Preskoči na sadržaj')}</a>
       <Sidebar
         activePage={activePage === 'vozila' ? 'vozila' : activePage}
         onNavigate={handleNavigate}
       />
 
-      <main className="main-content">
+      <main id="main-content" className="main-content" tabIndex={-1}>
         <div
           style={{
             display: 'flex',

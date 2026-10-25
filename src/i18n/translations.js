@@ -1614,7 +1614,11 @@ const galleryUiRows = [
   ]
 ]
 
-export const translations = Object.fromEntries([...galleryUiRows, ...step40Rows, ...motoTipsUiRows, ...mockApiUiRows, ...finishingUiRows, ...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
+const accessibilityUiRows = [
+  ['Preskoči na sadržaj', 'Skip to content', 'Zum Inhalt springen', 'Vai al contenuto', 'Preskoči na vsebino']
+]
+
+export const translations = Object.fromEntries([...accessibilityUiRows, ...galleryUiRows, ...step40Rows, ...motoTipsUiRows, ...mockApiUiRows, ...finishingUiRows, ...weatherUiRows, ...rows, ...additionalRows, ...completeUiRows, ...finalUiRows, ...dynamicUiRows, ...validationUiRows, ...authUiRows, ...pdfUiRows, ...maintenanceUiRows, ...registrationUiRows, ...statisticsUiRows, ...calendarUiRows, ...helpUiRows, ...tripsUiRows].map(([hr,en,de,it,sl]) => [hr,{hr,en,de,it,sl}]))
 export function translate(text, lang) {
   return translations[text]?.[lang] || text
 }

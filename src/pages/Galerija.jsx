@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { usePreferences } from '../i18n/Preferences'
-import { getGallery, optimizePhoto, removeGalleryPhoto, saveGalleryPhoto }
-import { savePhoto } from '../utils/photoStorage' from '../utils/galleryStorage'
+import { getGallery, optimizePhoto, removeGalleryPhoto, saveGalleryPhoto } from '../utils/galleryStorage'
+import { savePhoto } from '../utils/photoStorage'
 import '../styles/Galerija.css'
 
 export default function Galerija({ vehicles, userId, onSelectVehicle }) {
@@ -17,6 +17,8 @@ export default function Galerija({ vehicles, userId, onSelectVehicle }) {
   const [notice, setNotice] = useState('')
   const [ready, setReady] = useState(false)
   const [urls, setUrls] = useState(new Map())
+  const dialogRef = useRef(null)
+  const returnFocusRef = useRef(null)
 
   useEffect(() => {
     let active = true
@@ -35,6 +37,36 @@ export default function Galerija({ vehicles, userId, onSelectVehicle }) {
   const visible = useMemo(() => photos.filter((photo) => (filter === 'all' || String(photo.vehicleId) === filter) && `${names.get(String(photo.vehicleId)) || ''} ${photo.description || ''}`.toLocaleLowerCase().includes(search.toLocaleLowerCase())).sort((a, b) => b.createdAt.localeCompare(a.createdAt)), [photos, filter, search, names])
   const index = visible.findIndex((photo) => photo.id === selected)
   const current = index >= 0 ? visible[index] : null
+
+  useEffect(() => {
+    if (!selected) return undefined
+    returnFocusRef.current = document.activeElement
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const dialog = dialogRef.current
+    const closeButton = dialog?.querySelector('.galerija-lightbox-top button')
+    closeButton?.focus()
+    function trapFocus(event) {
+      if (event.key !== 'Tab' || !dialog) return
+      const focusable = Array.from(dialog.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'))
+      if (!focusable.length) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', trapFocus)
+    return () => {
+      document.removeEventListener('keydown', trapFocus)
+      document.body.style.overflow = previousOverflow
+      returnFocusRef.current?.focus?.()
+    }
+  }, [Boolean(selected)])
 
   useEffect(() => {
     if (!current) return undefined
@@ -84,9 +116,9 @@ export default function Galerija({ vehicles, userId, onSelectVehicle }) {
   return <section className="page galerija-page">
     <header className="galerija-header"><div><p className="galerija-eyebrow">{t('TVOJA MOTO GALERIJA')}</p><h1>{t('Galerija motocikala')}</h1><p>{t('Fotografije tvojih motocikala, putovanja i uspomena na dva kotača.')}</p></div><div className="galerija-counter"><strong>{photos.length}</strong><span>{t('fotografija')}</span></div></header>
     <section className="galerija-upload"><div><h2>{t('Dodaj fotografije')}</h2><p>{t('Fotografije se optimiziraju i spremaju u tvoj preglednik.')}</p></div><div className="galerija-upload-fields"><label>{t('Motocikl')}<select value={uploadVehicle} onChange={(event) => setUploadVehicle(event.target.value)}><option value="">{t('Odaberi motocikl')}</option>{vehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{names.get(String(vehicle.id))}</option>)}</select></label><label>{t('Opis fotografije')}<input maxLength={180} value={description} onChange={(event) => setDescription(event.target.value)} placeholder={t('Primjerice, izlet na Papuk')} /></label><label className={`galerija-upload-button ${busy || !uploadVehicle ? 'disabled' : ''}`}>{busy ? t('Spremanje...') : t('Odaberi fotografije')}<input type="file" accept="image/*" multiple disabled={busy || !uploadVehicle} onChange={addPhotos}/></label></div></section>
-    <div className="galerija-toolbar"><label><span className="sr-only">{t('Pretraži fotografije')}</span><input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder={t('Pretraži fotografije...')}/></label><label><span className="sr-only">{t('Filtriraj po motociklu')}</span><select value={filter} onChange={(event) => setFilter(event.target.value)}><option value="all">{t('Svi motocikli')}</option>{vehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{names.get(String(vehicle.id))}</option>)}</select></label></div>
+    <div className="galerija-toolbar" role="search"><label><span className="sr-only">{t('Pretraži fotografije')}</span><input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder={t('Pretraži fotografije...')}/></label><label><span className="sr-only">{t('Filtriraj po motociklu')}</span><select value={filter} onChange={(event) => setFilter(event.target.value)}><option value="all">{t('Svi motocikli')}</option>{vehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{names.get(String(vehicle.id))}</option>)}</select></label></div>
     {error && <p className="galerija-alert" role="alert">{error}</p>}{notice && <p className="galerija-notice" role="status">{notice}</p>}
-    {!ready ? <p className="galerija-empty">{t('Učitavanje fotografija...')}</p> : visible.length === 0 ? <div className="galerija-empty"><div className="galerija-empty-icon">▧</div><h2>{t('Još nema fotografija za prikaz')}</h2><p>{t('Odaberi motocikl i dodaj prve fotografije u svoju galeriju.')}</p></div> : <div className="galerija-grid">{visible.map((photo) => <button className="galerija-tile" key={photo.id} type="button" onClick={() => setSelected(photo.id)} aria-label={`${t('Otvori fotografiju')} ${names.get(String(photo.vehicleId))}`}><img src={urls.get(photo.id)} alt={photo.description || names.get(String(photo.vehicleId))} loading="lazy"/><span className="galerija-tile-overlay"><strong>{names.get(String(photo.vehicleId))}</strong>{photo.description && <small>{photo.description}</small>}</span></button>)}</div>}
-    {current && <div className="galerija-lightbox" role="dialog" aria-modal="true" aria-label={t('Pregled fotografije')} onClick={() => setSelected(null)}><div className="galerija-lightbox-top"><span>{index + 1} / {visible.length}</span><button type="button" onClick={() => setSelected(null)} aria-label={t('Zatvori')}>×</button></div><div className="galerija-lightbox-stage" onClick={(event) => event.stopPropagation()}><button type="button" className="galerija-arrow" onClick={() => setSelected(visible[(index + visible.length - 1) % visible.length].id)} aria-label={t('Prethodna fotografija')}>‹</button><img src={urls.get(current.id)} alt={current.description || names.get(String(current.vehicleId))}/><button type="button" className="galerija-arrow" onClick={() => setSelected(visible[(index + 1) % visible.length].id)} aria-label={t('Sljedeća fotografija')}>›</button></div><div className="galerija-lightbox-footer" onClick={(event) => event.stopPropagation()}><div><strong>{names.get(String(current.vehicleId))}</strong>{current.description && <p>{current.description}</p>}</div><div className="galerija-lightbox-actions"><button type="button" onClick={() => { setSelected(null); const vehicle = vehicles.find((item) => String(item.id) === String(current.vehicleId)); if (vehicle) onSelectVehicle(vehicle) }}>{t('Detalji motocikla')}</button><button type="button" onClick={setCover}>{t('Postavi kao naslovnu fotografiju')}</button><button type="button" className="galerija-delete" onClick={deleteSelected}>{t('Obriši fotografiju')}</button></div></div></div>}
+    {!ready ? <p className="galerija-empty">{t('Učitavanje fotografija...')}</p> : visible.length === 0 ? <div className="galerija-empty"><div className="galerija-empty-icon">▧</div><h2>{t('Još nema fotografija za prikaz')}</h2><p>{t('Odaberi motocikl i dodaj prve fotografije u svoju galeriju.')}</p></div> : <div className="galerija-grid" aria-label={t('Galerija motocikala')}>{visible.map((photo) => <button className="galerija-tile" key={photo.id} type="button" onClick={() => setSelected(photo.id)} aria-label={`${t('Otvori fotografiju')} ${names.get(String(photo.vehicleId))}`}><img src={urls.get(photo.id)} alt={photo.description || names.get(String(photo.vehicleId))} loading="lazy"/><span className="galerija-tile-overlay"><strong>{names.get(String(photo.vehicleId))}</strong>{photo.description && <small>{photo.description}</small>}</span></button>)}</div>}
+    {current && <div ref={dialogRef} className="galerija-lightbox" role="dialog" aria-modal="true" aria-label={t('Pregled fotografije')} onClick={() => setSelected(null)}><div className="galerija-lightbox-top"><span aria-live="polite" aria-atomic="true">{index + 1} / {visible.length}</span><button type="button" onClick={() => setSelected(null)} aria-label={t('Zatvori')}>×</button></div><div className="galerija-lightbox-stage" onClick={(event) => event.stopPropagation()}><button type="button" className="galerija-arrow" onClick={() => setSelected(visible[(index + visible.length - 1) % visible.length].id)} aria-label={t('Prethodna fotografija')}>‹</button><img src={urls.get(current.id)} alt={current.description || names.get(String(current.vehicleId))}/><button type="button" className="galerija-arrow" onClick={() => setSelected(visible[(index + 1) % visible.length].id)} aria-label={t('Sljedeća fotografija')}>›</button></div><div className="galerija-lightbox-footer" onClick={(event) => event.stopPropagation()}><div><strong>{names.get(String(current.vehicleId))}</strong>{current.description && <p>{current.description}</p>}</div><div className="galerija-lightbox-actions"><button type="button" onClick={() => { setSelected(null); const vehicle = vehicles.find((item) => String(item.id) === String(current.vehicleId)); if (vehicle) onSelectVehicle(vehicle) }}>{t('Detalji motocikla')}</button><button type="button" onClick={setCover}>{t('Postavi kao naslovnu fotografiju')}</button><button type="button" className="galerija-delete" onClick={deleteSelected}>{t('Obriši fotografiju')}</button></div></div></div>}
   </section>
 }
