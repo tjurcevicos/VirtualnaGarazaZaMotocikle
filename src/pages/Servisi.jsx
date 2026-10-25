@@ -1,3 +1,5 @@
+import KatalogDijelova from '../components/KatalogDijelova'
+import OdabirDijelova from '../components/OdabirDijelova'
 import '../styles/Validacija.css'
 import useFieldValidation from '../hooks/useFieldValidation'
 import PlanOdrzavanja from '../components/PlanOdrzavanja'
@@ -230,27 +232,17 @@ function Servisi({
 
       {vehicles.length > 0 && (
         <>
-          <section className="service-parts-catalog" aria-label={w(0)}>
-            <h2>{w(0)}</h2>
-            <form className="service-parts-add" onSubmit={addPart}>
-              <label htmlFor="partName">{w(1)}</label>
-              <div className="service-parts-add-row">
-                <input id="partName" value={partName} onChange={(event) => { setPartName(event.target.value); setPartError('') }} maxLength={80} />
-                <button className="primary-button" type="submit">{w(2)}</button>
-              </div>
-              {partError && <p className="form-error" role="alert">{partError}</p>}
-            </form>
-            {serviceParts.length === 0 ? <p>{w(7)}</p> : (
-              <div className="service-parts-list">
-                {serviceParts.map((part) => (
-                  <div className="service-parts-item" key={part.id}>
-                    <span>{part.name}</span>
-                    <button type="button" className="service-delete-button" aria-label={`${w(9)}: ${part.name}`} onClick={() => removePart(part.id)} disabled={services.some((service) => (service.partIds || []).includes(part.id))}>{t('Obriši')}</button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
+          <KatalogDijelova
+            words={words}
+            parts={serviceParts}
+            services={services}
+            partName={partName}
+            error={partError}
+            onNameChange={(value) => { setPartName(value); setPartError('') }}
+            onAdd={addPart}
+            onRemove={removePart}
+            deleteLabel={t('Obriši')}
+          />
 
           <PlanOdrzavanja vehicles={vehicles} services={services} plans={maintenancePlans} onChange={onSetMaintenancePlans} reminders={reminders} onAddReminder={onAddReminder} />
 
@@ -415,19 +407,12 @@ function Servisi({
                 </div>
               </div>
 
-              <fieldset className="service-parts-fieldset">
-                <legend>{w(3)}</legend>
-                {serviceParts.length === 0 ? <p>{w(7)}</p> : (
-                  <div className="service-parts-choices">
-                    {serviceParts.map((part) => (
-                      <label key={part.id} className="service-parts-choice">
-                        <input type="checkbox" checked={formData.partIds.includes(part.id)} onChange={() => togglePart(part.id)} />
-                        <span>{part.name}</span>
-                      </label>
-                    ))}
-                  </div>
-                )}
-              </fieldset>
+              <OdabirDijelova
+                words={words}
+                parts={serviceParts}
+                selectedIds={formData.partIds}
+                onToggle={togglePart}
+              />
 
               <div className="form-actions">
                 {editingServiceId && (
