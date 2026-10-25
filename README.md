@@ -1,16 +1,22 @@
-# React + Vite
+# Virtualna garaža za motocikle
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Virtualna garaža za motocikle je mrežna aplikacija za vođenje evidencije o motociklima, održavanju i troškovima vlasništva.
 
-Currently, two official plugins are available:
+## Funkcionalnosti
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Evidencija motocikala i pregled njihovih detalja
+- Servisi, rezervni dijelovi, gorivo i troškovi
+- Podsjetnici, planovi održavanja i kalendar događaja
+- Registracija, osiguranje i tehnički pregled
+- Statistika i usporedba motocikala
+- Putovanja, vremenska prognoza i galerija fotografija
+- Sigurnosna kopija i vraćanje korisničkih podataka
+- Pet jezika i šest vizualnih tema
 
-## React Compiler
+## Tehnologije
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React, Vite, JavaScript (ES6+), React Router, CSS, SCSS, Leaflet i OpenStreetMap. Aplikacija koristi lokalnu pohranu podataka, IndexedDB za fotografije i asinkronu komunikaciju s API-jem.
 
-## Expanding the ESLint configuration
+## Arhitektura
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Izvorni kod organiziran je u React stranice i komponente, servisne module, prilagođene hookove, pomoćne funkcije, prijevode i stilove.
