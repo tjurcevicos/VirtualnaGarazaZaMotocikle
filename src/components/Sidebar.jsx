@@ -1,3 +1,4 @@
+import { APP_VERSION } from '../config/appInfo'
 import { usePreferences } from '../i18n/Preferences'
 const icons = {
   home: <><path d="m3 10 9-7 9 7" /><path d="M5 9v12h14V9" /><path d="M9 21v-7h6v7" /></>,
@@ -62,6 +63,7 @@ function Sidebar({ activePage, onNavigate }) {
           </button>
         ))}
       </nav>
+      <div className="sidebar-version" aria-label={`${t('Verzija aplikacije')} ${APP_VERSION}`}><span>{t('Virtualna garaža za motocikle')}</span><span>v{APP_VERSION}</span></div>
     </aside>
   )
 }

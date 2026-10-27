@@ -32,6 +32,8 @@
   box-sizing: border-box;
   background: var(--vg-surface);
   border-right: 1px solid var(--vg-border);
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {
@@ -74,6 +76,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  flex: 1;
 }
 
 .nav-item {
@@ -392,3 +395,8 @@
     font-size: 11px;
   }
 }
+
+.sidebar-version{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px;padding:14px 4px 0;border-top:1px solid var(--vg-border);color:var(--vg-muted);font-size:11px;line-height:1.4}
+.sidebar-version span:first-child{min-width:0}
+.sidebar-version span:last-child{white-space:nowrap}
+@media(max-width:768px){.sidebar-version{margin-top:16px}}

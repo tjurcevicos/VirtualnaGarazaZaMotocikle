@@ -5,6 +5,9 @@ export const languages = [
 ]
 
 const rows = [
+['O aplikaciji','About the app','Über die App','Informazioni sull’app','O aplikaciji'],
+['Verzija aplikacije','App version','App-Version','Versione dell’app','Različica aplikacije'],
+['Virtualna garaža za motocikle','Virtual Garage for Motorcycles','Virtuelle Motorradgarage','Garage virtuale per moto','Virtualna garaža za motocikle'],
 ['Početna','Home','Startseite','Home','Domov'],
 ['Vozila','Motorcycles','Motorräder','Moto','Motocikli'],
 ['Servisi','Services','Wartung','Manutenzione','Servisi'],

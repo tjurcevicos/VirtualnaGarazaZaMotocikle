@@ -1,3 +1,4 @@
+import { APP_VERSION } from '../config/appInfo'
 import { usePreferences } from '../i18n/Preferences'
 import { useState } from 'react'
 import { createBackup, downloadBackup, restoreBackup, validateBackup } from '../utils/backupStorage'
@@ -119,6 +120,11 @@ function Postavke({ userId }) {
       )}
       {message && <p className="postavke-message" role="status">{message}</p>}
       {error && <p className="postavke-error" role="alert">{error}</p>}
+      <section className="postavke-about" aria-labelledby="postavke-about-title">
+        <h2 id="postavke-about-title">{t('O aplikaciji')}</h2>
+        <p>{t('Virtualna garaža za motocikle')}</p>
+        <div className="postavke-version-row"><span>{t('Verzija aplikacije')}</span><strong>v{APP_VERSION}</strong></div>
+      </section>
       <p className="postavke-footnote">{t('Sigurnosna kopija sprema se na tvoje računalo. Ne uključuje korisničke lozinke ni podatke drugih korisnika.')}</p>
     </div>
   )
