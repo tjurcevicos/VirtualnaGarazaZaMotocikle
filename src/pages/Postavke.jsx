@@ -48,7 +48,7 @@ function Postavke({ userId }) {
     setError('')
     try {
       await restoreBackup(userId, pending)
-      window.location.reload()
+      window.location.replace(import.meta.env.BASE_URL)
     } catch (cause) {
       setError(t(cause.message || 'Vraćanje podataka nije uspjelo.'))
       setBusy(false)
