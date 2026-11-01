@@ -1,26 +1,26 @@
 import { PreferencesProvider, usePreferences } from './i18n/Preferences'
 
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom'
 import './App.css'
 
 import Sidebar from './components/Sidebar'
 import Auth from './components/Auth'
 
-import Home from './pages/Home'
-import Vozila from './pages/Vozila'
-import DetaljiVozila from './pages/DetaljiVozila'
-import Servisi from './pages/Servisi'
-import Gorivo from './pages/Gorivo'
-import Troskovi from './pages/Troskovi'
-import Podsjetnici from './pages/Podsjetnici'
-import Postavke from './pages/Postavke'
-import Statistika from './pages/Statistika'
-import Kalendar from './pages/Kalendar'
-import Pomoc from './pages/Pomoc'
-import Putovanja from './pages/Putovanja'
-import Vrijeme from './pages/Vrijeme'
-import Galerija from './pages/Galerija'
+const Home = lazy(() => import('./pages/Home'))
+const Vozila = lazy(() => import('./pages/Vozila'))
+const DetaljiVozila = lazy(() => import('./pages/DetaljiVozila'))
+const Servisi = lazy(() => import('./pages/Servisi'))
+const Gorivo = lazy(() => import('./pages/Gorivo'))
+const Troskovi = lazy(() => import('./pages/Troskovi'))
+const Podsjetnici = lazy(() => import('./pages/Podsjetnici'))
+const Postavke = lazy(() => import('./pages/Postavke'))
+const Statistika = lazy(() => import('./pages/Statistika'))
+const Kalendar = lazy(() => import('./pages/Kalendar'))
+const Pomoc = lazy(() => import('./pages/Pomoc'))
+const Putovanja = lazy(() => import('./pages/Putovanja'))
+const Vrijeme = lazy(() => import('./pages/Vrijeme'))
+const Galerija = lazy(() => import('./pages/Galerija'))
 import { deleteVehicleGallery } from './utils/galleryStorage'
 
 import { deletePhoto } from './utils/photoStorage'
@@ -392,6 +392,7 @@ function GarageApp({ user, onLogout }) {
           </button>
         </div>
 
+        <Suspense fallback={<div role="status" aria-live="polite">{t('Učitavanje...')}</div>}>
         <Routes>
           <Route path="/" element={renderPageFor('home')} />
           {['vozila', 'servisi', 'gorivo', 'troskovi', 'podsjetnici', 'statistika', 'kalendar', 'putovanja', 'vrijeme', 'galerija', 'pomoc', 'postavke'].map((page) => (
@@ -400,6 +401,7 @@ function GarageApp({ user, onLogout }) {
           <Route path="/vozila/:id" element={renderPageFor('detalji-vozila')} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </Suspense>
       </main>
     </div>
   )
