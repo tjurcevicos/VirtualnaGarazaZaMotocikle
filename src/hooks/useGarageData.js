@@ -1,19 +1,19 @@
 
 import { useEffect, useState } from 'react'
-import { loadData, saveData } from '../utils/storageFacade'
+import { garageRepository } from '../services/garageRepository'
 
 function useGarageData(userId = null) {
   const [garageState, setGarageState] = useState(() => ({
     userId,
-    vehicles: loadData('vehicles', userId),
-    services: loadData('services', userId),
-    fuelRecords: loadData('fuelRecords', userId),
-    expenses: loadData('expenses', userId),
-    reminders: loadData('reminders', userId),
-    maintenancePlans: loadData('maintenancePlans', userId),
-    registrationRecords: loadData('registrationRecords', userId),
-    trips: loadData('trips', userId),
-    serviceParts: loadData('serviceParts', userId),
+    vehicles: garageRepository.load('vehicles', userId),
+    services: garageRepository.load('services', userId),
+    fuelRecords: garageRepository.load('fuelRecords', userId),
+    expenses: garageRepository.load('expenses', userId),
+    reminders: garageRepository.load('reminders', userId),
+    maintenancePlans: garageRepository.load('maintenancePlans', userId),
+    registrationRecords: garageRepository.load('registrationRecords', userId),
+    trips: garageRepository.load('trips', userId),
+    serviceParts: garageRepository.load('serviceParts', userId),
   }))
 
   const currentGarage =
@@ -21,30 +21,30 @@ function useGarageData(userId = null) {
       ? garageState
       : {
           userId,
-          vehicles: loadData('vehicles', userId),
-          services: loadData('services', userId),
-          fuelRecords: loadData('fuelRecords', userId),
-          expenses: loadData('expenses', userId),
-          reminders: loadData('reminders', userId),
-          maintenancePlans: loadData('maintenancePlans', userId),
-    registrationRecords: loadData('registrationRecords', userId),
-    trips: loadData('trips', userId),
-    serviceParts: loadData('serviceParts', userId),
+          vehicles: garageRepository.load('vehicles', userId),
+          services: garageRepository.load('services', userId),
+          fuelRecords: garageRepository.load('fuelRecords', userId),
+          expenses: garageRepository.load('expenses', userId),
+          reminders: garageRepository.load('reminders', userId),
+          maintenancePlans: garageRepository.load('maintenancePlans', userId),
+    registrationRecords: garageRepository.load('registrationRecords', userId),
+    trips: garageRepository.load('trips', userId),
+    serviceParts: garageRepository.load('serviceParts', userId),
         }
 
   useEffect(() => {
     if (garageState.userId !== userId) {
       setGarageState({
         userId,
-        vehicles: loadData('vehicles', userId),
-        services: loadData('services', userId),
-        fuelRecords: loadData('fuelRecords', userId),
-        expenses: loadData('expenses', userId),
-        reminders: loadData('reminders', userId),
-        maintenancePlans: loadData('maintenancePlans', userId),
-    registrationRecords: loadData('registrationRecords', userId),
-    trips: loadData('trips', userId),
-    serviceParts: loadData('serviceParts', userId),
+        vehicles: garageRepository.load('vehicles', userId),
+        services: garageRepository.load('services', userId),
+        fuelRecords: garageRepository.load('fuelRecords', userId),
+        expenses: garageRepository.load('expenses', userId),
+        reminders: garageRepository.load('reminders', userId),
+        maintenancePlans: garageRepository.load('maintenancePlans', userId),
+    registrationRecords: garageRepository.load('registrationRecords', userId),
+    trips: garageRepository.load('trips', userId),
+    serviceParts: garageRepository.load('serviceParts', userId),
       })
     }
   }, [userId, garageState.userId])
@@ -55,7 +55,7 @@ function useGarageData(userId = null) {
     }
 
     try {
-      saveData('vehicles', garageState.vehicles, userId)
+      garageRepository.save('vehicles', garageState.vehicles, userId)
     } catch (error) {
       console.error('Spremanje motocikala nije uspjelo:', error)
     }
@@ -67,7 +67,7 @@ function useGarageData(userId = null) {
     }
 
     try {
-      saveData('services', garageState.services, userId)
+      garageRepository.save('services', garageState.services, userId)
     } catch (error) {
       console.error('Spremanje servisa nije uspjelo:', error)
     }
@@ -79,7 +79,7 @@ function useGarageData(userId = null) {
     }
 
     try {
-      saveData('fuelRecords', garageState.fuelRecords, userId)
+      garageRepository.save('fuelRecords', garageState.fuelRecords, userId)
     } catch (error) {
       console.error('Spremanje goriva nije uspjelo:', error)
     }
@@ -91,7 +91,7 @@ function useGarageData(userId = null) {
     }
 
     try {
-      saveData('expenses', garageState.expenses, userId)
+      garageRepository.save('expenses', garageState.expenses, userId)
     } catch (error) {
       console.error('Spremanje troškova nije uspjelo:', error)
     }
@@ -103,7 +103,7 @@ function useGarageData(userId = null) {
     }
 
     try {
-      saveData('reminders', garageState.reminders, userId)
+      garageRepository.save('reminders', garageState.reminders, userId)
     } catch (error) {
       console.error('Spremanje podsjetnika nije uspjelo:', error)
     }
@@ -111,25 +111,25 @@ function useGarageData(userId = null) {
 
   useEffect(() => {
     if (garageState.userId !== userId) return
-    try { saveData('maintenancePlans', garageState.maintenancePlans, userId) }
+    try { garageRepository.save('maintenancePlans', garageState.maintenancePlans, userId) }
     catch (error) { console.error('Spremanje planova održavanja nije uspjelo:', error) }
   }, [garageState.maintenancePlans, garageState.userId, userId])
 
   useEffect(() => {
     if (garageState.userId !== userId) return
-    try { saveData('registrationRecords', garageState.registrationRecords, userId) }
+    try { garageRepository.save('registrationRecords', garageState.registrationRecords, userId) }
     catch (error) { console.error('Spremanje registracije nije uspjelo:', error) }
   }, [garageState.registrationRecords, garageState.userId, userId])
 
   useEffect(() => {
     if (garageState.userId !== userId) return
-    try { saveData('trips', garageState.trips, userId) }
+    try { garageRepository.save('trips', garageState.trips, userId) }
     catch (error) { console.error('Spremanje putovanja nije uspjelo:', error) }
   }, [garageState.trips, garageState.userId, userId])
 
   useEffect(() => {
     if (garageState.userId !== userId) return
-    try { saveData('serviceParts', garageState.serviceParts, userId) }
+    try { garageRepository.save('serviceParts', garageState.serviceParts, userId) }
     catch (error) { console.error('Spremanje dijelova nije uspjelo:', error) }
   }, [garageState.serviceParts, garageState.userId, userId])
 
