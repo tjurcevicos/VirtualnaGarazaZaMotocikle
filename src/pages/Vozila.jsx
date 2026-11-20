@@ -1,8 +1,9 @@
 import '../styles/Validacija.css'
+import '../styles/VehicleBrowse.css'
 import useFieldValidation from '../hooks/useFieldValidation'
 import { usePreferences } from '../i18n/Preferences'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { getPhoto, savePhoto } from '../utils/photoStorage'
 
 function Vozila({
@@ -13,6 +14,22 @@ function Vozila({
   const { t } = usePreferences()
   const fieldValidation = useFieldValidation(t)
   const [showForm, setShowForm] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [sortBy, setSortBy] = useState('name-asc')
+  const [viewMode, setViewMode] = useState('grid')
+  const visibleVehicles = useMemo(() => {
+    const query = searchTerm.trim().toLocaleLowerCase('hr-HR')
+    return vehicles.filter((vehicle) =>
+      `${vehicle.brand} ${vehicle.model} ${vehicle.year}`.toLocaleLowerCase('hr-HR').includes(query),
+    ).sort((a, b) => {
+      if (sortBy === 'year-desc') return Number(b.year) - Number(a.year)
+      if (sortBy === 'year-asc') return Number(a.year) - Number(b.year)
+      if (sortBy === 'mileage-desc') return Number(b.mileage) - Number(a.mileage)
+      if (sortBy === 'mileage-asc') return Number(a.mileage) - Number(b.mileage)
+      const order = `${a.brand} ${a.model}`.localeCompare(`${b.brand} ${b.model}`, 'hr')
+      return sortBy === 'name-desc' ? -order : order
+    })
+  }, [vehicles, searchTerm, sortBy])
 
   const [formData, setFormData] = useState({
     brand: '',
@@ -444,8 +461,40 @@ function Vozila({
         </form>
       )}
 
+      <div className="garage-vehicle-toolbar" role="group" aria-label={t('Pregled motocikala')}>
+        <label htmlFor="vehicle-search">{t('Pretraživanje')}</label>
+        <input id="vehicle-search" type="search" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder={t('Pretraži motocikle')} />
+        <label htmlFor="vehicle-sort">{t('Sortiranje')}</label>
+        <select id="vehicle-sort" value={sortBy} onChange={(event) => setSortBy(event.target.value)}>
+          <option value="name-asc">{t('Naziv')} A–Ž</option>
+          <option value="name-desc">{t('Naziv')} Ž–A</option>
+          <option value="year-desc">{t('Godina')} ↓</option>
+          <option value="year-asc">{t('Godina')} ↑</option>
+          <option value="mileage-desc">{t('Kilometraža')} ↓</option>
+          <option value="mileage-asc">{t('Kilometraža')} ↑</option>
+        </select>
+        <div className="garage-vehicle-view-toggle" role="group" aria-label={t('Način prikaza')}>
+          <button type="button" aria-pressed={viewMode === 'grid'} onClick={() => setViewMode('grid')}>{t('Kartice')}</button>
+          <button type="button" aria-pressed={viewMode === 'table'} onClick={() => setViewMode('table')}>{t('Tablica')}</button>
+        </div>
+      </div>
+      {visibleVehicles.length === 0 && <p role="status">{t('Nema motocikala za prikaz.')}</p>}
+      {viewMode === 'table' ? (
+        <div className="garage-vehicle-table-scroll">
+          <table className="garage-vehicle-table">
+            <thead><tr><th scope="col">{t('Marka')}</th><th scope="col">{t('Model')}</th><th scope="col">{t('Godina')}</th><th scope="col">{t('Kilometraža')}</th><th scope="col">{t('Gorivo')}</th><th scope="col">{t('Detalji motocikla')}</th></tr></thead>
+            <tbody>{visibleVehicles.map((vehicle) => (
+              <tr key={vehicle.id}>
+                <td>{vehicle.brand}</td><td>{vehicle.model}</td><td>{vehicle.year}</td>
+                <td>{Number(vehicle.mileage).toLocaleString('hr-HR')} km</td><td>{vehicle.fuel || '—'}</td>
+                <td><button type="button" onClick={() => onSelectVehicle(vehicle)} aria-label={`${t('Otvori detalje motocikla')} ${vehicle.brand} ${vehicle.model}`}>{t('Otvori')}</button></td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      ) : (
       <div className="vehicles-list">
-        {vehicles.map((vehicle) => (
+        {visibleVehicles.map((vehicle) => (
           <div
             key={vehicle.id}
             className="vehicle-card"
@@ -482,6 +531,7 @@ function Vozila({
           </div>
         ))}
       </div>
+      )}
     </section>
   )
 }
